@@ -1,4 +1,4 @@
-package studyGroup;
+package studyGroup.coordinates;
 
 import domain.exception.VerifyException;
 
@@ -24,5 +24,21 @@ public class Coordinates {
             throw new VerifyException(MAXIMUM_VALUE);
         }
 
+    }
+
+    public Integer getX() {
+        return x;
+    }
+
+    public void setX(Integer x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

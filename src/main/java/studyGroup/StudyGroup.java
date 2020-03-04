@@ -1,6 +1,8 @@
 package studyGroup;
 
 import domain.exception.VerifyException;
+import studyGroup.coordinates.Coordinates;
+import studyGroup.person.Person;
 
 import java.time.LocalDateTime;
 
@@ -29,13 +31,16 @@ public class StudyGroup {
                       Long shouldBeExpelled,
                       FormOfEducation formOfEducation,
                       Semester semesterEnum,
-                      Person groupAdmin) {
-        //checkID(id);
+                      Person groupAdmin) throws VerifyException{
+        checkId(id);
         this.id = id;
+        checkName(name);
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = creationDate;
+        checkStudentsCount(studentsCount);
         this.studentsCount = studentsCount;
+        checkShouldBeExpelled(shouldBeExpelled);
         this.shouldBeExpelled = shouldBeExpelled;
         this.formOfEducation = formOfEducation;
         this.semesterEnum = semesterEnum;
@@ -73,5 +78,73 @@ public class StudyGroup {
         if (shouldBeExpelled <= 0){
             throw new VerifyException(SHOULD_BE_POSITIVE);
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public int getStudentsCount() {
+        return studentsCount;
+    }
+
+    public void setStudentsCount(int studentsCount) {
+        this.studentsCount = studentsCount;
+    }
+
+    public Long getShouldBeExpelled() {
+        return shouldBeExpelled;
+    }
+
+    public void setShouldBeExpelled(Long shouldBeExpelled) {
+        this.shouldBeExpelled = shouldBeExpelled;
+    }
+
+    public FormOfEducation getFormOfEducation() {
+        return formOfEducation;
+    }
+
+    public void setFormOfEducation(FormOfEducation formOfEducation) {
+        this.formOfEducation = formOfEducation;
+    }
+
+    public Semester getSemesterEnum() {
+        return semesterEnum;
+    }
+
+    public void setSemesterEnum(Semester semesterEnum) {
+        this.semesterEnum = semesterEnum;
+    }
+
+    public Person getGroupAdmin() {
+        return groupAdmin;
+    }
+
+    public void setGroupAdmin(Person groupAdmin) {
+        this.groupAdmin = groupAdmin;
     }
 }

@@ -1,9 +1,7 @@
 package studyGroup;
 
-import studyGroup.Coordinates;
-import studyGroup.FormOfEducation;
-import studyGroup.Person;
-import studyGroup.Semester;
+import studyGroup.coordinates.Coordinates;
+import studyGroup.person.Person;
 
 public final class StudyGroupDTO {
     public String name;

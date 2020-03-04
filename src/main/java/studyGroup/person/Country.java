@@ -1,4 +1,4 @@
-package studyGroup;
+package studyGroup.person;
 
 public enum Country {
     UNITED_KINGDOM,
