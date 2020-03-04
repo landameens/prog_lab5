@@ -1,4 +1,4 @@
-package StudyGroup;
+package studyGroup;
 
 public enum Semester {
     FIRST,
