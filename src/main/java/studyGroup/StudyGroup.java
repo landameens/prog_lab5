@@ -195,16 +195,15 @@ public class StudyGroup {
     public String toString() {
         return "StudyGroup{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", studentsCount=" + studentsCount +
-                ", shouldBeExpelled=" + shouldBeExpelled +
-                ", formOfEducation=" + formOfEducation +
-                ", semesterEnum=" + semesterEnum +
-                ", groupAdmin=" + groupAdmin +
+                ", name='" + name + '\'' + System.lineSeparator() +
+                ", coordinates=" + coordinates + System.lineSeparator() +
+                ", creationDate=" + creationDate + System.lineSeparator() +
+                ", studentsCount=" + studentsCount + System.lineSeparator() +
+                ", shouldBeExpelled=" + shouldBeExpelled + System.lineSeparator() +
+                ", formOfEducation=" + formOfEducation + System.lineSeparator() +
+                ", semesterEnum=" + semesterEnum + System.lineSeparator() +
+                ", groupAdmin=" + groupAdmin + System.lineSeparator() +
                 '}';
-        //TODO: \n ==> System.lineSeparator()
     }
 
     public static class StudyGroupComparator implements Comparator<StudyGroup>{

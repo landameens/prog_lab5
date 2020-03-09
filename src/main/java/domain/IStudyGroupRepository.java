@@ -1,6 +1,7 @@
 package domain;
 
-import domain.exception.StudyGroupException;
+import domain.concreteSet.ConcreteSet;
+import domain.exception.StudyGroupRepositoryException;
 import studyGroup.StudyGroup;
 import studyGroup.StudyGroupDTO;
 
@@ -8,11 +9,11 @@ import java.util.Set;
 
 public interface IStudyGroupRepository {
 
-    void add(StudyGroupDTO studyGroupDTO) throws StudyGroupException;
+    void add(StudyGroupDTO studyGroupDTO) throws StudyGroupRepositoryException;
 
-    void remove(int id) throws StudyGroupException;
+    void remove(StudyGroup studyGroup) throws StudyGroupRepositoryException;
 
-    void update(int id, StudyGroupDTO studyGroupDTO) throws StudyGroupException;
+    void update(StudyGroup studyGroup) throws StudyGroupRepositoryException;
 
     Set<StudyGroup> getConcreteSetOfStudyGroups(ConcreteSet concreteSet);
 
