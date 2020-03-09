@@ -6,6 +6,7 @@ import domain.exception.VerifyException;
 import studyGroup.StudyGroup;
 import studyGroup.StudyGroupDTO;
 
+import java.util.Set;
 import java.util.TreeSet;
 
 public class TreeSetStudyGroupRepository implements IStudyGroupRepository{
@@ -19,7 +20,6 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository{
 
     public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory){
         this.studyGroupFactory = studyGroupFactory;
-
         studyGroups = new TreeSet<>();
 
     }
@@ -42,13 +42,22 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository{
         }
     }
 
+    //TODO: реализовать собсна методы
     @Override
-    public void remove_by_id(int id) throws StudyGroupException {
+    public void remove(StudyGroup studyGroup) throws StudyGroupException {
+        if (studyGroups.remove(studyGroup)){
 
+        }
     }
 
     @Override
     public void update(int id, StudyGroupDTO studyGroupDTO) throws StudyGroupException {
 
+    }
+
+    @Override
+    public Set<StudyGroup> getConcreteSetOfStudyGroups(ConcreteSet concreteSet) {
+
+        //return;
     }
 }

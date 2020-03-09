@@ -5,6 +5,8 @@ import studyGroup.coordinates.Coordinates;
 import studyGroup.person.Person;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.Objects;
 
 public class StudyGroup {
 
@@ -21,8 +23,6 @@ public class StudyGroup {
     private Semester semesterEnum; //Поле может быть null
     private Person groupAdmin; //Поле не может быть null
 
-    //TODO: конструктор с проверкой
-
     public StudyGroup(Long id,
                       String name,
                       Coordinates coordinates,
@@ -36,7 +36,9 @@ public class StudyGroup {
         this.id = id;
         checkName(name);
         this.name = name;
+        checkCoordinates(coordinates);
         this.coordinates = coordinates;
+        checkCreationDate(creationDate);
         this.creationDate = creationDate;
         checkStudentsCount(studentsCount);
         this.studentsCount = studentsCount;
@@ -44,6 +46,7 @@ public class StudyGroup {
         this.shouldBeExpelled = shouldBeExpelled;
         this.formOfEducation = formOfEducation;
         this.semesterEnum = semesterEnum;
+        checkGroupAdmin(groupAdmin);
         this.groupAdmin = groupAdmin;
     }
 
@@ -80,15 +83,39 @@ public class StudyGroup {
         }
     }
 
+    private void checkCoordinates(Coordinates coordinates) throws VerifyException {
+        if (coordinates == null){
+            throw new VerifyException(EMPTY_EXCEPTION);
+        }
+    }
+
+    private void checkCreationDate(LocalDateTime creationDate) throws VerifyException {
+        if (creationDate == null){
+            throw new VerifyException(EMPTY_EXCEPTION);
+        }
+    }
+
+    private void checkGroupAdmin(Person groupAdmin) throws VerifyException{
+        if (groupAdmin == null){
+            throw new VerifyException(EMPTY_EXCEPTION);
+        }
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) throws VerifyException {
+        checkId(id);
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws VerifyException {
+        checkName(name);
         this.name = name;
     }
 
@@ -97,6 +124,7 @@ public class StudyGroup {
     }
 
     public void setCoordinates(Coordinates coordinates) {
+
         this.coordinates = coordinates;
     }
 
@@ -147,4 +175,44 @@ public class StudyGroup {
     public void setGroupAdmin(Person groupAdmin) {
         this.groupAdmin = groupAdmin;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (!(o instanceof StudyGroup)) return false;
+        StudyGroup that = (StudyGroup) o;
+        return this.id == that.id;
+               //this.кто-то.getId() == that.кто-то.getId();
+    }
+
+    @Override
+    public Long hashCode() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "StudyGroup{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", coordinates=" + coordinates +
+                ", creationDate=" + creationDate +
+                ", studentsCount=" + studentsCount +
+                ", shouldBeExpelled=" + shouldBeExpelled +
+                ", formOfEducation=" + formOfEducation +
+                ", semesterEnum=" + semesterEnum +
+                ", groupAdmin=" + groupAdmin +
+                '}';
+        //TODO: \n ==> System.lineSeparator()
+    }
+
+    public static class StudyGroupComparator implements Comparator<StudyGroup>{
+        @Override
+        public int compare(StudyGroup o1, StudyGroup o2) {
+            return o1.studentsCount - o2.studentsCount;
+        }
+    }
+
+
 }
