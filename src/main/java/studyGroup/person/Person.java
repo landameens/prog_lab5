@@ -54,6 +54,18 @@ public class Person {
         }
     }
 
+    public static Person createPerson(PersonDTO groupAdminDTO) throws VerifyException {
+        String name = groupAdminDTO.name;
+        int height = groupAdminDTO.height;
+        String passportID = groupAdminDTO.passportID;
+        Country nationality = groupAdminDTO.nationality;
+
+        return new Person(name,
+                            height,
+                            passportID,
+                            nationality);
+    }
+
     public String getName() {
         return name;
     }
@@ -84,5 +96,23 @@ public class Person {
 
     public void setNationality(Country nationality) {
         this.nationality = nationality;
+    }
+
+    public static Person getPerson(PersonDTO personDTO) throws VerifyException {
+        return new Person( personDTO.name,
+                personDTO.height,
+                personDTO.passportID,
+                personDTO.nationality);
+    }
+
+    public static PersonDTO getPersonDTO(Person person){
+        PersonDTO personDTO = new PersonDTO();
+
+        personDTO.name = person.getName();
+        personDTO.height = person.getHeight();
+        personDTO.passportID = person.getPassportID();
+        personDTO.nationality = person.getNationality();
+
+        return personDTO;
     }
 }

@@ -1,5 +1,6 @@
 package studyGroup;
 
+import domain.exception.CreationException;
 import domain.exception.VerifyException;
 import studyGroup.coordinates.Coordinates;
 import studyGroup.person.Person;
@@ -187,8 +188,8 @@ public class StudyGroup {
     }
 
     @Override
-    public Long hashCode() {
-        return id;
+    public int hashCode() {
+        return (int) Long.parseLong(id.toString());
     }
 
     @Override
@@ -213,5 +214,32 @@ public class StudyGroup {
         }
     }
 
+    public StudyGroup getStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException, CreationException {
+        return new StudyGroup(studyGroupDTO.id,
+                studyGroupDTO.name,
+                Coordinates.getCoordinates(studyGroupDTO.coordinates),
+                studyGroupDTO.creationDate,
+                studyGroupDTO.studentsCount,
+                studyGroupDTO.shouldBeExpelled,
+                studyGroupDTO.formOfEducation,
+                studyGroupDTO.semesterEnum,
+                Person.getPerson(studyGroupDTO.groupAdmin));
+    }
+
+    public StudyGroupDTO getStudyGroupDTO(StudyGroup studyGroup) {
+        StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
+
+        studyGroupDTO.id = studyGroup.getId();
+        studyGroupDTO.name = studyGroup.getName();
+        studyGroupDTO.coordinates = Coordinates.getCoordinatesDTO(studyGroup.getCoordinates());
+        studyGroupDTO.creationDate = studyGroup.getCreationDate();
+        studyGroupDTO.studentsCount = studyGroup.getStudentsCount();
+        studyGroupDTO.shouldBeExpelled = studyGroup.getShouldBeExpelled();
+        studyGroupDTO.formOfEducation = studyGroup.getFormOfEducation();
+        studyGroupDTO.semesterEnum = studyGroup.getSemesterEnum();
+        studyGroupDTO.groupAdmin = Person.getPersonDTO(studyGroup.getGroupAdmin());
+
+        return studyGroupDTO;
+    }
 
 }

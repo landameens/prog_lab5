@@ -1,6 +1,7 @@
 package studyGroup.coordinates;
 
 import domain.exception.VerifyException;
+import studyGroup.StudyGroupDTO;
 
 public class Coordinates {
     private static final String EMPTY_VALUE = "Значение не должно быть пустым.";
@@ -26,6 +27,13 @@ public class Coordinates {
 
     }
 
+    public static Coordinates createCoordinates(CoordinatesDTO coordinatesDTO) throws VerifyException {
+        Integer x = coordinatesDTO.x;
+        int y = coordinatesDTO.y;
+
+        return new Coordinates(x, y);
+    }
+
     public Integer getX() {
         return x;
     }
@@ -40,5 +48,19 @@ public class Coordinates {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public static Coordinates getCoordinates(CoordinatesDTO coordinatesDTO) throws VerifyException {
+        return new Coordinates(coordinatesDTO.x,
+                coordinatesDTO.y);
+    }
+
+    public static CoordinatesDTO getCoordinatesDTO(Coordinates coordinates){
+        CoordinatesDTO coordinatesDTO = new CoordinatesDTO();
+
+        coordinatesDTO.x = coordinates.getX();
+        coordinatesDTO.y = coordinates.getY();
+
+        return coordinatesDTO;
     }
 }

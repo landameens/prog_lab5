@@ -5,4 +5,5 @@ public final class PersonDTO {
     public int height;
     public String passportID;
     public Country nationality;
+
 }

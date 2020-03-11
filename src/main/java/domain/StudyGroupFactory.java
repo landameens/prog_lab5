@@ -19,21 +19,22 @@ public class StudyGroupFactory implements IStudyGroupFactory {
         this.idProducer = idProducer;
     }
     @Override
-    public StudyGroup createNewStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException, CreationException {
+    public StudyGroup createNewStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException {
         if (studyGroupDTO == null){
             return null;
         }
 
         Long id = idProducer.getId();
         String name = studyGroupDTO.name;
-        //TODO: написать createCoordinations
         Coordinates coordinates = Coordinates.createCoordinates(studyGroupDTO.coordinates);
         LocalDateTime creationDate = LocalDateTime.now();
         int studentsCount = studyGroupDTO.studentsCount;
         Long shouldBeExpelled = studyGroupDTO.shouldBeExpelled;
         FormOfEducation formOfEducation = studyGroupDTO.formOfEducation;
         Semester semesterEnum = studyGroupDTO.semesterEnum;
-        Person groupAdmin = studyGroupDTO.groupAdmin;
+        Person groupAdmin = Person.createPerson(studyGroupDTO.groupAdmin);
+
+
 
         return new StudyGroup(id,
                             name,
@@ -46,13 +47,4 @@ public class StudyGroupFactory implements IStudyGroupFactory {
                             groupAdmin);
     }
 
-    @Override
-    public StudyGroup getStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException, CreationException {
-        return null;
-    }
-
-    @Override
-    public StudyGroupDTO getStudyGroupDTO(StudyGroup studyGroup) {
-        return null;
-    }
 }
