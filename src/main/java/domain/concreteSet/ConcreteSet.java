@@ -1,5 +1,10 @@
 package domain.concreteSet;
 
+import domain.exception.StudyGroupRepositoryException;
+import studyGroup.StudyGroup;
+
+import java.util.TreeSet;
+
 public abstract class ConcreteSet {
-    //TODO: начни собсна создавать арзитектуру запросов
+    public abstract TreeSet<StudyGroup> execute(TreeSet<StudyGroup> studyGroups) throws StudyGroupRepositoryException;
 }
