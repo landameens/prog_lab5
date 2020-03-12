@@ -1,4 +1,4 @@
-package domain;
+package domain.studyGroupFactory.idProducer;
 
 import java.util.LinkedList;
 import java.util.List;

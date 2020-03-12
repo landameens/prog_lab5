@@ -1,16 +1,17 @@
-package domain;
+package domain.studyGroupRepository;
 
-import domain.concreteSet.ConcreteSet;
+import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import domain.exception.CreationException;
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
-import studyGroup.StudyGroup;
-import studyGroup.StudyGroupDTO;
+import domain.studyGroupFactory.IStudyGroupFactory;
+import domain.studyGroup.StudyGroup;
+import domain.studyGroup.StudyGroupDTO;
 
 import java.util.Set;
 import java.util.TreeSet;
 
-public class TreeSetStudyGroupRepository implements IStudyGroupRepository{
+public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
 
     private static final String INTERNAL_ERROR = "Внутренняя ошибка";
     private static final String NULL_ERROR = "Ошибка, нельзя добавить null группу.";
@@ -19,8 +20,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository{
     private static final String IMPOSSIBLE_CREATE = "Нельзя обновить study group.";
 
     private IStudyGroupFactory studyGroupFactory;
-    //TODO: SOLID буду пороть
-    private TreeSet<StudyGroup> studyGroups;
+    private Set<StudyGroup> studyGroups;
 
     public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory){
         this.studyGroupFactory = studyGroupFactory;
@@ -45,7 +45,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository{
             throw new StudyGroupRepositoryException(REPEAT_ERROR);
         }
 
-        //TODO: А где собсна добавление во множество
+        studyGroups.add(studyGroup);
     }
 
     //TODO: доделать ремув ??(?)

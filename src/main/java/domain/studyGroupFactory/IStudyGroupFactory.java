@@ -1,9 +1,9 @@
-package domain;
+package domain.studyGroupFactory;
 
 import domain.exception.CreationException;
 import domain.exception.VerifyException;
-import studyGroup.StudyGroup;
-import studyGroup.StudyGroupDTO;
+import domain.studyGroup.StudyGroup;
+import domain.studyGroup.StudyGroupDTO;
 
 public interface IStudyGroupFactory {
 

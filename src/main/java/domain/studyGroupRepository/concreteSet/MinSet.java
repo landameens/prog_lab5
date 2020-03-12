@@ -1,7 +1,7 @@
-package domain.concreteSet;
+package domain.studyGroupRepository.concreteSet;
 
 import domain.exception.StudyGroupRepositoryException;
-import studyGroup.StudyGroup;
+import domain.studyGroup.StudyGroup;
 
 import java.util.Comparator;
 import java.util.TreeSet;

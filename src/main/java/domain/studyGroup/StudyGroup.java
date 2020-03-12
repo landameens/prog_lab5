@@ -1,13 +1,12 @@
-package studyGroup;
+package domain.studyGroup;
 
 import domain.exception.CreationException;
 import domain.exception.VerifyException;
-import studyGroup.coordinates.Coordinates;
-import studyGroup.person.Person;
+import domain.studyGroup.coordinates.Coordinates;
+import domain.studyGroup.person.Person;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
-import java.util.Objects;
 
 public class StudyGroup {
 
@@ -186,7 +185,7 @@ public class StudyGroup {
         StudyGroup that = (StudyGroup) o;
         //TODO: оператор == сравнивает ссылки, мы же имеем дело с Long, то есть нужно использовать equals (тут напомни меня спросить тебя про примитивы)
         return this.id == that.id;
-               //this.кто-то.getId() == that.кто-то.getId();
+               //this..getId() == that.кто-то.getId();
     }
 
     @Override
@@ -223,8 +222,8 @@ public class StudyGroup {
                 studyGroupDTO.creationDate,
                 studyGroupDTO.studentsCount,
                 studyGroupDTO.shouldBeExpelled,
-                studyGroupDTO.formOfEducation,
-                studyGroupDTO.semesterEnum,
+                FormOfEducation.getFormOfEducation(studyGroupDTO.formOfEducation),
+                Semester.getSemesterEnum(studyGroupDTO.semesterEnum),
                 Person.getPerson(studyGroupDTO.groupAdmin));
     }
 
@@ -237,8 +236,8 @@ public class StudyGroup {
         studyGroupDTO.creationDate = studyGroup.getCreationDate();
         studyGroupDTO.studentsCount = studyGroup.getStudentsCount();
         studyGroupDTO.shouldBeExpelled = studyGroup.getShouldBeExpelled();
-        studyGroupDTO.formOfEducation = studyGroup.getFormOfEducation();
-        studyGroupDTO.semesterEnum = studyGroup.getSemesterEnum();
+        studyGroupDTO.formOfEducation = studyGroup.getFormOfEducation().getName();
+        studyGroupDTO.semesterEnum = studyGroup.getSemesterEnum().getName();
         studyGroupDTO.groupAdmin = Person.getPersonDTO(studyGroup.getGroupAdmin());
 
         return studyGroupDTO;

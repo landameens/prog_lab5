@@ -1,7 +1,6 @@
-package studyGroup.coordinates;
+package domain.studyGroup.coordinates;
 
 import domain.exception.VerifyException;
-import studyGroup.StudyGroupDTO;
 
 public class Coordinates {
     private static final String EMPTY_VALUE = "Значение не должно быть пустым.";

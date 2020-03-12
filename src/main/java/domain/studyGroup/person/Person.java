@@ -1,4 +1,4 @@
-package studyGroup.person;
+package domain.studyGroup.person;
 
 import domain.exception.VerifyException;
 
@@ -58,7 +58,7 @@ public class Person {
         String name = groupAdminDTO.name;
         int height = groupAdminDTO.height;
         String passportID = groupAdminDTO.passportID;
-        Country nationality = groupAdminDTO.nationality;
+        Country nationality = Country.getCountry(groupAdminDTO.nationality);
 
         return new Person(name,
                             height,
@@ -102,7 +102,7 @@ public class Person {
         return new Person( personDTO.name,
                 personDTO.height,
                 personDTO.passportID,
-                personDTO.nationality);
+                Country.getCountry(personDTO.nationality));
     }
 
     public static PersonDTO getPersonDTO(Person person){
@@ -111,7 +111,7 @@ public class Person {
         personDTO.name = person.getName();
         personDTO.height = person.getHeight();
         personDTO.passportID = person.getPassportID();
-        personDTO.nationality = person.getNationality();
+        personDTO.nationality = person.getNationality().getName();
 
         return personDTO;
     }

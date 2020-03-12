@@ -1,14 +1,13 @@
-package domain;
+package domain.studyGroupRepository;
 
-import domain.concreteSet.ConcreteSet;
+import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import domain.exception.StudyGroupRepositoryException;
-import studyGroup.StudyGroup;
-import studyGroup.StudyGroupDTO;
+import domain.studyGroup.StudyGroup;
+import domain.studyGroup.StudyGroupDTO;
 
 import java.util.Set;
 
 public interface IStudyGroupRepository {
- //TODO: подумай над пакетированием + плюс напомни мне про storage
     void add(StudyGroupDTO studyGroupDTO) throws StudyGroupRepositoryException;
 
     void remove(StudyGroup studyGroup) throws StudyGroupRepositoryException;

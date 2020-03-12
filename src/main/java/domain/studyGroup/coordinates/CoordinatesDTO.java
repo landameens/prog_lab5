@@ -1,4 +1,4 @@
-package studyGroup.coordinates;
+package domain.studyGroup.coordinates;
 
 public final class CoordinatesDTO {
     public Integer x;

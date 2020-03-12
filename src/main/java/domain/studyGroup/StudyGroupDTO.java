@@ -1,11 +1,7 @@
-package studyGroup;
+package domain.studyGroup;
 
-import studyGroup.coordinates.Coordinates;
-import studyGroup.coordinates.CoordinatesDTO;
-import studyGroup.person.Person;
-import studyGroup.person.PersonDTO;
-
-import java.time.LocalDateTime;
+import domain.studyGroup.coordinates.CoordinatesDTO;
+import domain.studyGroup.person.PersonDTO;
 
 public final class StudyGroupDTO {
     //TODO: никаких enum-ов в DTO, в DTO вместо енама должно валяться что-то простое по типу String, иначе будут проблемы
@@ -16,8 +12,8 @@ public final class StudyGroupDTO {
     public java.time.LocalDateTime creationDate;
     public int studentsCount;
     public Long shouldBeExpelled;
-    public FormOfEducation formOfEducation;
-    public Semester semesterEnum;
+    public String formOfEducation;
+    public String semesterEnum;
     public PersonDTO groupAdmin;
 
 }
