@@ -8,7 +8,7 @@ import studyGroup.StudyGroupDTO;
 import java.util.Set;
 
 public interface IStudyGroupRepository {
-
+ //TODO: подумай над пакетированием + плюс напомни мне про storage
     void add(StudyGroupDTO studyGroupDTO) throws StudyGroupRepositoryException;
 
     void remove(StudyGroup studyGroup) throws StudyGroupRepositoryException;

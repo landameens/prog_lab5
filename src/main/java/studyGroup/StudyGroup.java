@@ -177,12 +177,14 @@ public class StudyGroup {
         this.groupAdmin = groupAdmin;
     }
 
+    //TODO: кодстайл, даже если после условия if-a одно выражение, все равно заключай его в скобки {} и пиши в следующей строке
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
         if (!(o instanceof StudyGroup)) return false;
         StudyGroup that = (StudyGroup) o;
+        //TODO: оператор == сравнивает ссылки, мы же имеем дело с Long, то есть нужно использовать equals (тут напомни меня спросить тебя про примитивы)
         return this.id == that.id;
                //this.кто-то.getId() == that.кто-то.getId();
     }

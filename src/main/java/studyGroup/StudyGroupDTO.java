@@ -8,6 +8,8 @@ import studyGroup.person.PersonDTO;
 import java.time.LocalDateTime;
 
 public final class StudyGroupDTO {
+    //TODO: никаких enum-ов в DTO, в DTO вместо енама должно валяться что-то простое по типу String, иначе будут проблемы
+    //с сохранением. Решение - иди в класс енама. Вопросы - ко мне
     public Long id;
     public String name;
     public CoordinatesDTO coordinates;

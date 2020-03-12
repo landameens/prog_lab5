@@ -19,6 +19,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository{
     private static final String IMPOSSIBLE_CREATE = "Нельзя обновить study group.";
 
     private IStudyGroupFactory studyGroupFactory;
+    //TODO: SOLID буду пороть
     private TreeSet<StudyGroup> studyGroups;
 
     public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory){
@@ -43,6 +44,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository{
         if (studyGroups.contains(studyGroup)) {
             throw new StudyGroupRepositoryException(REPEAT_ERROR);
         }
+
+        //TODO: А где собсна добавление во множество
     }
 
     //TODO: доделать ремув ??(?)
@@ -58,6 +61,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository{
         StudyGroup studyGroupExist = findStudyGroup(studyGroup);
 
         if (studyGroupExist == null){
+            //TODO: конкатенировать так строки не круто, лучше создать отдельное сообщение
             throw new StudyGroupRepositoryException(IMPOSSIBLE_CREATE+EMPTY_STUDY_GROUP);
         }
 
