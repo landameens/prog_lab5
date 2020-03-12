@@ -6,6 +6,7 @@ import domain.studyGroup.StudyGroup;
 import java.util.Set;
 import java.util.TreeSet;
 
+//TODO: добавить другие сеты по надоюности
 public abstract class ConcreteSet {
     public abstract TreeSet<StudyGroup> execute(Set<StudyGroup> studyGroups) throws StudyGroupRepositoryException;
 }
