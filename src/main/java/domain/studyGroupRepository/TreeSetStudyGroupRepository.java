@@ -17,7 +17,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
     private static final String NULL_ERROR = "Ошибка, нельзя добавить null группу.";
     private static final String REPEAT_ERROR = "Такая группа уже существует.";
     private static final String EMPTY_STUDY_GROUP = "Такой группы нет в репозитории.";
-    private static final String IMPOSSIBLE_CREATE = "Нельзя обновить study group.";
+    private static final String IMPOSSIBLE_CREATE = "Нельзя обновить study group, такой группы не существует.";
 
     private IStudyGroupFactory studyGroupFactory;
     private Set<StudyGroup> studyGroups;
@@ -48,7 +48,6 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
         studyGroups.add(studyGroup);
     }
 
-    //TODO: доделать ремув ??(?)
     @Override
     public void remove(StudyGroup studyGroup) throws StudyGroupRepositoryException {
         if (!studyGroups.remove(studyGroup)){
@@ -61,8 +60,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
         StudyGroup studyGroupExist = findStudyGroup(studyGroup);
 
         if (studyGroupExist == null){
-            //TODO: конкатенировать так строки не круто, лучше создать отдельное сообщение
-            throw new StudyGroupRepositoryException(IMPOSSIBLE_CREATE+EMPTY_STUDY_GROUP);
+            throw new StudyGroupRepositoryException(IMPOSSIBLE_CREATE);
         }
 
         studyGroups.remove(studyGroupExist);
