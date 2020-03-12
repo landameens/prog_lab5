@@ -1,0 +1,7 @@
+
+
+java:S1319	"sThe return type of this method should be an interface such as "SortedSet" rather than the implementation "TreeSet".(¥„νόÿÿÿÿ
+”
+java:S1319	"yThe type of the "studyGroups" object should be an interface such as "SortedSet" rather than the implementation "TreeSet".(¥„νόÿÿÿÿ
+V
+java:S1610";Convert the abstract class "ConcreteSet" into an interface.(ψ‹ικÿÿÿÿÿ

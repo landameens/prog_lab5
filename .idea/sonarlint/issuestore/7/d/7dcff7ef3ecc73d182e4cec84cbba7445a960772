@@ -1,0 +1,27 @@
+
+w
+java:S1104"\Make shouldBeExpelled a static final constant or non-public and provide accessors if needed.(¶°æëıÿÿÿÿ
+K
+java:S1128"5Remove this unused import 'studyGroup.person.Person'.(³Ã¤İ
+s
+java:S1104"XMake semesterEnum a static final constant or non-public and provide accessors if needed.(·µ‡úÿÿÿÿ
+m
+java:S1104"WMake coordinates a static final constant or non-public and provide accessors if needed.(Şœ„¥
+d
+java:S1104"NMake id a static final constant or non-public and provide accessors if needed.(€÷ëÚ
+o
+java:S1104"YMake studentsCount a static final constant or non-public and provide accessors if needed.(Ì‰‚
+Z
+java:S1128"?Remove this unused import 'studyGroup.coordinates.Coordinates'.(ŒÇª¢üÿÿÿÿ
+O
+java:S1128"4Remove this unused import 'java.time.LocalDateTime'.(æÃ§ƒüÿÿÿÿ
+v
+java:S1104"[Make formOfEducation a static final constant or non-public and provide accessors if needed.(•Œ¥üÿÿÿÿ
+q
+java:S1104"VMake groupAdmin a static final constant or non-public and provide accessors if needed.(Âõùÿÿÿÿ
+O
+java:S1135"2Complete the task associated to this TODO comment.(¨à×Õ8ÇÙÒ€.
+f
+java:S1104"PMake name a static final constant or non-public and provide accessors if needed.( şÍ¾
+n
+java:S1104"XMake creationDate a static final constant or non-public and provide accessors if needed.(˜¬éŠ
