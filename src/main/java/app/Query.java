@@ -3,6 +3,7 @@ package app;
 import java.util.Map;
 
 public class Query {
+    //TODO: Лучше передавать стрингу, а не енам, когда будешь настраивать сервер могут появиться проблемы из-за сложности енама относительно стринги.
     private CommandName commandName;
     private CommandType commandType;
     private Map<String, String> arguments;
