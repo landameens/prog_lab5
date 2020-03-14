@@ -8,11 +8,12 @@ import java.util.TreeSet;
 
 public final class AllSet extends ConcreteSet {
     @Override
-    public TreeSet<StudyGroup> execute(Set<StudyGroup> studyGroups) throws StudyGroupRepositoryException {
-        TreeSet<StudyGroup> finalStudyGroup = new TreeSet<>();
+    public Set<StudyGroup> execute(Set<StudyGroup> studyGroups) throws StudyGroupRepositoryException {
+        Set<StudyGroup> finalStudyGroup = new TreeSet<>();
 
         for(StudyGroup studyGroup : studyGroups) {
-            finalStudyGroup.add(studyGroup);
+
+            finalStudyGroup.add(studyGroup.clone());
         }
 
         return finalStudyGroup;

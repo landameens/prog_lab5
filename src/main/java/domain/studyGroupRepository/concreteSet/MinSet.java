@@ -9,13 +9,13 @@ import java.util.TreeSet;
 
 public final class MinSet extends ConcreteSet {
     @Override
-    public TreeSet<StudyGroup> execute(Set<StudyGroup> studyGroups) throws StudyGroupRepositoryException {
+    public Set<StudyGroup> execute(Set<StudyGroup> studyGroups) throws StudyGroupRepositoryException {
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
 
         StudyGroup minStudyGroup = findMin(studyGroupComparator, studyGroups);
 
         return new TreeSet<StudyGroup>(){{
-            add(minStudyGroup);
+            add(minStudyGroup.clone());
         }};
     }
 

@@ -2,7 +2,7 @@ package domain.studyGroup.person;
 
 import domain.exception.VerifyException;
 
-public class Person {
+public class Person implements Cloneable{
     private static final String EMPTY_VALUE = "Поле не должно быть пустым.";
     private static final String SHOULD_BE_POSITIVE = "Значение должно быть положительным.";
 
@@ -114,5 +114,17 @@ public class Person {
         personDTO.nationality = person.getNationality().getName();
 
         return personDTO;
+    }
+
+    @Override
+    public Person clone() {
+        try {
+            return new Person(this.name,
+                    this.height,
+                    this.passportID,
+                    this.nationality);
+        } catch (VerifyException e) {
+           throw new RuntimeException();
+        }
     }
 }

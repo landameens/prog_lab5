@@ -8,7 +8,7 @@ import domain.studyGroup.person.Person;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
-public class StudyGroup {
+public class StudyGroup implements Cloneable{
 
     private static final String SHOULD_BE_POSITIVE = "Значение должно быть положительным.";
     private static final String EMPTY_EXCEPTION = "Значение не должно быть пустым";
@@ -217,6 +217,23 @@ public class StudyGroup {
         @Override
         public int compare(StudyGroup o1, StudyGroup o2) {
             return o1.studentsCount - o2.studentsCount;
+        }
+    }
+
+    @Override
+    public StudyGroup clone() {
+        try {
+            return new StudyGroup(this.id,
+                    this.name,
+                    this.coordinates.clone(),
+                    this.creationDate,
+                    this.studentsCount,
+                    this.shouldBeExpelled,
+                    this.formOfEducation,
+                    this.semesterEnum,
+                    this.groupAdmin.clone());
+        } catch (VerifyException e) {
+            throw new RuntimeException();
         }
     }
 

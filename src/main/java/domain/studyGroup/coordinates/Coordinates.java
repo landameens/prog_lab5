@@ -2,7 +2,7 @@ package domain.studyGroup.coordinates;
 
 import domain.exception.VerifyException;
 
-public class Coordinates {
+public class Coordinates implements Cloneable{
     private static final String EMPTY_VALUE = "Значение не должно быть пустым.";
     private static final String MAXIMUM_VALUE = "Превышено максимальное значение.";
 
@@ -61,5 +61,15 @@ public class Coordinates {
         coordinatesDTO.y = coordinates.getY();
 
         return coordinatesDTO;
+    }
+
+    @Override
+    public Coordinates clone() {
+        try {
+            return new Coordinates(this.x,
+                    this.y);
+        } catch (VerifyException e) {
+            throw new RuntimeException();
+        }
     }
 }
