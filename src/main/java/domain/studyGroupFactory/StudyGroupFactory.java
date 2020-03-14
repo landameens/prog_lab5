@@ -30,9 +30,8 @@ public class StudyGroupFactory implements IStudyGroupFactory {
         LocalDateTime creationDate = LocalDateTime.now();
         int studentsCount = studyGroupDTO.studentsCount;
         Long shouldBeExpelled = studyGroupDTO.shouldBeExpelled;
-        //TODO: вот тута надо поменять
-        FormOfEducation formOfEducation = studyGroupDTO.formOfEducation;
-        Semester semesterEnum = studyGroupDTO.semesterEnum;
+        FormOfEducation formOfEducation = FormOfEducation.getFormOfEducation(studyGroupDTO.formOfEducation);
+        Semester semesterEnum = Semester.getSemesterEnum(studyGroupDTO.semesterEnum);
         Person groupAdmin = Person.createPerson(studyGroupDTO.groupAdmin);
 
 
