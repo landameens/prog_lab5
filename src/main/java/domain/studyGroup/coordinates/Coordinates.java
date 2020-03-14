@@ -72,4 +72,6 @@ public class Coordinates implements Cloneable{
             throw new RuntimeException();
         }
     }
+
+    //TODO: toString хотю для координат
 }

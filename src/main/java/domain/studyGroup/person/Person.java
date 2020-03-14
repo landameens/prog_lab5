@@ -127,4 +127,6 @@ public class Person implements Cloneable{
            throw new RuntimeException();
         }
     }
+
+    //TODO: написать toString() для персон
 }

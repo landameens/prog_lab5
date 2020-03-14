@@ -237,6 +237,7 @@ public class StudyGroup implements Cloneable{
         }
     }
 
+    //TODO: убрать непробрасываемый экспешн
     public StudyGroup getStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException, CreationException {
         return new StudyGroup(studyGroupDTO.id,
                 studyGroupDTO.name,

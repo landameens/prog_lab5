@@ -13,6 +13,7 @@ import java.util.TreeSet;
 
 public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
 
+    //TODO: нэйминг поменять, например INTERNAL_ERROR_MESSAGE, чтобы было понятно из контекста
     private static final String INTERNAL_ERROR = "Внутренняя ошибка";
     private static final String NULL_ERROR = "Ошибка, нельзя добавить null группу.";
     private static final String REPEAT_ERROR = "Такая группа уже существует.";

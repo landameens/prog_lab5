@@ -14,9 +14,11 @@ public final class MinSet extends ConcreteSet {
 
         StudyGroup minStudyGroup = findMin(studyGroupComparator, studyGroups);
 
-        return new TreeSet<StudyGroup>(){{
-            add(minStudyGroup.clone());
-        }};
+        return new TreeSet<StudyGroup>() {
+            {
+                add(minStudyGroup.clone());
+            }
+        };
     }
 
     private StudyGroup findMin(Comparator<StudyGroup> studyGroupComparator, Set<StudyGroup> studyGroups){
