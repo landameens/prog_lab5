@@ -13,12 +13,10 @@ import java.util.TreeSet;
 
 public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
 
-    //TODO: нэйминг поменять, например INTERNAL_ERROR_MESSAGE, чтобы было понятно из контекста
-    private static final String INTERNAL_ERROR = "Внутренняя ошибка";
-    private static final String NULL_ERROR = "Ошибка, нельзя добавить null группу.";
-    private static final String REPEAT_ERROR = "Такая группа уже существует.";
-    private static final String EMPTY_STUDY_GROUP = "Такой группы нет в репозитории.";
-    private static final String IMPOSSIBLE_CREATE = "Нельзя обновить study group, такой группы не существует.";
+    private static final String INTERNAL_ERROR_MESSAGE = "Внутренняя ошибка";
+    private static final String TRYING_ADD_NULL_GROUP_ERROR_MESSAGE = "Ошибка, нельзя добавить null группу.";
+    private static final String SUCH_GROUP_EXIST_ERROR_MESSAGE = "Такая группа уже существует.";
+    private static final String NO_SUCH_STUDY_GROUP_ERROR_MESSAGE = "Такой группы нет в репозитории.";
 
     private IStudyGroupFactory studyGroupFactory;
     private Set<StudyGroup> studyGroups;
@@ -35,15 +33,15 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
         try {
             studyGroup = studyGroupFactory.createNewStudyGroup(studyGroupDTO);
         } catch (VerifyException | CreationException e) {
-            throw new StudyGroupRepositoryException(INTERNAL_ERROR);
+            throw new StudyGroupRepositoryException(INTERNAL_ERROR_MESSAGE);
         }
 
         if (studyGroup == null) {
-            throw new StudyGroupRepositoryException(NULL_ERROR);
+            throw new StudyGroupRepositoryException(TRYING_ADD_NULL_GROUP_ERROR_MESSAGE);
         }
 
         if (studyGroups.contains(studyGroup)) {
-            throw new StudyGroupRepositoryException(REPEAT_ERROR);
+            throw new StudyGroupRepositoryException(SUCH_GROUP_EXIST_ERROR_MESSAGE);
         }
 
         studyGroups.add(studyGroup);
@@ -52,7 +50,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
     @Override
     public void remove(StudyGroup studyGroup) throws StudyGroupRepositoryException {
         if (!studyGroups.remove(studyGroup)){
-            throw new StudyGroupRepositoryException(EMPTY_STUDY_GROUP);
+            throw new StudyGroupRepositoryException(NO_SUCH_STUDY_GROUP_ERROR_MESSAGE);
         }
     }
 
@@ -61,13 +59,13 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
         StudyGroup studyGroupExist = findStudyGroup(studyGroup);
 
         if (studyGroupExist == null){
-            throw new StudyGroupRepositoryException(IMPOSSIBLE_CREATE);
+            throw new StudyGroupRepositoryException(NO_SUCH_STUDY_GROUP_ERROR_MESSAGE);
         }
 
         studyGroups.remove(studyGroupExist);
 
         if(!studyGroups.add(studyGroup)){
-            throw new StudyGroupRepositoryException(INTERNAL_ERROR);
+            throw new StudyGroupRepositoryException(INTERNAL_ERROR_MESSAGE);
         }
     }
 

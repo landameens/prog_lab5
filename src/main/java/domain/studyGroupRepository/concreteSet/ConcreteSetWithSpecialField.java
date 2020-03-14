@@ -30,8 +30,7 @@ public final class ConcreteSetWithSpecialField extends ConcreteSet {
             clazzField = clazz.getDeclaredField(field);
             clazzField.setAccessible(true);
         } catch (NoSuchFieldException e) {
-            //TODO: обернуть StudyGroupRepositoryException()
-            e.printStackTrace();
+            throw new StudyGroupRepositoryException(e);
         }
 
         for (StudyGroup studyGroup : studyGroups){
@@ -40,8 +39,7 @@ public final class ConcreteSetWithSpecialField extends ConcreteSet {
                     finalStudyGroup.add(studyGroup.clone());
                 }
             } catch (IllegalAccessException e) {
-                //TODO: обернуть StudyGroupRepositoryException()
-                e.printStackTrace();
+                throw new StudyGroupRepositoryException(e);
             }
         }
 

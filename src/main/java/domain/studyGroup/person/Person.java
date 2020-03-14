@@ -128,5 +128,14 @@ public class Person implements Cloneable{
         }
     }
 
-    //TODO: написать toString() для персон
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + System.lineSeparator() +
+                ", height=" + height + System.lineSeparator() +
+                ", passportID='" + passportID + System.lineSeparator() +
+                ", nationality=" + nationality + System.lineSeparator() +
+                '}';
+    }
 }

@@ -202,7 +202,7 @@ public class StudyGroup implements Cloneable{
     public String toString() {
         return "StudyGroup{" +
                 "id=" + id +
-                ", name='" + name + '\'' + System.lineSeparator() +
+                ", name='" + name + System.lineSeparator() +
                 ", coordinates=" + coordinates + System.lineSeparator() +
                 ", creationDate=" + creationDate + System.lineSeparator() +
                 ", studentsCount=" + studentsCount + System.lineSeparator() +
@@ -237,8 +237,7 @@ public class StudyGroup implements Cloneable{
         }
     }
 
-    //TODO: убрать непробрасываемый экспешн
-    public StudyGroup getStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException, CreationException {
+    public StudyGroup getStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException {
         return new StudyGroup(studyGroupDTO.id,
                 studyGroupDTO.name,
                 Coordinates.getCoordinates(studyGroupDTO.coordinates),

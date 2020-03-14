@@ -13,8 +13,7 @@ import java.time.LocalDateTime;
 
 public class StudyGroupFactory implements IStudyGroupFactory {
 
-    //TODO: сделать final
-    private IdProducer idProducer;
+    private final IdProducer idProducer;
 
     public StudyGroupFactory(IdProducer idProducer){
         this.idProducer = idProducer;

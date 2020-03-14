@@ -73,5 +73,12 @@ public class Coordinates implements Cloneable{
         }
     }
 
-    //TODO: toString хотю для координат
+
+    @Override
+    public String toString() {
+        return "Coordinates{" +
+                "x=" + x + System.lineSeparator() +
+                ", y=" + y + System.lineSeparator() +
+                '}';
+    }
 }
