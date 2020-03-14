@@ -8,12 +8,11 @@ import java.util.TreeSet;
 
 public final class ConcreteSetWhichLessThanThatStudyGroup extends ConcreteSet {
 
-    //TODO: нейминг Comparing
-    private final StudyGroup studyGroupForComparasion;
+    private final StudyGroup studyGroupForComparing;
 
-    public ConcreteSetWhichLessThanThatStudyGroup(StudyGroup studyGroupForComparasion){
+    public ConcreteSetWhichLessThanThatStudyGroup(StudyGroup studyGroupForComparing){
 
-        this.studyGroupForComparasion = studyGroupForComparasion;
+        this.studyGroupForComparing = studyGroupForComparing;
     }
 
     @Override
@@ -22,7 +21,7 @@ public final class ConcreteSetWhichLessThanThatStudyGroup extends ConcreteSet {
         Set<StudyGroup> finalStudyGroupSet = new TreeSet<>();
 
         for(StudyGroup studyGroup : studyGroups) {
-            if (studyGroupComparator.compare(studyGroup, studyGroupForComparasion) < 0) {
+            if (studyGroupComparator.compare(studyGroup, studyGroupForComparing) < 0) {
                 finalStudyGroupSet.add(studyGroup.clone());
             }
         }
