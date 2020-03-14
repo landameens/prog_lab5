@@ -3,6 +3,9 @@ package app;
 import app.Exceptions.InputException;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Console {
     private BufferedReader reader;
@@ -17,14 +20,18 @@ public class Console {
 
     public void start() throws IOException, InputException {
         while (true){
-            //some code must be here
             String command = reader.readLine();
             command = command.trim();
-            String[] recCommand = command.split("[\\s]+");
-            validator.validateCommandName(recCommand[1]);
-            //TODO: Данный метод можно спокойно вынести из интерпретатора в класс-енам, в методы (например) public static getInstance(String name) {} Пример можно посмотреть у Нади
-            CommandName commandName = interpretator.interpretateCommandName(recCommand[1]);
+            String[] commandArray = command.split("[\\s]+");
+            validator.validateCommandName(commandArray[1]);
+            //TODO: Данный метод можно спокойно вынести из интерпретатора в класс-енам, в методы (например) public static getInstance(String name) {}
+            // Пример можно посмотреть у Нади
+
+            CommandName commandName = interpretator.interpretateCommandName(commandArray[1]);
             CommandType commandType = interpretator.interpretateCommandType(commandName);
+            List<String> commandList = new ArrayList<>();
+            Collections.addAll(commandList, commandArray);
+            validator.validateNumberOfArguments(commandName, commandType, commandList);
 
 
         }
