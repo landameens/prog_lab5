@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 public final class ConcreteSetWhichLessThanThatStudyGroup extends ConcreteSet {
 
+    //TODO: нейминг Comparing
     private final StudyGroup studyGroupForComparasion;
 
     public ConcreteSetWhichLessThanThatStudyGroup(StudyGroup studyGroupForComparasion){
