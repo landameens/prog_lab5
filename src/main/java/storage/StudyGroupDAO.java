@@ -1,5 +1,6 @@
 package storage;
 
+import domain.studyGroup.StudyGroupDTO;
 import storage.exception.DAOException;
 
 import javax.xml.bind.JAXBContext;
@@ -23,12 +24,12 @@ public class StudyGroupDAO implements IStudyGroupDAO{
     }
 
     @Override
-    public void saveDTO(Set<?> dto) throws DAOException {
+    public void saveDTO(Set<StudyGroupDTO> dto) throws DAOException {
         //TODO: в wildcard можно задать конкретный тип StudyGroupDTO, так же и для интерфеса, ведь он даже называется StudyGroupDAO
-        List<?> dtoss = new ArrayList<>(dto);
+        List<StudyGroupDTO> dtoss = new ArrayList<>(dto);
 
         //TODO: нейминг: все коллекции (ибо там почти всегда хранится много объектов) принято называть во множественном числе ---> names
-        List<String> name = new LinkedList<>();
+        List<String> names = new LinkedList<>();
 
         StringWriter writer = new StringWriter();
         String finalName;
@@ -36,9 +37,9 @@ public class StudyGroupDAO implements IStudyGroupDAO{
         //TODO: требуется переделка. а именно
         // dtoss.get(i) вернет ахрененно огромную строку (будет вызываться studyGroupDTO.toString()), так что нужно у этой дтохи вызвать какой-то геттер, например геттер id
         // почему не использовать цикл for - each для dtoss ???
-        for (int i = 0; i < name.size(); i++){
-            finalName = pathToFile + "/" + dtoss.get(i) + ".xml";
-            name.add(finalName);
+        for (int i = 0; i < names.size(); i++){
+            finalName = pathToFile + "/" + dtoss + ".xml";
+            names.add(finalName);
         }
 
         //TODO: аналогично про цикл for - each, откуда удобно можно ссылаться studentGroupDTO
@@ -50,8 +51,7 @@ public class StudyGroupDAO implements IStudyGroupDAO{
                 JAXBContext context = JAXBContext.newInstance(StudentGroupDTO);
                 Marshaller marshaller = context.createMarshaller();
                 //TODO: можно и бнз setPropetry обойтись
-                marshaller.setPropetry(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                marshaller.marshal(studentGroupDTO, name.get(i));
+                marshaller.marshal(studentGroupDTO, names.get(i));
             } catch (JAXBException e) {
                 throw new DAOException(e);
             }
