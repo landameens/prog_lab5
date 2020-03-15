@@ -25,10 +25,10 @@ public class StudyGroupDAO implements IStudyGroupDAO{
 
     @Override
     public void saveDTO(Set<StudyGroupDTO> dto) throws DAOException {
-        //TODO: в wildcard можно задать конкретный тип StudyGroupDTO, так же и для интерфеса, ведь он даже называется StudyGroupDAO
+        //TODO: нэйминг, сладкая
+        // что-то по типу listOfDTOs или что-то в таком ключе, так же неплохо было бы поменять нейминг и в аргументе данного метода (saveDTO)
         List<StudyGroupDTO> dtoss = new ArrayList<>(dto);
 
-        //TODO: нейминг: все коллекции (ибо там почти всегда хранится много объектов) принято называть во множественном числе ---> names
         List<String> names = new LinkedList<>();
 
         StringWriter writer = new StringWriter();
