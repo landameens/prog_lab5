@@ -19,7 +19,7 @@ public class IdProducer {
 
         private List<Long> initList(){
             List<Long> list = new LinkedList<>();
-            for (long i = 0; i < 100; i++){
+            for (long i = 1; i < 100; i++){
                 list.add(i);
             }
             return list;

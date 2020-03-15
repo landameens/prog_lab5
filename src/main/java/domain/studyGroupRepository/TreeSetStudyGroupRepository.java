@@ -40,7 +40,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
             throw new StudyGroupRepositoryException(TRYING_ADD_NULL_GROUP_ERROR_MESSAGE);
         }
 
-        if (studyGroups.contains(studyGroup)) {
+        if (!studyGroups.add(studyGroup)) {
             throw new StudyGroupRepositoryException(SUCH_GROUP_EXIST_ERROR_MESSAGE);
         }
 
