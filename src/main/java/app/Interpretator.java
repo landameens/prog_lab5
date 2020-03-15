@@ -36,6 +36,7 @@ public class Interpretator {
     }
 
     public CommandName interpretateCommandName(String name){
+        //TODO: много if-ов очень не круто, посмотри, если хочешь писать чистый код, чекни TODOшку в Console.java
         if (name.equals("help") )
             return HELP;
         if (name.equals("info") )
