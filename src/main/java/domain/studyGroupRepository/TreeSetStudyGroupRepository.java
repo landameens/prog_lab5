@@ -8,6 +8,7 @@ import domain.studyGroupFactory.IStudyGroupFactory;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,7 +24,10 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
 
     public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory){
         this.studyGroupFactory = studyGroupFactory;
-        studyGroups = new TreeSet<>();
+
+        Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
+
+        studyGroups = new TreeSet<>(studyGroupComparator);
 
     }
     @Override
@@ -43,8 +47,6 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
         if (!studyGroups.add(studyGroup)) {
             throw new StudyGroupRepositoryException(SUCH_GROUP_EXIST_ERROR_MESSAGE);
         }
-
-        studyGroups.add(studyGroup);
     }
 
     @Override
