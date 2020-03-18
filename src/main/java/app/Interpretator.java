@@ -6,7 +6,7 @@ import java.util.Map;
 import static app.CommandName.*;
 import static app.CommandType.*;
 
-public class Interpretator {
+public final class Interpretator {
 
     private Map<CommandName, CommandType> allCommands = new HashMap<CommandName, CommandType>(){
         {
@@ -70,6 +70,10 @@ public class Interpretator {
         if (name.equals("filter_less_than_should_be_expelled") )
             return FILTER_LESS_THEN_SHOULD_BE_EXPELLED;
         else return null;
+    }
+
+    public Map<String, String> getMapForInputArguments (CommandName name, Viewer viewer){
+        return viewer.getInputMessagesMap().get(name);
     }
 
 

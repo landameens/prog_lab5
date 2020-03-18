@@ -1,4 +1,9 @@
-package app;
+package app.QueryBuilder;
+
+import app.CommandName;
+import app.CommandType;
+import app.Query;
+import app.QueryBuilder.QueryBuilder;
 
 public class QueryBuilderForCompoundCommands extends QueryBuilder {
     @Override

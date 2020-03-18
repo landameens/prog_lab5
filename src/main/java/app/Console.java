@@ -1,13 +1,15 @@
 package app;
 
 import app.Exceptions.InputException;
+import app.QueryBuilder.QueryBuilder;
+import app.QueryBuilder.QueryBuilderFactory;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Console {
+public final class Console {
     private BufferedReader reader;
     private BufferedOutputStream writer;
     private Interpretator interpretator;
@@ -32,6 +34,10 @@ public class Console {
             List<String> commandList = new ArrayList<>();
             Collections.addAll(commandList, commandArray);
             validator.validateNumberOfArguments(commandName, commandType, commandList);
+
+            QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory();
+            QueryBuilder queryBuilder = queryBuilderFactory.getQueryBuilder(commandType);
+            Query query = queryBuilder.buildQuery(commandName, commandType);
 
 
         }

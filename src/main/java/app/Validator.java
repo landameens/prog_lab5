@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static app.CommandName.*;
 
-public class Validator {
+public final class Validator {
 
     private final String UNKNOWN_COMMAND = "Ошибка: Неизвестная команда.";
     private final String WRONG_NUMBER_OF_ARGUMENTS = "Ошибка: Неверное количество аргументов";
@@ -71,5 +71,10 @@ public class Validator {
     public void validate_ADD_CommandArguments(){
 
     }
+
+    public void validate_RemoveByID_CommandArguments(String s){
+        
+    }
+
 
 }
