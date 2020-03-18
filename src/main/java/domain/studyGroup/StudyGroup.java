@@ -237,7 +237,7 @@ public class StudyGroup implements Cloneable{
         }
     }
 
-    public StudyGroup getStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException {
+    public static StudyGroup getStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException {
         return new StudyGroup(studyGroupDTO.id,
                 studyGroupDTO.name,
                 Coordinates.getCoordinates(studyGroupDTO.coordinates),
@@ -249,7 +249,7 @@ public class StudyGroup implements Cloneable{
                 Person.getPerson(studyGroupDTO.groupAdmin));
     }
 
-    public StudyGroupDTO getStudyGroupDTO(StudyGroup studyGroup) {
+    public static StudyGroupDTO getStudyGroupDTO(StudyGroup studyGroup) {
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
 
         studyGroupDTO.id = studyGroup.getId();

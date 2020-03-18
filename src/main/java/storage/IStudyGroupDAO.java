@@ -1,14 +1,15 @@
 package storage;
 
+import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import storage.exception.DAOException;
 
+import javax.xml.bind.JAXBException;
 import java.util.List;
 import java.util.Set;
 
 public interface IStudyGroupDAO {
-    //TODO: Тоже надо подшаманить с wildcard'ом
-    Set<?> getDTO() throws DAOException;
+    Set<StudyGroupDTO> getDTOs() throws DAOException, JAXBException;
 
-    void saveDTO(Set<StudyGroupDTO> dto) throws DAOException;
+    void saveDTOs(Set<StudyGroupDTO> dto) throws DAOException;
 }

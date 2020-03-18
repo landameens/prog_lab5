@@ -7,12 +7,19 @@ import domain.exception.VerifyException;
 import domain.studyGroupFactory.IStudyGroupFactory;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
+import storage.IStudyGroupDAO;
+import storage.Saveable;
+import storage.StudyGroupDAO;
+import storage.exception.DAOException;
 
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
+import static domain.studyGroup.StudyGroup.getStudyGroupDTO;
+
+public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Saveable {
 
     private static final String INTERNAL_ERROR_MESSAGE = "Внутренняя ошибка";
     private static final String TRYING_ADD_NULL_GROUP_ERROR_MESSAGE = "Ошибка, нельзя добавить null группу.";
@@ -21,14 +28,16 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
 
     private IStudyGroupFactory studyGroupFactory;
     private Set<StudyGroup> studyGroups;
+    private IStudyGroupDAO studyGroupDAO;
 
-    public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory){
+    public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory, String path){
         this.studyGroupFactory = studyGroupFactory;
 
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
 
         studyGroups = new TreeSet<>(studyGroupComparator);
 
+        studyGroupDAO = new StudyGroupDAO(path);
     }
     @Override
     public void add(StudyGroupDTO studyGroupDTO) throws StudyGroupRepositoryException {
@@ -87,5 +96,23 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository {
         }
 
         return concreteSet.execute(studyGroups);
+    }
+
+    @Override
+    public void save() throws DAOException {
+        Set<StudyGroupDTO> studyGroupDTOSet = new LinkedHashSet<>();
+        for (StudyGroup studyGroup : studyGroups) {
+            studyGroupDTOSet.add(getStudyGroupDTO(studyGroup));
+        }
+        studyGroupDAO.saveDTOs(studyGroupDTOSet);
+    }
+
+    //TODO: метод нужен для отладки, не забыть удалить
+    public Set<StudyGroup> returnStudyGroup(){
+        Set<StudyGroup> groups = new LinkedHashSet<>();
+        for (StudyGroup studyGroup : studyGroups){
+            groups.add(studyGroup.clone());
+        }
+        return groups;
     }
 }
