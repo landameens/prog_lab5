@@ -63,7 +63,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     }
 
     /**
-     * 
+     * Adds a study group to the collection, if it isn't there.
+     * If it is in the collection or it is null, then it isn't added
      * @param studyGroupDTO
      * @throws StudyGroupRepositoryException
      */
