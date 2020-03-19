@@ -6,6 +6,9 @@ import app.Exceptions.InputException;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Abstraction of different QueryBuilders.
+ */
 public abstract class QueryBuilder {
     Validator validator;
     Interpretator interpretator;

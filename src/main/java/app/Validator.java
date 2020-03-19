@@ -9,6 +9,9 @@ import java.util.Map;
 
 import static app.CommandName.*;
 
+/**
+ * This class is responsible for validating user's input, command name, number of arguments, type of arguments, and others.
+ */
 public final class Validator {
 
     private final String UNKNOWN_COMMAND = "Ошибка: Неизвестная команда.";

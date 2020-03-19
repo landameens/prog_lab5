@@ -7,6 +7,9 @@ import app.Query;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class is responsible for making query of commands that has simple arguments.
+ */
 public class QueryBuilderForSimpleCommands extends QueryBuilder {
 
     @Override

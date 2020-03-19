@@ -8,6 +8,9 @@ import app.QueryBuilder.QueryBuilderFactory;
 import java.io.*;
 import java.util.*;
 
+/**
+ * This class is responsible for input-output, it forms the query and handles it to controller to get response.
+ */
 public final class Console {
     private BufferedReader reader;
     private BufferedOutputStream writer;

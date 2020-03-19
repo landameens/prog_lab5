@@ -3,6 +3,9 @@ package app.QueryBuilder;
 import app.CommandName;
 import app.CommandType;
 
+/**
+ * Factory for creating concrete QueryBuilder depending on command type.
+ */
 public class QueryBuilderFactory {
     public QueryBuilder getQueryBuilder (CommandType type){
         switch (type){

@@ -7,6 +7,9 @@ import java.util.Map;
 import static app.CommandName.*;
 import static app.CommandType.*;
 
+/**
+ * This class is responsible for interpretating user's input
+ */
 public final class Interpretator {
 
     private Map<CommandName, CommandType> allCommands = new HashMap<CommandName, CommandType>(){

@@ -8,6 +8,9 @@ import app.QueryBuilder.QueryBuilder;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class is responsible for making query of commands that has no arguments.
+ */
 public class QueryBuilderForCommandsWithoutArguments extends QueryBuilder {
 
     @Override

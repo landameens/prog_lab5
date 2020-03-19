@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class is responsible for making query of commands that has compound arguments.
+ */
 public class QueryBuilderForCompoundCommands extends QueryBuilder {
 
     @Override

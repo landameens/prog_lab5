@@ -1,5 +1,8 @@
 package app;
 
+/**
+ * This enum contains all command names
+ */
 public enum CommandName {
     HELP("help"),
     INFO("info"),
