@@ -1,19 +1,26 @@
 package app;
 
-
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
+import domain.studyGroup.FormOfEducation;
+import domain.studyGroup.Semester;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
+import domain.studyGroup.coordinates.Coordinates;
 import domain.studyGroup.coordinates.CoordinatesDTO;
+import domain.studyGroup.person.Country;
+import domain.studyGroup.person.Person;
 import domain.studyGroup.person.PersonDTO;
 import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
+import storage.exception.DAOException;
+
+import java.time.LocalDateTime;
 
 public class App {
-    public static void main(String[] args) throws StudyGroupRepositoryException {
-        String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5";
+    public static void main(String[] args) throws StudyGroupRepositoryException, VerifyException, DAOException {
+        String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\files";
         IdProducer idProducer = new IdProducer();
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
         TreeSetStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
@@ -38,6 +45,7 @@ public class App {
         studyGroupDTO.shouldBeExpelled = 2L;
 
         studyGroupRepository.add(studyGroupDTO);
-        System.out.println(studyGroupRepository.returnStudyGroup());
+        studyGroupRepository.returnStudyGroup();
+
     }
 }

@@ -12,6 +12,8 @@ import storage.Saveable;
 import storage.StudyGroupDAO;
 import storage.exception.DAOException;
 
+import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -19,6 +21,9 @@ import java.util.TreeSet;
 
 import static domain.studyGroup.StudyGroup.getStudyGroupDTO;
 
+/**
+ *
+ */
 public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Saveable {
 
     private static final String INTERNAL_ERROR_MESSAGE = "Внутренняя ошибка";
@@ -30,15 +35,38 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private Set<StudyGroup> studyGroups;
     private IStudyGroupDAO studyGroupDAO;
 
-    public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory, String path){
+    public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory, String path) throws DAOException, VerifyException {
         this.studyGroupFactory = studyGroupFactory;
+        studyGroupDAO = new StudyGroupDAO(path);
 
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
-
-        studyGroups = new TreeSet<>(studyGroupComparator);
-
-        studyGroupDAO = new StudyGroupDAO(path);
+        File directory = new File(path);
+        studyGroups = getInitialFiles(directory, studyGroupComparator);
     }
+
+    private Set<StudyGroup> getInitialFiles(File directory, Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
+        if (!(directory.listFiles().length == 0)) {
+            Set<StudyGroupDTO> studyGroupDTOSet = null;
+            try {
+                studyGroupDTOSet = studyGroupDAO.getDTOs();
+            } catch (JAXBException e) {
+                throw new DAOException(e);
+            }
+
+            for (StudyGroupDTO studyGroupDTO : studyGroupDTOSet) {
+                studyGroups.add(StudyGroup.getStudyGroup(studyGroupDTO));
+            }
+            return studyGroups;
+        }
+
+        return new TreeSet<>(studyGroupComparator);
+    }
+
+    /**
+     * 
+     * @param studyGroupDTO
+     * @throws StudyGroupRepositoryException
+     */
     @Override
     public void add(StudyGroupDTO studyGroupDTO) throws StudyGroupRepositoryException {
 
@@ -108,11 +136,9 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     }
 
     //TODO: метод нужен для отладки, не забыть удалить
-    public Set<StudyGroup> returnStudyGroup(){
-        Set<StudyGroup> groups = new LinkedHashSet<>();
+    public void returnStudyGroup(){
         for (StudyGroup studyGroup : studyGroups){
-            groups.add(studyGroup.clone());
+            System.out.println(studyGroup.clone());
         }
-        return groups;
     }
 }

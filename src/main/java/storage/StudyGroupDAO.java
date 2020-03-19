@@ -12,10 +12,9 @@ import java.io.File;
 import java.util.*;
 
 public class StudyGroupDAO implements IStudyGroupDAO{
-    //efefk
+    private final static String EMPTY_DIRECTORY_ERROR = "Отсутствуют файлы.";
 
     private String pathToFile;
-
     public StudyGroupDAO(String pathToFile) {
         this.pathToFile = pathToFile;
     }
@@ -23,7 +22,13 @@ public class StudyGroupDAO implements IStudyGroupDAO{
     @Override
     public Set<StudyGroupDTO> getDTOs() throws DAOException {
         File directory = new File(pathToFile);
-        List<File> studyGroupFiles = Arrays.asList(directory.listFiles());
+        File[] files =  directory.listFiles();
+
+        if (files == null){
+            throw new DAOException(EMPTY_DIRECTORY_ERROR);
+        }
+
+        List<File> studyGroupFiles = Arrays.asList(files);
         return deserialize(studyGroupFiles);
     }
 
