@@ -37,6 +37,8 @@ public final class Interpretator {
             mapOfNamesAndFields.put(EXECUTE_SCRIPT, "file_name");
             mapOfNamesAndFields.put(FILTER_BY_SHOULD_BE_EXPELLED, "should_be_expelled");
             mapOfNamesAndFields.put(FILTER_LESS_THEN_SHOULD_BE_EXPELLED, "should_be_expelled");
+
+            mapOfNamesAndFields.put(UPDATE, "id");
         }
     };
 
@@ -89,7 +91,7 @@ public final class Interpretator {
     public HashMap<String, String> interpretateSimpleCommandArguments (CommandName name, List<String> commandList) {
         String field = mapOfNamesAndFields.get(name);
         String argument = commandList.get(1);
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put(field, argument);
         return map;
     }

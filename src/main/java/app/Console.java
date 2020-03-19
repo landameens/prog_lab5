@@ -1,26 +1,28 @@
 package app;
 
 import app.Exceptions.InputException;
+import app.Exceptions.InternalException;
 import app.QueryBuilder.QueryBuilder;
 import app.QueryBuilder.QueryBuilderFactory;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public final class Console {
     private BufferedReader reader;
     private BufferedOutputStream writer;
     private Interpretator interpretator;
     private Validator validator;
+    private Viewer viewer;
+
+    private final String INTERNAL_ERROR_WITH_IO = "Ошибка ввода-вывода. ";
 
     public Console(InputStream input, OutputStream output){
         reader = new BufferedReader(new InputStreamReader(input));
         writer = new BufferedOutputStream(output);
     }
 
-    public void start() throws IOException, InputException {
+    public void start() throws InputException, IOException, InternalException {
         while (true){
             String command = reader.readLine();
             command = command.trim();
@@ -35,11 +37,54 @@ public final class Console {
             Collections.addAll(commandList, commandArray);
             validator.validateNumberOfArguments(commandName, commandType, commandList);
 
+            HashMap<String, String> arguments = new HashMap<>();
+            if (commandType.equals(CommandType.COMPOUND_COMMAND)){
+                arguments = getArgumentsOfCompoundCommands(commandName);
+            }
+
             QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory();
             QueryBuilder queryBuilder = queryBuilderFactory.getQueryBuilder(commandType);
-            Query query = queryBuilder.buildQuery(commandName, commandType, commandList);
+            Query query = queryBuilder.buildQuery(commandName, commandType, commandList, arguments);
 
 
         }
+    }
+
+    public void writeLine(String text) throws InternalException {
+        try {
+            byte[] buffer = text.getBytes();
+            writer.write(buffer, 0, buffer.length);
+            writer.flush();
+        } catch (IOException e) {
+            throw new InternalException(INTERNAL_ERROR_WITH_IO);
+        }
+    }
+
+    public HashMap<String, String> getArgumentsOfCompoundCommands(CommandName name) throws InternalException {
+        HashMap<String,String> mapOfArguments = new HashMap<>();
+        Map<String, String> mapForInputArguments = interpretator.getMapForInputArguments(name, viewer);
+        for (Map.Entry<String,String> entry : mapForInputArguments.entrySet()){
+            String field = entry.getKey();
+            String message = entry.getValue();
+            writeLine(message);
+            Boolean flag = true;
+            String correctValue = null;
+            while (flag) {
+                try {
+                    String userInput = reader.readLine();
+                    //userInput.trim();
+                    validator.validateElementFields(field, userInput);
+                    flag = false;
+                    correctValue = userInput;
+                } catch (InputException e){
+                    writeLine(e.getMessage());
+                    flag = true;
+                } catch (IOException e){
+                    throw new InternalException(INTERNAL_ERROR_WITH_IO);
+                }
+            }
+            mapOfArguments.put(field, correctValue);
+        }
+        return mapOfArguments;
     }
 }
