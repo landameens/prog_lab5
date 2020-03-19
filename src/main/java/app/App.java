@@ -14,13 +14,15 @@ import domain.studyGroup.person.PersonDTO;
 import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
+import storage.StudyGroupDAO;
 import storage.exception.DAOException;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class App {
     public static void main(String[] args) throws StudyGroupRepositoryException, VerifyException, DAOException {
-        String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\files";
+        String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources\\studyGroups";
         IdProducer idProducer = new IdProducer();
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
         TreeSetStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
@@ -44,8 +46,8 @@ public class App {
         studyGroupDTO.groupAdmin = personDTO;
         studyGroupDTO.shouldBeExpelled = 2L;
 
-        studyGroupRepository.add(studyGroupDTO);
-        studyGroupRepository.returnStudyGroup();
-
+        //studyGroupRepository.add(studyGroupDTO);
+        //studyGroupRepository.returnStudyGroup();
+        //studyGroupRepository.save();
     }
 }

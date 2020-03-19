@@ -5,7 +5,6 @@ import domain.studyGroup.StudyGroupDTO;
 import storage.exception.DAOException;
 
 import javax.xml.bind.JAXBException;
-import java.util.List;
 import java.util.Set;
 
 public interface IStudyGroupDAO {
