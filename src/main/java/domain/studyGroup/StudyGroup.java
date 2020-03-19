@@ -68,7 +68,6 @@ public class StudyGroup implements Cloneable{
         if (name.equals("")){
             throw new VerifyException(EMPTY_EXCEPTION);
         }
-
     }
 
     private void checkStudentsCount(int studentsCount) throws VerifyException{
@@ -237,6 +236,12 @@ public class StudyGroup implements Cloneable{
         }
     }
 
+    /**
+     * this method returns the Study Group getting the Study Group DTO
+     * @param studyGroupDTO
+     * @return StudyGroup
+     * @throws VerifyException
+     */
     public static StudyGroup getStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException {
         return new StudyGroup(studyGroupDTO.id,
                 studyGroupDTO.name,
@@ -249,6 +254,11 @@ public class StudyGroup implements Cloneable{
                 Person.getPerson(studyGroupDTO.groupAdmin));
     }
 
+    /**
+     * This method returns Study Group DTO by Study Group.
+     * @param studyGroup
+     * @return StudyGroupDTO
+     */
     public static StudyGroupDTO getStudyGroupDTO(StudyGroup studyGroup) {
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
 

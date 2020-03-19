@@ -7,9 +7,12 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ *  * Implementation ConcreteSet to get the smallest Study Group.
+ */
 public final class MinSet extends ConcreteSet {
     @Override
-    public Set<StudyGroup> execute(Set<StudyGroup> studyGroups) throws StudyGroupRepositoryException {
+    public Set<StudyGroup> execute(Set<StudyGroup> studyGroups) {
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
 
         StudyGroup minStudyGroup = findMin(studyGroupComparator, studyGroups);

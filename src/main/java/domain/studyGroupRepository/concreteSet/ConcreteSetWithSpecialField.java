@@ -7,6 +7,9 @@ import java.lang.reflect.Field;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Implementation ConcreteSet to get a set of Study Groups which have equals field.
+ */
 public final class ConcreteSetWithSpecialField extends ConcreteSet {
 
     private final String field;
@@ -25,7 +28,7 @@ public final class ConcreteSetWithSpecialField extends ConcreteSet {
     public Set<StudyGroup> execute(Set<StudyGroup> studyGroups) throws StudyGroupRepositoryException {
         Set<StudyGroup> finalStudyGroup = new TreeSet<>();
 
-        Field clazzField = null;
+        Field clazzField;
         try {
             clazzField = clazz.getDeclaredField(field);
             clazzField.setAccessible(true);

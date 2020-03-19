@@ -7,6 +7,10 @@ import domain.studyGroup.StudyGroupDTO;
 
 import java.util.Set;
 
+/**
+ * Interface for working with the repository where Study Groups are stored.
+ * To get a set of Study Groups using the abstract class ConcreteSet.
+ */
 public interface IStudyGroupRepository {
     void add(StudyGroupDTO studyGroupDTO) throws StudyGroupRepositoryException;
 

@@ -22,7 +22,7 @@ import java.util.TreeSet;
 import static domain.studyGroup.StudyGroup.getStudyGroupDTO;
 
 /**
- *
+ * This class are realize IStudyGroupRepository interface for working with Tree set.
  */
 public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Saveable {
 
@@ -46,7 +46,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
 
     private Set<StudyGroup> getInitialFiles(File directory, Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
         if (!(directory.listFiles().length == 0)) {
-            Set<StudyGroupDTO> studyGroupDTOSet = null;
+            Set<StudyGroupDTO> studyGroupDTOSet;
             try {
                 studyGroupDTOSet = studyGroupDAO.getDTOs();
             } catch (JAXBException e) {
@@ -63,8 +63,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     }
 
     /**
-     * Adds a study group to the collection, if it isn't there.
-     * If it is in the collection or it is null, then it isn't added
+     * Adds a Study Group to the collection using StudyGroupDTO, if it isn't there.
+     * If it is in the collection, or it is null, then it isn't added.
      * @param studyGroupDTO
      * @throws StudyGroupRepositoryException
      */
@@ -87,6 +87,11 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         }
     }
 
+    /**
+     * Method for deleting a Study Group from the collection.
+     * @param studyGroup
+     * @throws StudyGroupRepositoryException
+     */
     @Override
     public void remove(StudyGroup studyGroup) throws StudyGroupRepositoryException {
         if (!studyGroups.remove(studyGroup)){
@@ -94,6 +99,12 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         }
     }
 
+    /**
+     * Updates Study Group in the collection.
+     * By replacing it with a new Study Group.
+     * @param studyGroup
+     * @throws StudyGroupRepositoryException
+     */
     @Override
     public void update(StudyGroup studyGroup) throws StudyGroupRepositoryException {
         StudyGroup studyGroupExist = findStudyGroup(studyGroup);
@@ -118,6 +129,12 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         return null;
     }
 
+    /**
+     * Get set of Study Group from the collection.
+     * @param concreteSet
+     * @return
+     * @throws StudyGroupRepositoryException
+     */
     @Override
     public Set<StudyGroup> getConcreteSetOfStudyGroups(ConcreteSet concreteSet) throws StudyGroupRepositoryException{
         if (studyGroups.isEmpty()){
@@ -127,6 +144,10 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         return concreteSet.execute(studyGroups);
     }
 
+    /**
+     * Saves Study Groups using StudyGroupDAO
+     * @throws DAOException
+     */
     @Override
     public void save() throws DAOException {
         Set<StudyGroupDTO> studyGroupDTOSet = new LinkedHashSet<>();

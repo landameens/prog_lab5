@@ -5,6 +5,9 @@ import domain.exception.VerifyException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 
+/**
+ * 
+ */
 public interface IStudyGroupFactory {
 
     StudyGroup createNewStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException, CreationException;

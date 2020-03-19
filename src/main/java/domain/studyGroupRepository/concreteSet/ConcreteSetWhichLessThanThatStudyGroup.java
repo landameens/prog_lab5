@@ -6,6 +6,9 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Implementation ConcreteSet to get a set of Study Groups which less than that Study Group.
+ */
 public final class ConcreteSetWhichLessThanThatStudyGroup extends ConcreteSet {
 
     private final StudyGroup studyGroupForComparing;
