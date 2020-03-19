@@ -1,6 +1,7 @@
 package app;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static app.CommandName.*;
@@ -28,6 +29,15 @@ public final class Interpretator {
             allCommands.put(FILTER_LESS_THEN_SHOULD_BE_EXPELLED, SIMPLE_COMMAND);
         }
 
+    };
+
+    private Map<CommandName,String> mapOfNamesAndFields = new HashMap<CommandName, String>(){
+        {
+            mapOfNamesAndFields.put(REMOVE_BY_ID, "id");
+            mapOfNamesAndFields.put(EXECUTE_SCRIPT, "file_name");
+            mapOfNamesAndFields.put(FILTER_BY_SHOULD_BE_EXPELLED, "should_be_expelled");
+            mapOfNamesAndFields.put(FILTER_LESS_THEN_SHOULD_BE_EXPELLED, "should_be_expelled");
+        }
     };
 
 
@@ -74,6 +84,14 @@ public final class Interpretator {
 
     public Map<String, String> getMapForInputArguments (CommandName name, Viewer viewer){
         return viewer.getInputMessagesMap().get(name);
+    }
+
+    public HashMap<String, String> interpretateSimpleCommandArguments (CommandName name, List<String> commandList) {
+        String field = mapOfNamesAndFields.get(name);
+        String argument = commandList.get(1);
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put(field, argument);
+        return map;
     }
 
 

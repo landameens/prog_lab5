@@ -12,7 +12,10 @@ import static app.CommandName.*;
 public final class Validator {
 
     private final String UNKNOWN_COMMAND = "Ошибка: Неизвестная команда.";
-    private final String WRONG_NUMBER_OF_ARGUMENTS = "Ошибка: Неверное количество аргументов";
+    private final String WRONG_NUMBER_OF_ARGUMENTS = "Ошибка: Неверное количество аргументов. ";
+    private final String NULL_ARGUMENT = "Ошибка: Аргумент не может быть null. ";
+    private final String NOT_INTEGER_ARGUMENT = "Ошибка: Аргумент не целочисленный. ";
+    private final String NEGATIVE_ARGUMENT = "Ошибка: Аргумент не является положительным числом. ";
 
     private List<String> allCommands = new ArrayList<String>(){
         {
@@ -68,13 +71,34 @@ public final class Validator {
 
     }
 
-    public void validate_ADD_CommandArguments(){
+    public void validateSimpleCommandArguments(CommandName name, List<String> commandList) throws InputException {
+        switch (name){
+            case REMOVE_BY_ID:
+                if (commandList.get(1) == null) { throw new InputException(NULL_ARGUMENT); }
+                try {
+                    int id = Integer.parseInt(commandList.get(1));
+                    if (id <= 0) {throw new InputException(NEGATIVE_ARGUMENT); }
+                } catch (NumberFormatException e){
+                    throw new InputException(NOT_INTEGER_ARGUMENT);
+                }
+                break;
 
+            case EXECUTE_SCRIPT:
+                if (commandList.get(1) == null) { throw new InputException(NULL_ARGUMENT); }
+                break;
+
+            case FILTER_BY_SHOULD_BE_EXPELLED:
+            case FILTER_LESS_THEN_SHOULD_BE_EXPELLED:
+                try {
+                    int shouldBeExpelled = Integer.parseInt(commandList.get(1));
+                    if (shouldBeExpelled <= 0) {throw new InputException(NEGATIVE_ARGUMENT); }
+                } catch (NumberFormatException e){
+                    throw new InputException(NOT_INTEGER_ARGUMENT);
+                }
+                break;
+        }
     }
 
-    public void validate_RemoveByID_CommandArguments(String s){
-        
-    }
 
 
 }
