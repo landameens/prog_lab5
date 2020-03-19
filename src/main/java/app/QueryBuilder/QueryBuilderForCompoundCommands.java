@@ -16,6 +16,16 @@ import java.util.Map;
  */
 public class QueryBuilderForCompoundCommands extends QueryBuilder {
 
+    /**
+     * Makes query for compound commands by command name, command type,
+     * commandList that contains simple arguments and hashMap of complex arguments.
+     * @param name
+     * @param type
+     * @param commandList
+     * @param arguments
+     * @return
+     * @throws InputException
+     */
     @Override
     public Query buildQuery(CommandName name, CommandType type, List<String> commandList, HashMap<String,String> arguments) throws InputException {
         validator.validateSimpleArgumentsOfCompoundCommand(name, commandList);

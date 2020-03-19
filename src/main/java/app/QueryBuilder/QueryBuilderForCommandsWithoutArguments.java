@@ -13,6 +13,14 @@ import java.util.List;
  */
 public class QueryBuilderForCommandsWithoutArguments extends QueryBuilder {
 
+    /**
+     * Makes query for commands without arguments by command name and command type.
+     * @param name
+     * @param type
+     * @param commandList
+     * @param arguments
+     * @return
+     */
     @Override
     public Query buildQuery(CommandName name, CommandType type, List<String> commandList, HashMap<String, String> arguments) {
         arguments = new HashMap<>();

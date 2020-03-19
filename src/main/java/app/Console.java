@@ -66,6 +66,14 @@ public final class Console {
         writeLine(e.getMessage());
     }
 
+    /**
+     * This method gets map of fields and invitation messages for user's input, display the message,
+     * reads user's input and validate each field's value until user's input is correct.
+     * Returns the map of field names and argument values.
+     * @param name
+     * @return
+     * @throws InternalException
+     */
     public HashMap<String, String> getArgumentsOfCompoundCommands(CommandName name) throws InternalException {
         HashMap<String,String> mapOfArguments = new HashMap<>();
         Map<String, String> mapForInputArguments = interpretator.getMapForInputArguments(name, viewer);
