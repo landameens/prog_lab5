@@ -60,6 +60,10 @@ public final class Console {
         }
     }
 
+    public void showExceptionMessage (Exception e) throws InternalException {
+        writeLine(e.getMessage());
+    }
+
     public HashMap<String, String> getArgumentsOfCompoundCommands(CommandName name) throws InternalException {
         HashMap<String,String> mapOfArguments = new HashMap<>();
         Map<String, String> mapForInputArguments = interpretator.getMapForInputArguments(name, viewer);
@@ -72,7 +76,8 @@ public final class Console {
             while (flag) {
                 try {
                     String userInput = reader.readLine();
-                    //userInput.trim();
+                    userInput.trim();
+                    //number of args?
                     validator.validateElementFields(field, userInput);
                     flag = false;
                     correctValue = userInput;
