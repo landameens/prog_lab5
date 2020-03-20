@@ -17,24 +17,12 @@ public enum Country {
     }
 
     public static Country getCountry(String name){
-        if (name.equals("unitedKingdom")){
-            return UNITED_KINGDOM;
-        }
+        Country[] allCountries = Country.values();
 
-        if (name.equals("germany")){
-            return GERMANY;
-        }
-
-        if (name.equals("vatican")){
-            return VATICAN;
-        }
-
-        if (name.equals("southKorea")){
-            return SOUTH_KOREA;
-        }
-
-        if (name.equals("japan")){
-            return JAPAN;
+        for (Country country : allCountries){
+            if (name.equals(country.getName())){
+                return country;
+            }
         }
 
         return null;

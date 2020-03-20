@@ -6,9 +6,10 @@ public enum Status {
     SUCCESSIVELY("200"),
     BAD_REQUEST("400"),
     INTERNAL_ERROR("500"),
-    NOT_IMPLEMENTED("501");
+    PRECONDITION_FAILED("412");
 
     private String code;
+
     Status(String code) {
         this.code = code;
     }

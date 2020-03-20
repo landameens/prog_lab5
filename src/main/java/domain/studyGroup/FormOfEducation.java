@@ -15,16 +15,12 @@ public enum FormOfEducation {
     }
 
     public static FormOfEducation getFormOfEducation(String name){
-        if (name.equals("distanceOfEducation")){
-            return DISTANCE_EDUCATION;
-        }
+        FormOfEducation[] formOfEducations = FormOfEducation.values();
 
-        if (name.equals("fullTimeEducation")){
-            return FULL_TIME_EDUCATION;
-        }
-
-        if (name.equals("eveningClasses")){
-            return EVENING_CLASSES;
+        for (FormOfEducation formOfEducation : formOfEducations){
+            if (name.equals(formOfEducation.getName())) {
+                return formOfEducation;
+            }
         }
 
         return null;

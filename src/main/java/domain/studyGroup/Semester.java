@@ -16,20 +16,12 @@ public enum Semester {
     }
 
     public static Semester getSemesterEnum(String name){
-        if (name.equals("first")){
-            return FIRST;
-        }
+        Semester[] semesters = Semester.values();
 
-        if (name.equals("second")){
-            return SECOND;
-        }
-
-        if (name.equals("fourth")){
-            return FOURTH;
-        }
-
-        if (name.equals("eighth")){
-            return EIGHTH;
+        for (Semester semester : semesters){
+            if (name.equals(semester.getName())){
+                return semester;
+            }
         }
 
         return null;
