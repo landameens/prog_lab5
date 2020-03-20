@@ -5,7 +5,6 @@ import app.Exceptions.InternalException;
 
 import java.io.IOException;
 
-public final class App {
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
 import domain.studyGroup.FormOfEducation;
@@ -27,23 +26,23 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public class App {
+public final class App {
     private static void checkInputPath(String[] args) {
         if (args.length != 2) {
             System.err.println(LACK_OF_ARGUMENTS_ERROR);
             System.exit(1);
         }
-    public static void main(String[] args) throws IOException, InternalException {
+    }
+    private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the fail}";
+
+    public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException {
         Console console = new Console(System.in, System.out);
         try {
             console.start();
         } catch (InputException e ){
             console.showExceptionMessage(e);
         }
-    }
-    private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the fail}";
 
-    public static void main(String[] args) throws StudyGroupRepositoryException, VerifyException, DAOException {
         ClassLoader classLoader = App.class.getClassLoader();
         String path = "";
 
