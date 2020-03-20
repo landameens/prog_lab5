@@ -31,4 +31,18 @@ public enum CommandName {
         return name;
     }
 
+
+    //TODO: скорее всего не нужно, не забыть удалить
+    public static CommandName getCommandNameEnum(String name){
+        CommandName[] commandNames = CommandName.values();
+
+        for (CommandName commandName : commandNames){
+            if(name.equals(commandName.getName())){
+                return commandName;
+            }
+        }
+
+        return null;
+    }
+
 }

@@ -4,6 +4,7 @@ import domain.exception.CreationException;
 import domain.exception.VerifyException;
 import domain.studyGroup.coordinates.Coordinates;
 import domain.studyGroup.person.Person;
+import domain.studyGroupFactory.idProducer.IdProducer;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -188,8 +189,8 @@ public class StudyGroup implements Cloneable{
         }
 
         StudyGroup that = (StudyGroup) o;
-        return this.id.equals(that.id);
-               //this..getId() == that.кто-то.getId();
+        //TODO: дописать про IdProducer
+        return this.id.equals(that.id) &&  getId() == that.getId();
     }
 
     @Override
@@ -274,5 +275,4 @@ public class StudyGroup implements Cloneable{
 
         return studyGroupDTO;
     }
-
 }

@@ -36,10 +36,12 @@ public final class Console {
             CommandName commandName = interpretator.interpretateCommandName(commandArray[1]);
             CommandType commandType = interpretator.interpretateCommandType(commandName);
             List<String> commandList = new ArrayList<>();
+
             Collections.addAll(commandList, commandArray);
             validator.validateNumberOfArguments(commandName, commandType, commandList);
 
             HashMap<String, String> arguments = new HashMap<>();
+
             if (commandType.equals(CommandType.COMPOUND_COMMAND)){
                 arguments = getArgumentsOfCompoundCommands(commandName);
             }

@@ -18,6 +18,7 @@ public class StudyGroupFactory implements IStudyGroupFactory {
     public StudyGroupFactory(IdProducer idProducer){
         this.idProducer = idProducer;
     }
+
     @Override
     public StudyGroup createNewStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException {
         if (studyGroupDTO == null){

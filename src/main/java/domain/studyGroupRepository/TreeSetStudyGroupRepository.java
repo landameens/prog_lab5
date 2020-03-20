@@ -22,7 +22,7 @@ import java.util.TreeSet;
 import static domain.studyGroup.StudyGroup.getStudyGroupDTO;
 
 /**
- * This class are realize IStudyGroupRepository interface for working with Tree set.
+ * These class are realize IStudyGroupRepository interface for working with Tree set.
  */
 public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Saveable {
 

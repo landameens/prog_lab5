@@ -34,7 +34,6 @@ public class QueryBuilderForCompoundCommands extends QueryBuilder {
             simpleArguments = interpretator.interpretateSimpleCommandArguments(name, commandList);
         }
         arguments.putAll(simpleArguments);
-        Query query = new Query(name, type, arguments);
-        return query;
+        return new Query(name, type, arguments);
     }
 }

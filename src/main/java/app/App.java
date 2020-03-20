@@ -37,11 +37,11 @@ public final class App {
 
     public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException, StudyGroupRepositoryException {
         Console console = new Console(System.in, System.out);
-//        try {
-//            console.start();
-//        } catch (InputException e ){
-//            console.showExceptionMessage(e);
-//        }
+        try {
+            console.start();
+        } catch (InputException e ){
+            console.showExceptionMessage(e);
+        }
 
         ClassLoader classLoader = App.class.getClassLoader();
         String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";

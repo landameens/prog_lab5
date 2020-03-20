@@ -25,7 +25,6 @@ public class QueryBuilderForSimpleCommands extends QueryBuilder {
     public Query buildQuery(CommandName name, CommandType type, List<String> commandList, HashMap<String,String> arguments) throws InputException {
         validator.validateSimpleCommandArguments(name, commandList);
         arguments = interpretator.interpretateSimpleCommandArguments(name, commandList);
-        Query query = new Query(name, type, arguments);
-        return query;
+        return new Query(name, type, arguments);
     }
 }
