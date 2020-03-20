@@ -18,6 +18,7 @@ public final class Console {
     private Validator validator;
     private Viewer viewer;
 
+    //TODO: final Strind'и принято писать  в самом начале, до полей класса
     private final String INTERNAL_ERROR_WITH_IO = "Ошибка ввода-вывода. ";
 
     public Console(InputStream input, OutputStream output){
@@ -27,23 +28,32 @@ public final class Console {
 
     public void start() throws InputException, IOException, InternalException {
         while (true){
+            //TODO: займись здесь рефакторингом, кода крайне много и его трудно удерживать в голове весь
+            // нижние 4 строки можно спокойно заменить одной, например
+            // String command = getUserInput();
             String command = reader.readLine();
             command = command.trim();
             String[] commandArray = command.split("[\\s]+");
             validator.validateCommandName(commandArray[1]);
-            //TODO: Данный метод можно спокойно вынести из интерпретатора в класс-енам, в методы (например) public static getInstance(String name) {}
 
+            //TODO: Данный метод можно спокойно вынести из интерпретатора в класс-енам, в методы (например) public static getInstance(String name) {}
+            // ибо когда много if-ов, всегда больно смотреть на код и ухудшается читаемость
             CommandName commandName = interpretator.interpretateCommandName(commandArray[1]);
+
+
             CommandType commandType = interpretator.interpretateCommandType(commandName);
             List<String> commandList = new ArrayList<>();
             Collections.addAll(commandList, commandArray);
             validator.validateNumberOfArguments(commandName, commandType, commandList);
 
+            //TODO: нарушение SOLID - DIP
+            // Map<> map = new HashMap<>()
             HashMap<String, String> arguments = new HashMap<>();
             if (commandType.equals(CommandType.COMPOUND_COMMAND)){
                 arguments = getArgumentsOfCompoundCommands(commandName);
             }
 
+            //TODO: фабрика фабрик не круто - в крайнемм случае можно юзать мапу
             QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory();
             QueryBuilder queryBuilder = queryBuilderFactory.getQueryBuilder(commandType);
             Query query = queryBuilder.buildQuery(commandName, commandType, commandList, arguments);
@@ -74,8 +84,14 @@ public final class Console {
      * @return
      * @throws InternalException
      */
+    //TODO: нарушение солида в возвращаемом значении
     public HashMap<String, String> getArgumentsOfCompoundCommands(CommandName name) throws InternalException {
+        //TODO: нарушение солида
         HashMap<String,String> mapOfArguments = new HashMap<>();
+        //TODO: а тут уже не нарушаешь, хех
+        // с методами намудрила конечно)
+        // интерпретатор лишнее звено, моно сразу к вьюверу обратиться
+        // и будь проще) viewer.getMap(name) /// return mapOfMaps.get(name)
         Map<String, String> mapForInputArguments = interpretator.getMapForInputArguments(name, viewer);
         for (Map.Entry<String,String> entry : mapForInputArguments.entrySet()){
             String field = entry.getKey();
@@ -86,6 +102,7 @@ public final class Console {
             while (flag) {
                 try {
                     String userInput = reader.readLine();
+                    //TODO: результат trim() нигде не учитывается
                     userInput.trim();
                     //number of args?
                     validator.validateElementFields(field, userInput);
