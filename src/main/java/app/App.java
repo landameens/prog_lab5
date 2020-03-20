@@ -1,5 +1,11 @@
 package app;
 
+import app.Exceptions.InputException;
+import app.Exceptions.InternalException;
+
+import java.io.IOException;
+
+public final class App {
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
 import domain.studyGroup.FormOfEducation;
@@ -26,6 +32,13 @@ public class App {
         if (args.length != 2) {
             System.err.println(LACK_OF_ARGUMENTS_ERROR);
             System.exit(1);
+        }
+    public static void main(String[] args) throws IOException, InternalException {
+        Console console = new Console(System.in, System.out);
+        try {
+            console.start();
+        } catch (InputException e ){
+            console.showExceptionMessage(e);
         }
     }
     private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the fail}";

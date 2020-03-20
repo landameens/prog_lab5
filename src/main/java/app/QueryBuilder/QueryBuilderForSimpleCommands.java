@@ -10,9 +10,9 @@ import java.util.List;
 public class QueryBuilderForSimpleCommands extends QueryBuilder {
 
     @Override
-    public Query buildQuery(CommandName name, CommandType type, List<String> commandList) throws InputException {
+    public Query buildQuery(CommandName name, CommandType type, List<String> commandList, HashMap<String,String> arguments) throws InputException {
         validator.validateSimpleCommandArguments(name, commandList);
-        HashMap<String, String> arguments = interpretator.interpretateSimpleCommandArguments(name, commandList);
+        arguments = interpretator.interpretateSimpleCommandArguments(name, commandList);
         Query query = new Query(name, type, arguments);
         return query;
     }

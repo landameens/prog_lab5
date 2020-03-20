@@ -11,8 +11,9 @@ import java.util.List;
 public class QueryBuilderForCommandsWithoutArguments extends QueryBuilder {
 
     @Override
-    public Query buildQuery(CommandName name, CommandType type, List<String> commandList) {
-        Query query = new Query(name, type, new HashMap<>() );
+    public Query buildQuery(CommandName name, CommandType type, List<String> commandList, HashMap<String, String> arguments) {
+        arguments = new HashMap<>();
+        Query query = new Query(name, type, arguments );
         return query;
     }
 }
