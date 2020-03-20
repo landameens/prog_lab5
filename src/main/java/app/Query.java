@@ -2,7 +2,9 @@ package app;
 
 import java.util.HashMap;
 
-
+/**
+ * This class contains all the information about the command, its name, type and arguments.
+ */
 public final class Query {
     //TODO: Лучше передавать стрингу, а не енам, когда будешь настраивать сервер могут появиться проблемы из-за сложности енама относительно стринги.
     private CommandName commandName;

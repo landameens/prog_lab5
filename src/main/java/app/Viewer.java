@@ -6,6 +6,9 @@ import java.util.Map;
 
 import static app.CommandName.*;
 
+/**
+ * This class is responsible for displaying invitation messages before user's input or command results in console.
+ */
 public final class Viewer {
     private final Map<String, String> addCommandMessages = new LinkedHashMap<String, String>() {
         {

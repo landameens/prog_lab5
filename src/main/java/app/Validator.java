@@ -9,6 +9,9 @@ import java.util.Map;
 
 import static app.CommandName.*;
 
+/**
+ * This class is responsible for validating user's input, command name, number of arguments, type of arguments, and others.
+ */
 public final class Validator {
 
     private final String UNKNOWN_COMMAND = "Ошибка: Неизвестная команда.";
@@ -44,6 +47,11 @@ public final class Validator {
 
     };
 
+    /**
+     * Validates if user's command exist.
+     * @param commandName
+     * @throws InputException
+     */
     public void validateCommandName(String commandName) throws InputException {
         if (!allCommands.contains(commandName)) throw new InputException(UNKNOWN_COMMAND);
     }
@@ -63,7 +71,13 @@ public final class Validator {
 
     };
 
-
+    /**
+     * Validates number of arguments for each command.
+     * @param name
+     * @param type
+     * @param commandList
+     * @throws InputException
+     */
     public  void validateNumberOfArguments(CommandName name, CommandType type, List<String> commandList) throws InputException {
         int numberOfArgs = commandList.size()-1;
         if (type.equals(CommandType.COMMAND_WITHOUT_ARGUMENTS) & (numberOfArgs>0) ) {
@@ -76,6 +90,12 @@ public final class Validator {
 
     }
 
+    /**
+     * Validates argument value of simple commands.
+     * @param name
+     * @param commandList
+     * @throws InputException
+     */
     public void validateSimpleCommandArguments(CommandName name, List<String> commandList) throws InputException {
         switch (name){
             case REMOVE_BY_ID:
@@ -104,6 +124,12 @@ public final class Validator {
         }
     }
 
+    /**
+     * Validates value of simple arguments of compound commands.
+     * @param name
+     * @param commandList
+     * @throws InputException
+     */
     public void validateSimpleArgumentsOfCompoundCommand(CommandName name, List<String> commandList) throws InputException {
         switch (name){
             case UPDATE:
@@ -118,6 +144,12 @@ public final class Validator {
         }
     }
 
+    /**
+     * Validates value of each field needed for adding an element in the collection.
+     * @param field
+     * @param value
+     * @throws InputException
+     */
     public void validateElementFields (String field, String value) throws InputException {
         switch (field){
             case "StudyGroupName":

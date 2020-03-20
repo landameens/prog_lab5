@@ -7,6 +7,9 @@ import java.util.Map;
 import static app.CommandName.*;
 import static app.CommandType.*;
 
+/**
+ * This class is responsible for interpretating user's input
+ */
 public final class Interpretator {
 
     private Map<CommandName, CommandType> allCommands = new HashMap<CommandName, CommandType>(){
@@ -47,6 +50,11 @@ public final class Interpretator {
         return allCommands.get(commandName);
     }
 
+    /**
+     * For user's input string of a command name returns enum constant.
+     * @param name
+     * @return
+     */
     public CommandName interpretateCommandName(String name){
         //TODO: много if-ов очень не круто, посмотри, если хочешь писать чистый код, чекни TODOшку в Console.java
         if (name.equals("help") )
@@ -84,10 +92,22 @@ public final class Interpretator {
         else return null;
     }
 
+    /**
+     * Returns a map of fields and invitation messages for a command.
+     * @param name
+     * @param viewer
+     * @return
+     */
     public Map<String, String> getMapForInputArguments (CommandName name, Viewer viewer){
         return viewer.getInputMessagesMap().get(name);
     }
 
+    /**
+     * Makes map of field and argument values for building a query for simple commands.
+     * @param name
+     * @param commandList
+     * @return
+     */
     public HashMap<String, String> interpretateSimpleCommandArguments (CommandName name, List<String> commandList) {
         String field = mapOfNamesAndFields.get(name);
         String argument = commandList.get(1);
