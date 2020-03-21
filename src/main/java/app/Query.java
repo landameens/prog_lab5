@@ -1,5 +1,6 @@
 package app;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -9,6 +10,7 @@ public final class Query {
     //TODO: Лучше передавать стрингу, а не енам, когда будешь настраивать сервер могут появиться проблемы из-за сложности енама относительно стринги.
     private String commandName;
     private String commandType;
+    //TODO: solid
     private HashMap<String, String> arguments;
 
     public Query(String commandName, String commandType, HashMap<String,String> arguments){
@@ -17,12 +19,12 @@ public final class Query {
         this.arguments = arguments;
     }
 
-    public CommandName getCommandName() {
-        return CommandName.getCommandNameEnum(commandName);
+    public String getCommandName() {
+        return commandName;
     }
 
-    public CommandType getCommandType() {
-        return CommandType.getCommandTypeEnum(commandType);
+    public String getCommandType() {
+        return commandType;
     }
 
     public HashMap<String, String> getArguments() {

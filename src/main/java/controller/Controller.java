@@ -8,10 +8,10 @@ public class Controller {
 
     public Response handleQuery(Query query){
 
-        String commandName = query.getCommandName().getName();
+        String commandName = query.getCommandName();
 
-        Command command = new Command(commandName);
-        Response response = command.execute();
-        return ;
+        Command command ;
+
+        return command.execute();
     }
 }
