@@ -55,41 +55,8 @@ public final class Interpretator {
      * @param name
      * @return
      */
-    public CommandName interpretateCommandName(String name){
-        //TODO: много if-ов очень не круто, посмотри, если хочешь писать чистый код, чекни TODOшку в Console.java
-        if (name.equals("help") )
-            return HELP;
-        if (name.equals("info") )
-            return INFO;
-        if (name.equals("show") )
-            return SHOW;
-        if (name.equals("add") )
-            return ADD;
-        if (name.equals("update") )
-            return UPDATE;
-        if (name.equals("remove_by_id") )
-            return REMOVE_BY_ID;
-        if (name.equals("clear") )
-            return CLEAR;
-        if (name.equals("save") )
-            return SAVE;
-        if (name.equals("execute_script") )
-            return EXECUTE_SCRIPT;
-        if (name.equals("exit") )
-            return EXIT;
-        if (name.equals("add_if_min") )
-            return ADD_IF_MIN;
-        if (name.equals("remove_lower") )
-            return REMOVE_LOWER;
-        if (name.equals("history") )
-            return HISTORY;
-        if (name.equals("count_by_group_admin") )
-            return COUNT_BY_GROUP_ADMIN;
-        if (name.equals("filter_by_should_be_expelled") )
-            return FILTER_BY_SHOULD_BE_EXPELLED;
-        if (name.equals("filter_less_than_should_be_expelled") )
-            return FILTER_LESS_THEN_SHOULD_BE_EXPELLED;
-        else return null;
+    public CommandName interpretableCommandName(String name){
+        return CommandName.getCommandNameEnum(name);
     }
 
     /**

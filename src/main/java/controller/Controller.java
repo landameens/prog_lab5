@@ -2,7 +2,7 @@ package controller;
 
 import app.Query;
 import controller.commands.Command;
-import controller.responce.Response;
+import controller.response.Response;
 
 public class Controller {
 

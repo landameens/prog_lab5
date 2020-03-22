@@ -2,18 +2,18 @@ package app;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class contains all the information about the command, its name, type and arguments.
  */
 public final class Query {
-    //TODO: Лучше передавать стрингу, а не енам, когда будешь настраивать сервер могут появиться проблемы из-за сложности енама относительно стринги.
+    //TODO: пакетирование - сделать пакет query и в него засунуть нужные классы
     private String commandName;
     private String commandType;
-    //TODO: solid
-    private HashMap<String, String> arguments;
+    private Map<String, String> arguments;
 
-    public Query(String commandName, String commandType, HashMap<String,String> arguments){
+    public Query(String commandName, String commandType, Map<String,String> arguments){
         this.commandName = commandName;
         this.commandType = commandType;
         this.arguments = arguments;
@@ -27,7 +27,7 @@ public final class Query {
         return commandType;
     }
 
-    public HashMap<String, String> getArguments() {
+    public Map<String, String> getArguments() {
         return arguments;
     }
 }

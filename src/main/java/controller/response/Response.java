@@ -1,4 +1,4 @@
-package controller.responce;
+package controller.response;
 
 public class Response {
 

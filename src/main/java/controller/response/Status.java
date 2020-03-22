@@ -1,6 +1,4 @@
-package controller.responce;
-
-import domain.studyGroup.Semester;
+package controller.response;
 
 public enum Status {
     SUCCESSIVELY("200"),

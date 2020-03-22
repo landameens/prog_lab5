@@ -156,11 +156,4 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         }
         studyGroupDAO.saveDTOs(studyGroupDTOSet);
     }
-
-    //TODO: метод нужен для отладки, не забыть удалить
-    public void returnStudyGroup(){
-        for (StudyGroup studyGroup : studyGroups){
-            System.out.println(studyGroup.clone());
-        }
-    }
 }

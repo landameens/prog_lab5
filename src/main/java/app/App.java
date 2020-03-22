@@ -27,25 +27,11 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public final class App {
-    private static void checkInputPath(String[] args) {
-        if (args.length != 2) {
-            System.err.println(LACK_OF_ARGUMENTS_ERROR);
-            System.exit(1);
-        }
-    }
     private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the fail}";
 
     public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException, StudyGroupRepositoryException {
-        Console console = new Console(System.in, System.out);
-        try {
-            console.start();
-        } catch (InputException e ){
-            console.showExceptionMessage(e);
-        }
-
         ClassLoader classLoader = App.class.getClassLoader();
         String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
-
 
         if (args.length > 0) {
             checkInputPath(args);
@@ -64,9 +50,16 @@ public final class App {
             if (modifier == null) {
                 System.err.println(LACK_OF_ARGUMENTS_ERROR);
             }
-
         }
 
+        //TODO: выводить сообщение ошибки не через метод, а System.err
+        Console console = new Console(System.in, System.out);
+        try {
+            console.start();
+        } catch (InputException e ){
+
+            System.err.println();
+        }
 
         IdProducer idProducer = new IdProducer();
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
@@ -92,8 +85,13 @@ public final class App {
         studyGroupDTO.shouldBeExpelled = 2L;
 
         studyGroupRepository.add(studyGroupDTO);
-        studyGroupRepository.returnStudyGroup();
         studyGroupRepository.save();
     }
 
+    private static void checkInputPath(String[] args) {
+        if (args.length != 2) {
+            System.err.println(LACK_OF_ARGUMENTS_ERROR);
+            System.exit(1);
+        }
+    }
 }

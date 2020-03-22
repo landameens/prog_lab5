@@ -1,7 +1,7 @@
 package controller.commands;
 
-import controller.responce.Response;
-import controller.responce.ResponseDTO;
+import controller.response.Response;
+import controller.response.ResponseDTO;
 
 import java.util.Map;
 
