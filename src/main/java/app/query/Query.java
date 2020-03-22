@@ -8,7 +8,6 @@ import java.util.Map;
  * This class contains all the information about the command, its name, type and arguments.
  */
 public final class Query {
-    //TODO: пакетирование - сделать пакет query и в него засунуть нужные классы
     private String commandName;
     private String commandType;
     private Map<String, String> arguments;

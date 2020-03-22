@@ -1,5 +1,6 @@
 package controller.commands;
 
+import app.query.Query;
 import controller.response.Response;
 import controller.response.ResponseDTO;
 
@@ -16,7 +17,5 @@ public abstract class Command {
         this.args = args;
     }
 
-    public Response execute(){
-        return Response.getResponse(responseDTO);
-    }
+    abstract Response execute(Query query);
 }

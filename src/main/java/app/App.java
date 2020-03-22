@@ -7,27 +7,18 @@ import java.io.IOException;
 
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
-import domain.studyGroup.FormOfEducation;
-import domain.studyGroup.Semester;
-import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
-import domain.studyGroup.coordinates.Coordinates;
 import domain.studyGroup.coordinates.CoordinatesDTO;
-import domain.studyGroup.person.Country;
-import domain.studyGroup.person.Person;
 import domain.studyGroup.person.PersonDTO;
 import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
-import storage.StudyGroupDAO;
 import storage.exception.DAOException;
 
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.Set;
 
 public final class App {
-    private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the fail}";
+    private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the file}";
 
     public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException, StudyGroupRepositoryException {
         ClassLoader classLoader = App.class.getClassLoader();
@@ -52,13 +43,11 @@ public final class App {
             }
         }
 
-        //TODO: выводить сообщение ошибки не через метод, а System.err
         Console console = new Console(System.in, System.out);
         try {
             console.start();
-        } catch (InputException e ){
-
-            System.err.println();
+        } catch (InputException e){
+            System.err.println(e.getMessage());
         }
 
         IdProducer idProducer = new IdProducer();

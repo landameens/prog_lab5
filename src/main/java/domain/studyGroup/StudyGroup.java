@@ -189,7 +189,6 @@ public class StudyGroup implements Cloneable{
         }
 
         StudyGroup that = (StudyGroup) o;
-        //TODO: дописать про IdProducer
         return this.id.equals(that.id);
     }
 

@@ -34,7 +34,7 @@ public final class Console {
             String[] commandArray = command.split("[\\s]+");
             validator.validateCommandName(commandArray[1]);
             //TODO: Данный метод можно спокойно вынести из интерпретатора в класс-енам, в методы (например) public static getInstance(String name) {}
-
+            
             CommandName commandName = interpretator.interpretableCommandName(commandArray[1]);
             CommandType commandType = interpretator.interpretateCommandType(commandName);
             List<String> commandList = new ArrayList<>();
