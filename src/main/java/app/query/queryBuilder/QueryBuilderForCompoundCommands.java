@@ -1,11 +1,7 @@
-package app.QueryBuilder;
+package app.query.queryBuilder;
 
-import app.CommandName;
-import app.CommandType;
 import app.Exceptions.InputException;
-import app.Query;
-import app.QueryBuilder.QueryBuilder;
-import app.Viewer;
+import app.query.Query;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +23,18 @@ public class QueryBuilderForCompoundCommands extends QueryBuilder {
      * @throws InputException
      */
     @Override
-    public Query buildQuery(CommandName name, CommandType type, List<String> commandList, HashMap<String,String> arguments) throws InputException {
+    public Query buildQuery(String name,
+                            String type,
+                            List<String> commandList,
+                            Map<String,String> arguments) throws InputException {
         validator.validateSimpleArgumentsOfCompoundCommand(name, commandList);
-        HashMap<String, String> simpleArguments = new HashMap<>();
-        if (name.equals(CommandName.UPDATE)) {
+
+        Map<String, String> simpleArguments = new HashMap<>();
+        if (name.equals("update")) {
             simpleArguments = interpretator.interpretateSimpleCommandArguments(name, commandList);
         }
         arguments.putAll(simpleArguments);
+
         return new Query(name, type, arguments);
     }
 }

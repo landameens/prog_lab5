@@ -10,7 +10,8 @@ public abstract class Command {
     protected Map<String, String> args;
     protected ResponseDTO responseDTO;
 
-    public Command(String type, Map<String, String> args) {
+    public Command(String type,
+                   Map<String, String> args) {
         this.type = type;
         this.args = args;
     }

@@ -1,6 +1,5 @@
-package app.QueryBuilder;
+package app.query.queryBuilder;
 
-import app.CommandName;
 import app.CommandType;
 
 /**

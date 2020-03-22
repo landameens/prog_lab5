@@ -14,16 +14,16 @@ import static app.CommandName.*;
  */
 public final class Validator {
 
-    private final String UNKNOWN_COMMAND = "Ошибка: Неизвестная команда.";
-    private final String WRONG_NUMBER_OF_ARGUMENTS = "Ошибка: Неверное количество аргументов. ";
-    private final String NULL_ARGUMENT = "Ошибка: Аргумент не может быть null. ";
-    private final String NOT_INTEGER_ARGUMENT = "Ошибка: Аргумент не целочисленный. ";
-    private final String NOT_FLOAT_ARGUMENT = "Ошибка: Аргумент не вещественный.";
-    private final String NEGATIVE_ARGUMENT = "Ошибка: Аргумент не является положительным числом. ";
-    private final String MORE_THEN_28 = "Ошибка: Аргумент превысил максимальное знаение 28. ";
-    private final String NOT_LONG_ARGUMENT = "Ошибка: Аргумент не целочисленный. ";
-    private final String NOT_ENUM_CONSTANT = "Ошибка: Аргумент не является константой Enum. ";
-    private final String EMPTY_STRING = "Ошибка: Строка не может быть пустой. ";
+    private final static String UNKNOWN_COMMAND = "Ошибка: Неизвестная команда.";
+    private final static String WRONG_NUMBER_OF_ARGUMENTS = "Ошибка: Неверное количество аргументов. ";
+    private final static String NULL_ARGUMENT = "Ошибка: Аргумент не может быть null. ";
+    private final static String NOT_INTEGER_ARGUMENT = "Ошибка: Аргумент не целочисленный. ";
+    private final static String NOT_FLOAT_ARGUMENT = "Ошибка: Аргумент не вещественный.";
+    private final static String NEGATIVE_ARGUMENT = "Ошибка: Аргумент не является положительным числом. ";
+    private final static String MORE_THEN_28 = "Ошибка: Аргумент превысил максимальное знаение 28. ";
+    private final static String NOT_LONG_ARGUMENT = "Ошибка: Аргумент не целочисленный. ";
+    private final static String NOT_ENUM_CONSTANT = "Ошибка: Аргумент не является константой Enum. ";
+    private final static String EMPTY_STRING = "Ошибка: Строка не может быть пустой. ";
 
     private List<String> allCommands = new ArrayList<String>(){
         {
@@ -78,8 +78,11 @@ public final class Validator {
      * @param commandList
      * @throws InputException
      */
-    public  void validateNumberOfArguments(CommandName name, CommandType type, List<String> commandList) throws InputException {
+    public  void validateNumberOfArguments(CommandName name,
+                                           CommandType type,
+                                           List<String> commandList) throws InputException {
         int numberOfArgs = commandList.size()-1;
+
         if (type.equals(CommandType.COMMAND_WITHOUT_ARGUMENTS) & (numberOfArgs>0) ) {
             throw new InputException(WRONG_NUMBER_OF_ARGUMENTS);
         } else {
@@ -96,9 +99,10 @@ public final class Validator {
      * @param commandList
      * @throws InputException
      */
-    public void validateSimpleCommandArguments(CommandName name, List<String> commandList) throws InputException {
+    public void validateSimpleCommandArguments(String name,
+                                               List<String> commandList) throws InputException {
         switch (name){
-            case REMOVE_BY_ID:
+            case "removeById":
                 if (commandList.get(1) == null) { throw new InputException(NULL_ARGUMENT); }
                 try {
                     int id = Integer.parseInt(commandList.get(1));
@@ -108,12 +112,12 @@ public final class Validator {
                 }
                 break;
 
-            case EXECUTE_SCRIPT:
+            case "executeScript":
                 if (commandList.get(1) == null) { throw new InputException(NULL_ARGUMENT); }
                 break;
 
-            case FILTER_BY_SHOULD_BE_EXPELLED:
-            case FILTER_LESS_THEN_SHOULD_BE_EXPELLED:
+            case "filterByShouldBeExpelled":
+            case "filterLessThanShouldBeExpelled":
                 try {
                     int shouldBeExpelled = Integer.parseInt(commandList.get(1));
                     if (shouldBeExpelled <= 0) {throw new InputException(NEGATIVE_ARGUMENT); }
@@ -130,9 +134,10 @@ public final class Validator {
      * @param commandList
      * @throws InputException
      */
-    public void validateSimpleArgumentsOfCompoundCommand(CommandName name, List<String> commandList) throws InputException {
+    public void validateSimpleArgumentsOfCompoundCommand(String name,
+                                                         List<String> commandList) throws InputException {
         switch (name){
-            case UPDATE:
+            case "update":
                 if (commandList.get(1) == null) { throw new InputException(NULL_ARGUMENT); }
                 try {
                     int id = Integer.parseInt(commandList.get(1));
@@ -150,7 +155,8 @@ public final class Validator {
      * @param value
      * @throws InputException
      */
-    public void validateElementFields (String field, String value) throws InputException {
+    public void validateElementFields (String field,
+                                       String value) throws InputException {
         switch (field){
             case "StudyGroupName":
                 checkStudyGroupName(value);

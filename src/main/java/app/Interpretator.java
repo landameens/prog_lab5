@@ -75,11 +75,14 @@ public final class Interpretator {
      * @param commandList
      * @return
      */
-    public HashMap<String, String> interpretateSimpleCommandArguments (CommandName name, List<String> commandList) {
-        String field = mapOfNamesAndFields.get(name);
+    public HashMap<String, String> interpretateSimpleCommandArguments (String name,
+                                                                       List<String> commandList) {
+        String field = mapOfNamesAndFields.get(CommandName.getCommandNameEnum(name));
         String argument = commandList.get(1);
+
         HashMap<String, String> map = new HashMap<>();
         map.put(field, argument);
+
         return map;
     }
 

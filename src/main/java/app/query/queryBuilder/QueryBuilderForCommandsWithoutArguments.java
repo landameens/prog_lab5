@@ -1,12 +1,10 @@
-package app.QueryBuilder;
+package app.query.queryBuilder;
 
-import app.CommandName;
-import app.CommandType;
-import app.Query;
-import app.QueryBuilder.QueryBuilder;
+import app.query.Query;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is responsible for making query of commands that has no arguments.
@@ -22,7 +20,7 @@ public class QueryBuilderForCommandsWithoutArguments extends QueryBuilder {
      * @return
      */
     @Override
-    public Query buildQuery(CommandName name, CommandType type, List<String> commandList, HashMap<String, String> arguments) {
+    public Query buildQuery(String name, String type, List<String> commandList, Map<String, String> arguments) {
         arguments = new HashMap<>();
         return new Query(name, type, arguments );
     }

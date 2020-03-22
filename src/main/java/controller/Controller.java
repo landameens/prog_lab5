@@ -1,6 +1,6 @@
 package controller;
 
-import app.Query;
+import app.query.Query;
 import controller.commands.Command;
 import controller.response.Response;
 
