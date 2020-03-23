@@ -49,8 +49,8 @@ public final class Console {
 
             QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory();
             QueryBuilder queryBuilder = queryBuilderFactory.getQueryBuilder(commandType);
-            Query query = queryBuilder.buildQuery(commandName.getName(),
-                                                  commandType.getName(),
+            Query query = queryBuilder.buildQuery(commandName,
+                                                  commandType,
                                                   commandList,
                                                   arguments);
 
