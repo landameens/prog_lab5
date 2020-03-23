@@ -23,8 +23,8 @@ public abstract class QueryBuilder {
      * @return
      * @throws InputException
      */
-    public abstract Query buildQuery(String name,
-                                     String type,
+    public abstract Query buildQuery(CommandName name,
+                                     CommandType type,
                                      List<String> commandList,
                                      Map<String,String> arguments) throws InputException;
 }

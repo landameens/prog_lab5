@@ -9,17 +9,17 @@ public enum CommandName {
     SHOW("show"),
     ADD("add"),
     UPDATE("update"),
-    REMOVE_BY_ID("removeById"),
+    REMOVE_BY_ID("remove_by_id"),
     CLEAR("clear"),
     SAVE("save"),
-    EXECUTE_SCRIPT("executeScript"),
+    EXECUTE_SCRIPT("execute_script"),
     EXIT("exit"),
-    ADD_IF_MIN("addIfMin"),
-    REMOVE_LOWER("removeLover"),
+    ADD_IF_MIN("add_if_min"),
+    REMOVE_LOWER("remove_lover"),
     HISTORY("history"),
-    COUNT_BY_GROUP_ADMIN("countByGroupAdmin"),
-    FILTER_BY_SHOULD_BE_EXPELLED("filterByShouldBeExpelled"),
-    FILTER_LESS_THEN_SHOULD_BE_EXPELLED("filterLessThanShouldBeExpelled");
+    COUNT_BY_GROUP_ADMIN("count_by_group_admin"),
+    FILTER_BY_SHOULD_BE_EXPELLED("filter_by_should_be_expelled"),
+    FILTER_LESS_THEN_SHOULD_BE_EXPELLED("filter_less_than_should_be_expelled");
 
     private String name;
 

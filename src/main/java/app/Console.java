@@ -33,9 +33,8 @@ public final class Console {
             command = command.trim();
             String[] commandArray = command.split("[\\s]+");
             validator.validateCommandName(commandArray[1]);
-            //TODO: Данный метод можно спокойно вынести из интерпретатора в класс-енам, в методы (например) public static getInstance(String name) {}
-            
-            CommandName commandName = interpretator.interpretableCommandName(commandArray[1]);
+
+            CommandName commandName = interpretator.interpretateCommandName(commandArray[1]);
             CommandType commandType = interpretator.interpretateCommandType(commandName);
             List<String> commandList = new ArrayList<>();
 
@@ -51,10 +50,9 @@ public final class Console {
             QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory();
             QueryBuilder queryBuilder = queryBuilderFactory.getQueryBuilder(commandType);
             Query query = queryBuilder.buildQuery(commandName.getName(),
-                    commandType.getName(),
-                    commandList,
-                    arguments);
-            //TODO: создать Controller, передавать туды запрос и получать ответ и т.д. и т.р.........
+                                                  commandType.getName(),
+                                                  commandList,
+                                                  arguments);
 
         }
     }
@@ -91,7 +89,7 @@ public final class Console {
             while (flag) {
                 try {
                     String userInput = reader.readLine();
-                    userInput.trim();
+                    userInput = userInput.trim();
                     //number of args?
                     validator.validateElementFields(field, userInput);
                     flag = false;

@@ -1,5 +1,7 @@
 package app.query.queryBuilder;
 
+import app.CommandName;
+import app.CommandType;
 import app.Exceptions.InputException;
 import app.query.Query;
 
@@ -21,9 +23,9 @@ public class QueryBuilderForSimpleCommands extends QueryBuilder {
      * @throws InputException
      */
     @Override
-    public Query buildQuery(String name, String type, List<String> commandList, Map<String,String> arguments) throws InputException {
+    public Query buildQuery(CommandName name, CommandType type, List<String> commandList, Map<String,String> arguments) throws InputException {
         validator.validateSimpleCommandArguments(name, commandList);
         arguments = interpretator.interpretateSimpleCommandArguments(name, commandList);
-        return new Query(name, type, arguments);
+        return new Query(name.getName(), type.getName(), arguments);
     }
 }
