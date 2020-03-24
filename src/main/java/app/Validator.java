@@ -102,10 +102,10 @@ public final class Validator {
      * @param commandList
      * @throws InputException
      */
-    public void validateSimpleCommandArguments(String name,
+    public void validateSimpleCommandArguments(CommandName name,
                                                List<String> commandList) throws InputException {
         switch (name){
-            case "removeById":
+            case REMOVE_BY_ID:
                 if (commandList.get(1) == null) { throw new InputException(NULL_ARGUMENT); }
                 try {
                     int id = Integer.parseInt(commandList.get(1));
@@ -115,12 +115,12 @@ public final class Validator {
                 }
                 break;
 
-            case "executeScript":
+            case EXECUTE_SCRIPT:
                 if (commandList.get(1) == null) { throw new InputException(NULL_ARGUMENT); }
                 break;
 
-            case "filterByShouldBeExpelled":
-            case "filterLessThanShouldBeExpelled":
+            case FILTER_BY_SHOULD_BE_EXPELLED:
+            case FILTER_LESS_THEN_SHOULD_BE_EXPELLED:
                 try {
                     int shouldBeExpelled = Integer.parseInt(commandList.get(1));
                     if (shouldBeExpelled <= 0) {throw new InputException(NEGATIVE_ARGUMENT); }
@@ -137,10 +137,10 @@ public final class Validator {
      * @param commandList
      * @throws InputException
      */
-    public void validateSimpleArgumentsOfCompoundCommand(String name,
+    public void validateSimpleArgumentsOfCompoundCommand(CommandName name,
                                                          List<String> commandList) throws InputException {
         switch (name){
-            case "update":
+            case UPDATE:
                 if (commandList.get(1) == null) { throw new InputException(NULL_ARGUMENT); }
                 try {
                     int id = Integer.parseInt(commandList.get(1));
