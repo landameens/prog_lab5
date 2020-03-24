@@ -1,8 +1,7 @@
 package controller.commands.factory;
 
 import controller.commands.Command;
-import controller.commands.TestCommand;
-import controller.commands.factory.ICommandFactory;
+import controller.commands.HelpCommand;
 import domain.exception.CreationException;
 
 import java.lang.reflect.Constructor;
@@ -10,13 +9,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO: в имени должно быть Factory - не понятен контекст класса
-public class SimpleCommands implements ICommandFactory {
+public class SimpleCommandsFactory implements ICommandFactory {
 
-    //TODO: нейминг
-    private Map<String, Class<? extends Command>> map = new HashMap<String, Class<? extends Command>>() {
+    private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
         {
-            put("help", TestCommand.class);
+            put("help", HelpCommand.class);
         }
     };
 
@@ -24,7 +21,7 @@ public class SimpleCommands implements ICommandFactory {
     public Command createCommand(String commandName,
                                  String commandType,
                                  Map<String, String> arguments) throws CreationException {
-        Class<? extends Command> clazz = map.get(commandName);
+        Class<? extends Command> clazz = classMap.get(commandName);
         try {
             Constructor<? extends Command> constructor = clazz.getConstructor(String.class, Map.class);
             return constructor.newInstance(commandType, arguments);
