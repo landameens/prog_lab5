@@ -32,7 +32,6 @@ public final class Interpretator {
             put(HISTORY, COMMAND_WITHOUT_ARGUMENTS);
             put(FILTER_BY_SHOULD_BE_EXPELLED, SIMPLE_COMMAND);
             put(FILTER_LESS_THEN_SHOULD_BE_EXPELLED, SIMPLE_COMMAND);
-            put(TEST, COMMAND_WITHOUT_ARGUMENTS);
         }
 
     };

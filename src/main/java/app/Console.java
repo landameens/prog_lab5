@@ -40,9 +40,9 @@ public final class Console {
             String command = reader.readLine();
             command = command.trim();
             String[] commandArray = command.split("[\\s]+");
-            validator.validateCommandName(commandArray[1]);
+            validator.validateCommandName(commandArray[0]);
 
-            CommandName commandName = interpretator.interpretateCommandName(commandArray[1]);
+            CommandName commandName = interpretator.interpretateCommandName(commandArray[0]);
             CommandType commandType = interpretator.interpretateCommandType(commandName);
             List<String> commandList = new ArrayList<>();
 
