@@ -5,6 +5,8 @@ import app.Exceptions.InternalException;
 import app.query.Query;
 import app.query.queryBuilder.QueryBuilder;
 import app.query.queryBuilder.QueryBuilderFactory;
+import controller.Controller;
+import domain.exception.CreationException;
 
 import java.io.*;
 import java.util.*;
@@ -13,18 +15,24 @@ import java.util.*;
  * This class is responsible for input-output, it forms the query and handles it to controller to get response.
  */
 public final class Console {
+    private final String INTERNAL_ERROR_WITH_IO = "Ошибка ввода-вывода. ";
+
     private BufferedReader reader;
     private BufferedOutputStream writer;
     private Interpretator interpretator;
     private Validator validator;
     private Viewer viewer;
-
-    private final String INTERNAL_ERROR_WITH_IO = "Ошибка ввода-вывода. ";
+    private Controller controller;
 
     public Console(InputStream input,
-                   OutputStream output){
+                   OutputStream output,
+                   Controller controller){
         reader = new BufferedReader(new InputStreamReader(input));
         writer = new BufferedOutputStream(output);
+        this.controller = controller;
+        interpretator = new Interpretator();
+        validator = new Validator();
+        viewer = new Viewer();
     }
 
     public void start() throws InputException, IOException, InternalException {
@@ -32,10 +40,10 @@ public final class Console {
             String command = reader.readLine();
             command = command.trim();
             String[] commandArray = command.split("[\\s]+");
-            validator.validateCommandName(commandArray[1]);
+            validator.validateCommandName(commandArray[0]);
             //TODO: Данный метод можно спокойно вынести из интерпретатора в класс-енам, в методы (например) public static getInstance(String name) {}
             
-            CommandName commandName = interpretator.interpretableCommandName(commandArray[1]);
+            CommandName commandName = interpretator.interpretableCommandName(commandArray[0]);
             CommandType commandType = interpretator.interpretateCommandType(commandName);
             List<String> commandList = new ArrayList<>();
 
@@ -54,8 +62,12 @@ public final class Console {
                     commandType.getName(),
                     commandList,
                     arguments);
-            //TODO: создать Controller, передавать туды запрос и получать ответ и т.д. и т.р.........
 
+            try {
+                writeLine(controller.handleQuery(query).getAnswer());
+            } catch (CreationException e) {
+                throw new InputException(e.getMessage());
+            }
         }
     }
 

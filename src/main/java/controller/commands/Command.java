@@ -17,5 +17,5 @@ public abstract class Command {
         this.args = args;
     }
 
-    abstract Response execute(Query query);
+    public abstract Response execute(Query query);
 }

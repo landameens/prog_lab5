@@ -19,7 +19,8 @@ public enum CommandName {
     HISTORY("history"),
     COUNT_BY_GROUP_ADMIN("countByGroupAdmin"),
     FILTER_BY_SHOULD_BE_EXPELLED("filterByShouldBeExpelled"),
-    FILTER_LESS_THEN_SHOULD_BE_EXPELLED("filterLessThanShouldBeExpelled");
+    FILTER_LESS_THEN_SHOULD_BE_EXPELLED("filterLessThanShouldBeExpelled"),
+    TEST("test");
 
     private String name;
 
