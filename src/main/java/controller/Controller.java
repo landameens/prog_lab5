@@ -3,7 +3,6 @@ package controller;
 import app.query.Query;
 import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
-import controller.commands.Interpretator;
 import controller.response.Response;
 import domain.exception.CreationException;
 

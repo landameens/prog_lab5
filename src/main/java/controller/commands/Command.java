@@ -7,13 +7,13 @@ import controller.response.ResponseDTO;
 import java.util.Map;
 
 public abstract class Command {
-    protected String type;
+    protected String name;
     protected Map<String, String> args;
     protected ResponseDTO responseDTO;
 
-    public Command(String type,
+    public Command(String name,
                    Map<String, String> args) {
-        this.type = type;
+        this.name = name;
         this.args = args;
     }
 

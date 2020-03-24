@@ -10,8 +10,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO: в имени должно быть Factory - не понятен контекст класса
 public class SimpleCommands implements ICommandFactory {
 
+    //TODO: нейминг
     private Map<String, Class<? extends Command>> map = new HashMap<String, Class<? extends Command>>() {
         {
             put("help", TestCommand.class);

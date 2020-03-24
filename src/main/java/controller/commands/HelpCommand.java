@@ -7,6 +7,7 @@ import controller.response.Status;
 
 import java.util.Map;
 
+//TODO: переделать нейминг из Test ---> Help
 public class TestCommand extends Command {
     public TestCommand(String type,
                        Map<String, String> args) {
