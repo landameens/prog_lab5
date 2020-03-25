@@ -35,7 +35,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private Set<StudyGroup> studyGroups;
     private IStudyGroupDAO studyGroupDAO;
 
-    public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory, String path) throws DAOException, VerifyException {
+    public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory,
+                                       String path) throws DAOException, VerifyException {
         this.studyGroupFactory = studyGroupFactory;
         studyGroupDAO = new StudyGroupDAO(path);
 
@@ -44,7 +45,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         studyGroups = getInitialFiles(directory, studyGroupComparator);
     }
 
-    private Set<StudyGroup> getInitialFiles(File directory, Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
+    private Set<StudyGroup> getInitialFiles(File directory,
+                                            Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
         if (!(directory.listFiles().length == 0)) {
             Set<StudyGroupDTO> studyGroupDTOSet;
             try {

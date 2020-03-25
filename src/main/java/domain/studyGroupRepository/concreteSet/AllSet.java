@@ -10,6 +10,9 @@ import java.util.TreeSet;
  * Implementation of ConcreteSet to get a set of all groups.
  */
 public final class AllSet extends ConcreteSet {
+    public AllSet() {
+    }
+
     @Override
     public Set<StudyGroup> execute(Set<StudyGroup> studyGroups) {
         Set<StudyGroup> finalStudyGroup = new TreeSet<>();

@@ -6,14 +6,18 @@ import app.Exceptions.InternalException;
 import java.io.IOException;
 
 import controller.Controller;
+import controller.Interpretator;
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.CoordinatesDTO;
 import domain.studyGroup.person.PersonDTO;
+import domain.studyGroupFactory.IStudyGroupFactory;
 import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupFactory.idProducer.IdProducer;
+import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
+import storage.StudyGroupDAO;
 import storage.exception.DAOException;
 
 import java.net.URL;
@@ -44,7 +48,11 @@ public final class App {
             }
         }
 
-        Controller controller = new Controller();
+        IdProducer idProducer = new IdProducer();
+        StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
+        IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
+        Interpretator interpretator = new Interpretator(studyGroupRepository);
+        Controller controller = new Controller(interpretator);
 
         Console console = new Console(System.in, System.out, controller);
         try {

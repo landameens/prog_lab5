@@ -3,6 +3,7 @@ package controller;
 import controller.commands.factory.ICommandFactory;
 import controller.commands.factory.SimpleCommandsFactory;
 import controller.commands.factory.StudyGroupRepositoryCommandFactory;
+import domain.studyGroupRepository.IStudyGroupRepository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,14 +13,15 @@ public class Interpretator {
     private ICommandFactory simpleCommandsFactory;
     private ICommandFactory studyGroupRepositoryCommandFactory;
 
-    public Interpretator() {
+    public Interpretator(IStudyGroupRepository studyGroupRepository) {
         simpleCommandsFactory = new SimpleCommandsFactory();
-        studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory();
+        studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
     }
 
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
         {
             put("help", SimpleCommandsFactory.class);
+            put("show", StudyGroupRepositoryCommandFactory.class);
         }
     };
 
@@ -31,6 +33,10 @@ public class Interpretator {
             return simpleCommandsFactory;
         }
 
-        return studyGroupRepositoryCommandFactory;
+        if (clazz.equals(studyGroupRepositoryCommandFactory.getClass())) {
+            return studyGroupRepositoryCommandFactory;
+        }
+
+        return null;
     }
 }

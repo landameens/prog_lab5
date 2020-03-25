@@ -7,16 +7,18 @@ import domain.studyGroupRepository.IStudyGroupRepository;
 import java.util.Map;
 
 public class StudyGroupRepositoryCommand extends Command {
-    private IStudyGroupRepository studyGroupRepository;
+    protected IStudyGroupRepository studyGroupRepository;
 
     public StudyGroupRepositoryCommand(String type,
-                                       Map<String, String> args) {
+                                       Map<String, String> args,
+                                       IStudyGroupRepository studyGroupRepository) {
         super(type, args);
+        this.studyGroupRepository = studyGroupRepository;
     }
+
 
     @Override
     public Response execute(Query query) {
-
         return Response.getResponse(responseDTO);
     }
 

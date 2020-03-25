@@ -9,8 +9,8 @@ import domain.exception.CreationException;
 public class Controller {
     private Interpretator interpretator;
 
-    public Controller() {
-        interpretator = new Interpretator();
+    public Controller(Interpretator interpretator) {
+        this.interpretator = interpretator;
     }
 
     public Response handleQuery(Query query) throws CreationException {
