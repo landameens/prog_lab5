@@ -18,7 +18,6 @@ public class QueryBuilderForCompoundCommands extends QueryBuilder {
      * Makes query for compound commands by command name, command type,
      * commandList that contains simple arguments and hashMap of complex arguments.
      * @param name
-     * @param type
      * @param commandList
      * @param arguments
      * @return
@@ -26,7 +25,6 @@ public class QueryBuilderForCompoundCommands extends QueryBuilder {
      */
     @Override
     public Query buildQuery(CommandName name,
-                            CommandType type,
                             List<String> commandList,
                             Map<String,String> arguments) throws InputException {
         validator.validateSimpleArgumentsOfCompoundCommand(name, commandList);
@@ -37,6 +35,6 @@ public class QueryBuilderForCompoundCommands extends QueryBuilder {
         }
         arguments.putAll(simpleArguments);
 
-        return new Query(name.getName(), type.getName(), arguments);
+        return new Query(name.getName(), arguments);
     }
 }

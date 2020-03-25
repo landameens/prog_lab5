@@ -17,14 +17,12 @@ public abstract class QueryBuilder {
     /**
      * Abstract method for creating a query.
      * @param name
-     * @param type
      * @param commandList
      * @param arguments
      * @return
      * @throws InputException
      */
     public abstract Query buildQuery(CommandName name,
-                                     CommandType type,
                                      List<String> commandList,
                                      Map<String,String> arguments) throws InputException;
 }

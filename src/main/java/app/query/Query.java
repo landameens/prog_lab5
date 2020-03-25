@@ -9,14 +9,11 @@ import java.util.Map;
  */
 public final class Query {
     private String commandName;
-    private String commandType;
     private Map<String, String> arguments;
 
     public Query(String commandName,
-                 String commandType,
                  Map<String,String> arguments){
         this.commandName = commandName;
-        this.commandType = commandType;
         this.arguments = arguments;
     }
 
@@ -24,12 +21,14 @@ public final class Query {
         return commandName;
     }
 
-    public String getCommandType() {
-        return commandType;
-    }
-
     public Map<String, String> getArguments() {
         return arguments;
+    }
+
+    //for testing
+    @Override
+    public String toString(){
+        return "Query: commandName = "+ commandName +", arguments = " + arguments.toString();
     }
 }
 

@@ -29,12 +29,16 @@ public final class Console {
 
     public void start() throws InputException, IOException, InternalException {
         while (true){
+       //     writeLine("Write command, please: \n");
             String command = reader.readLine();
             command = command.trim();
             String[] commandArray = command.split("[\\s]+");
-            validator.validateCommandName(commandArray[1]);
+       //     writeLine("value =" + Arrays.toString(commandArray));
+       //     writeLine(commandArray[0]);
+       //     validator.validateCommandName(commandArray[0]);
 
-            CommandName commandName = interpretator.interpretateCommandName(commandArray[1]);
+            CommandName commandName = interpretator.interpretateCommandName(commandArray[0]);
+       //     writeLine("CommandName = " + commandName.getName());
             CommandType commandType = interpretator.interpretateCommandType(commandName);
             List<String> commandList = new ArrayList<>();
 
@@ -50,10 +54,9 @@ public final class Console {
             QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory();
             QueryBuilder queryBuilder = queryBuilderFactory.getQueryBuilder(commandType);
             Query query = queryBuilder.buildQuery(commandName,
-                                                  commandType,
                                                   commandList,
                                                   arguments);
-
+            // writeLine(query.toString());
         }
     }
 

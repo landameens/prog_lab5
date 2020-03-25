@@ -16,14 +16,15 @@ public class QueryBuilderForCommandsWithoutArguments extends QueryBuilder {
     /**
      * Makes query for commands without arguments by command name and command type.
      * @param name
-     * @param type
      * @param commandList
      * @param arguments
      * @return
      */
     @Override
-    public Query buildQuery(CommandName name, CommandType type, List<String> commandList, Map<String, String> arguments) {
+    public Query buildQuery(CommandName name,
+                            List<String> commandList,
+                            Map<String, String> arguments) {
         arguments = new HashMap<>();
-        return new Query(name.getName(), type.getName(), arguments );
+        return new Query(name.getName(), arguments );
     }
 }
