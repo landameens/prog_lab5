@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
     @Override
-    public Command createCommand(String commandName, String commandType, Map<String, String> arguments) {
+    public Command createCommand(String commandName, Map<String, String> arguments) {
         return null;
     }
 }

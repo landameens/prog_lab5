@@ -17,7 +17,7 @@ public class Controller {
 
         ICommandFactory commandFactory = interpretator.getFactoryInstance(query.getCommandName());
 
-        Command command = commandFactory.createCommand(query.getCommandName(), query.getCommandType(), query.getArguments());
+        Command command = commandFactory.createCommand(query.getCommandName(), query.getArguments());
 
         return command.execute(query);
     }
