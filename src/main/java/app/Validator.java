@@ -27,22 +27,22 @@ public final class Validator {
 
     private List<String> allCommands = new ArrayList<String>(){
         {
-            allCommands.add("help");
-            allCommands.add("info");
-            allCommands.add("show");
-            allCommands.add("add");
-            allCommands.add("update");
-            allCommands.add("remove_by_id");
-            allCommands.add("clear");
-            allCommands.add("save");
-            allCommands.add("execute_script");
-            allCommands.add("exit");
-            allCommands.add("add_if_min");
-            allCommands.add("remove_lower");
-            allCommands.add("history");
-            allCommands.add("count_by_group_admin");
-            allCommands.add("filter_by_should_be_expelled");
-            allCommands.add("filter_less_than_should_be_expelled");
+            add("help");
+            add("info");
+            add("show");
+            add("add");
+            add("update");
+            add("remove_by_id");
+            add("clear");
+            add("save");
+            add("execute_script");
+            add("exit");
+            add("add_if_min");
+            add("remove_lower");
+            add("history");
+            add("count_by_group_admin");
+            add("filter_by_should_be_expelled");
+            add("filter_less_than_should_be_expelled");
         }
 
     };
@@ -53,11 +53,14 @@ public final class Validator {
      * @throws InputException
      */
     public void validateCommandName(String commandName) throws InputException {
-        if (!allCommands.contains(commandName)) throw new InputException(UNKNOWN_COMMAND);
+        if (!allCommands.contains(commandName)){
+            throw new InputException(UNKNOWN_COMMAND);
+        }
     }
 
     private final Map<CommandName, Integer> numberOfCommandArguments = new HashMap<CommandName, Integer>() {
         {
+            put(HELP, 0);
             put(ADD, 0);
             put(UPDATE, 1);
             put(REMOVE_BY_ID, 1);

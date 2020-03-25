@@ -1,7 +1,7 @@
 package controller.response;
 
 public enum Status {
-    SUCCESSIVELY("200"),
+    SUCCESSFULLY("200"),
     BAD_REQUEST("400"),
     INTERNAL_ERROR("500"),
     PRECONDITION_FAILED("412");

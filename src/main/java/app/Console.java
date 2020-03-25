@@ -5,6 +5,8 @@ import app.Exceptions.InternalException;
 import app.query.Query;
 import app.query.queryBuilder.QueryBuilder;
 import app.query.queryBuilder.QueryBuilderFactory;
+import controller.Controller;
+import domain.exception.CreationException;
 
 import java.io.*;
 import java.util.*;
@@ -13,18 +15,24 @@ import java.util.*;
  * This class is responsible for input-output, it forms the query and handles it to controller to get response.
  */
 public final class Console {
+    private final String INTERNAL_ERROR_WITH_IO = "Ошибка ввода-вывода. ";
+
     private BufferedReader reader;
     private BufferedOutputStream writer;
     private Interpretator interpretator;
     private Validator validator;
     private Viewer viewer;
-
-    private final String INTERNAL_ERROR_WITH_IO = "Ошибка ввода-вывода. ";
+    private Controller controller;
 
     public Console(InputStream input,
-                   OutputStream output){
+                   OutputStream output,
+                   Controller controller){
         reader = new BufferedReader(new InputStreamReader(input));
         writer = new BufferedOutputStream(output);
+        this.controller = controller;
+        interpretator = new Interpretator();
+        validator = new Validator();
+        viewer = new Viewer();
     }
 
     public void start() throws InputException, IOException, InternalException {
@@ -35,7 +43,7 @@ public final class Console {
             String[] commandArray = command.split("[\\s]+");
        //     writeLine("value =" + Arrays.toString(commandArray));
        //     writeLine(commandArray[0]);
-       //     validator.validateCommandName(commandArray[0]);
+            validator.validateCommandName(commandArray[0]);
 
             CommandName commandName = interpretator.interpretateCommandName(commandArray[0]);
        //     writeLine("CommandName = " + commandName.getName());
@@ -57,6 +65,12 @@ public final class Console {
                                                   commandList,
                                                   arguments);
             // writeLine(query.toString());
+
+            try {
+                writeLine(controller.handleQuery(query).getAnswer());
+            } catch (CreationException e) {
+                throw new InputException(e.getMessage());
+            }
         }
     }
 

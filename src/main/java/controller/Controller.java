@@ -2,16 +2,23 @@ package controller;
 
 import app.query.Query;
 import controller.commands.Command;
+import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
+import domain.exception.CreationException;
 
 public class Controller {
+    private Interpretator interpretator;
 
-    public Response handleQuery(Query query){
+    public Controller() {
+        interpretator = new Interpretator();
+    }
 
-        String commandName = query.getCommandName();
+    public Response handleQuery(Query query) throws CreationException {
 
-        Command command ;
+        ICommandFactory commandFactory = interpretator.getFactoryInstance(query.getCommandName());
 
-        return command.execute();
+        Command command = commandFactory.createCommand(query.getCommandName(), query.getCommandType(), query.getArguments());
+
+        return command.execute(query);
     }
 }
