@@ -7,6 +7,7 @@ import app.query.queryBuilder.QueryBuilder;
 import app.query.queryBuilder.QueryBuilderFactory;
 import controller.Controller;
 import domain.exception.CreationException;
+import domain.exception.StudyGroupRepositoryException;
 
 import java.io.*;
 import java.util.*;
@@ -67,7 +68,7 @@ public final class Console {
 
             try {
                 writeLine(controller.handleQuery(query).getAnswer());
-            } catch (CreationException e) {
+            } catch (CreationException | StudyGroupRepositoryException e) {
                 throw new InputException(e.getMessage());
             }
         }

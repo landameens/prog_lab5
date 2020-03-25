@@ -219,6 +219,13 @@ public class StudyGroup implements Cloneable{
         }
     }
 
+    public static class StudyGroupDTOComparator implements Comparator<StudyGroupDTO>{
+        @Override
+        public int compare(StudyGroupDTO o1, StudyGroupDTO o2) {
+            return o1.studentsCount - o2.studentsCount;
+        }
+    }
+
     @Override
     public StudyGroup clone() {
         try {

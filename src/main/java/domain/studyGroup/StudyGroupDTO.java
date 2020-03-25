@@ -10,8 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@XmlRootElement
 @XmlType(name = "StudyGroup")
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class StudyGroupDTO {
     public Long id;
@@ -26,3 +26,5 @@ public final class StudyGroupDTO {
     public PersonDTO groupAdmin;
 
 }
+
+

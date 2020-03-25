@@ -3,6 +3,7 @@ package controller.commands;
 import app.query.Query;
 import controller.response.Response;
 import controller.response.ResponseDTO;
+import domain.exception.StudyGroupRepositoryException;
 
 import java.util.Map;
 
@@ -15,7 +16,8 @@ public abstract class Command {
                    Map<String, String> args) {
         this.name = name;
         this.args = args;
+        responseDTO = new ResponseDTO();
     }
 
-    public abstract Response execute(Query query);
+    public abstract Response execute(Query query) throws StudyGroupRepositoryException;
 }

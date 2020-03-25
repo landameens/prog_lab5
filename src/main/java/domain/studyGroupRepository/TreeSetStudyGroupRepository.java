@@ -49,6 +49,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
                                             Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
         if (!(directory.listFiles().length == 0)) {
             Set<StudyGroupDTO> studyGroupDTOSet;
+            Set<StudyGroup> studyGroups = new TreeSet<>(studyGroupComparator);
+
             try {
                 studyGroupDTOSet = studyGroupDAO.getDTOs();
             } catch (JAXBException e) {
@@ -61,7 +63,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
             return studyGroups;
         }
 
-        return new TreeSet<>(studyGroupComparator);
+        return studyGroups;
     }
 
     /**

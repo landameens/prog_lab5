@@ -73,7 +73,6 @@ public final class Validator {
             put(INFO, 0);
             put(SHOW, 0);
         }
-
     };
 
     /**

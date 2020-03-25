@@ -5,6 +5,7 @@ import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
 import domain.exception.CreationException;
+import domain.exception.StudyGroupRepositoryException;
 
 public class Controller {
     private Interpretator interpretator;
@@ -13,7 +14,7 @@ public class Controller {
         this.interpretator = interpretator;
     }
 
-    public Response handleQuery(Query query) throws CreationException {
+    public Response handleQuery(Query query) throws CreationException, StudyGroupRepositoryException {
 
         ICommandFactory commandFactory = interpretator.getFactoryInstance(query.getCommandName());
 

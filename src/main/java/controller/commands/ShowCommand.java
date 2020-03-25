@@ -6,30 +6,44 @@ import controller.response.ResponseDTO;
 import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.Semester;
+import domain.studyGroup.StudyGroup;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.concreteSet.AllSet;
+import domain.studyGroupRepository.concreteSet.ConcreteSet;
 
 import java.util.Map;
+import java.util.Set;
 
 public class ShowCommand extends StudyGroupRepositoryCommand {
-    private IStudyGroupRepository studyGroupRepository;
 
     public ShowCommand(String type,
                        Map<String, String> args,
                        IStudyGroupRepository studyGroupRepository) {
         super(type, args, studyGroupRepository);
-        this.studyGroupRepository = studyGroupRepository;
     }
 
     @Override
-    public Response execute(Query query) {
-        responseDTO = new ResponseDTO();
+    public Response execute(Query query) throws StudyGroupRepositoryException {
+        ConcreteSet allSet = new AllSet();
+        Set<StudyGroup> studyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(allSet);
 
+        responseDTO.answer = getMessage(studyGroupSet);
         responseDTO.status = Status.SUCCESSFULLY.getCode();
-        responseDTO.answer = "info";
-
         return Response.getResponse(responseDTO);
     }
 
+    private String getMessage(Set<StudyGroup> studyGroupSet){
 
+        if(!studyGroupSet.isEmpty()) {
+            StringBuilder allSrudyGroup = new StringBuilder();
+
+            for (StudyGroup studyGroup : studyGroupSet){
+                allSrudyGroup.append(studyGroup.toString());
+            }
+
+            return allSrudyGroup.toString();
+        }
+
+        return "Коллекция пуста.";
+    }
 }
