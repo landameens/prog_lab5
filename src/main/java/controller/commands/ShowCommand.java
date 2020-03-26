@@ -35,13 +35,13 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
     private String getMessage(Set<StudyGroup> studyGroupSet){
 
         if(!studyGroupSet.isEmpty()) {
-            StringBuilder allSrudyGroup = new StringBuilder();
+            StringBuilder allSrudyGroups = new StringBuilder();
 
             for (StudyGroup studyGroup : studyGroupSet){
-                allSrudyGroup.append(studyGroup.toString());
+                allSrudyGroups.append(studyGroup.toString());
             }
 
-            return allSrudyGroup.toString();
+            return allSrudyGroups.toString();
         }
 
         return "Коллекция пуста.";

@@ -201,15 +201,14 @@ public class StudyGroup implements Cloneable{
     public String toString() {
         return "StudyGroup{" +
                 "id=" + id +
-                ", name='" + name + System.lineSeparator() +
-                ", coordinates=" + coordinates + System.lineSeparator() +
-                ", creationDate=" + creationDate + System.lineSeparator() +
-                ", studentsCount=" + studentsCount + System.lineSeparator() +
-                ", shouldBeExpelled=" + shouldBeExpelled + System.lineSeparator() +
-                ", formOfEducation=" + formOfEducation + System.lineSeparator() +
-                ", semesterEnum=" + semesterEnum + System.lineSeparator() +
-                ", groupAdmin=" + groupAdmin + System.lineSeparator() +
-                '}';
+                "name='" + name + System.lineSeparator() +
+                "coordinates=" + coordinates + System.lineSeparator() +
+                "creationDate=" + creationDate + System.lineSeparator() +
+                "studentsCount=" + studentsCount + System.lineSeparator() +
+                "shouldBeExpelled=" + shouldBeExpelled + System.lineSeparator() +
+                "formOfEducation=" + formOfEducation + System.lineSeparator() +
+                "semesterEnum=" + semesterEnum + System.lineSeparator() +
+                "groupAdmin=" + groupAdmin + '}';
     }
 
     public static class StudyGroupComparator implements Comparator<StudyGroup>{

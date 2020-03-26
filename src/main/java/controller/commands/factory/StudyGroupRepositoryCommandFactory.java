@@ -1,5 +1,6 @@
 package controller.commands.factory;
 
+import controller.commands.AddCommand;
 import controller.commands.Command;
 import controller.commands.ShowCommand;
 import domain.exception.CreationException;
@@ -20,6 +21,7 @@ public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
     private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
         {
             put("show", ShowCommand.class);
+            put("add", AddCommand.class);
         }
     };
 
