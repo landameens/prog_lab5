@@ -26,7 +26,7 @@ import static domain.studyGroup.StudyGroup.getStudyGroupDTO;
  */
 public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Saveable {
 
-    private static final String INTERNAL_ERROR_MESSAGE = "Внутренняя ошибка";
+    private static final String INTERNAL_ERROR_MESSAGE = "Внутренняя ошибка данные не подходят под описание.";
     private static final String TRYING_ADD_NULL_GROUP_ERROR_MESSAGE = "Ошибка, нельзя добавить null группу.";
     private static final String SUCH_GROUP_EXIST_ERROR_MESSAGE = "Такая группа уже существует.";
     private static final String NO_SUCH_STUDY_GROUP_ERROR_MESSAGE = "Такой группы нет в репозитории.";
@@ -35,7 +35,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private Set<StudyGroup> studyGroups;
     private IStudyGroupDAO studyGroupDAO;
 
-    public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory, String path) throws DAOException, VerifyException {
+    public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory,
+                                       String path) throws DAOException, VerifyException {
         this.studyGroupFactory = studyGroupFactory;
         studyGroupDAO = new StudyGroupDAO(path);
 
@@ -44,9 +45,12 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         studyGroups = getInitialFiles(directory, studyGroupComparator);
     }
 
-    private Set<StudyGroup> getInitialFiles(File directory, Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
+    private Set<StudyGroup> getInitialFiles(File directory,
+                                            Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
         if (!(directory.listFiles().length == 0)) {
             Set<StudyGroupDTO> studyGroupDTOSet;
+            Set<StudyGroup> studyGroups = new TreeSet<>(studyGroupComparator);
+
             try {
                 studyGroupDTOSet = studyGroupDAO.getDTOs();
             } catch (JAXBException e) {
@@ -74,8 +78,10 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         StudyGroup studyGroup;
         try {
             studyGroup = studyGroupFactory.createNewStudyGroup(studyGroupDTO);
-        } catch (VerifyException | CreationException e) {
+        } catch (VerifyException e) {
             throw new StudyGroupRepositoryException(INTERNAL_ERROR_MESSAGE);
+        } catch (CreationException e) {
+            throw new StudyGroupRepositoryException("Внутренняя ошибка при создании StudyGroup.");
         }
 
         if (studyGroup == null) {

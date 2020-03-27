@@ -7,6 +7,5 @@ import java.util.Map;
 
 public interface ICommandFactory {
     Command createCommand(String commandName,
-                          String commandType,
                           Map<String, String> arguments) throws CreationException;
 }

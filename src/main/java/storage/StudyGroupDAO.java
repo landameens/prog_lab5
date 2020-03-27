@@ -33,10 +33,11 @@ public class StudyGroupDAO implements IStudyGroupDAO{
     }
 
     private Set<StudyGroupDTO> deserialize(List<File> studyGroupFiles)throws DAOException{
-        Set<StudyGroupDTO> studyGroupDTOSet = new TreeSet<>();
+        Comparator<StudyGroupDTO> studyGroupDTOComparator = new StudyGroup.StudyGroupDTOComparator();
+        Set<StudyGroupDTO> studyGroupDTOSet = new TreeSet<>(studyGroupDTOComparator);
         for (File studyGroupFile : studyGroupFiles) {
             try {
-                JAXBContext context = JAXBContext.newInstance(StudyGroup.class);
+                JAXBContext context = JAXBContext.newInstance(StudyGroupDTO.class);
                 Unmarshaller unmarshaller = context.createUnmarshaller();
                 StudyGroupDTO studyGroupDTO = (StudyGroupDTO) unmarshaller.unmarshal(studyGroupFile);
                 studyGroupDTOSet.add(studyGroupDTO);

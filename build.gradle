@@ -19,5 +19,7 @@ dependencies {
 application {
     mainClassName = "app.App"
     compileJava.options.encoding = "UTF-8"
+    compileTestJava.options.encoding = "UTF-8"
     run.standardInput = System.in
+    //run.jvmArgs("-Duser.language=ru","-Dfile.encoding=UTF-8")
 }

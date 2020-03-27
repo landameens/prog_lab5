@@ -11,8 +11,13 @@ import java.util.Map;
  * Abstraction of different QueryBuilders.
  */
 public abstract class QueryBuilder {
-    Validator validator;
-    Interpretator interpretator;
+    protected Validator validator;
+    protected Interpretator interpretator;
+
+    public QueryBuilder(Validator validator, Interpretator interpretator) {
+        this.validator = validator;
+        this.interpretator = interpretator;
+    }
 
     /**
      * Abstract method for creating a query.

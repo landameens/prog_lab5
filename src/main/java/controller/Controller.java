@@ -5,19 +5,20 @@ import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
 import domain.exception.CreationException;
+import domain.exception.StudyGroupRepositoryException;
 
 public class Controller {
     private Interpretator interpretator;
 
-    public Controller() {
-        interpretator = new Interpretator();
+    public Controller(Interpretator interpretator) {
+        this.interpretator = interpretator;
     }
 
-    public Response handleQuery(Query query) throws CreationException {
+    public Response handleQuery(Query query) throws CreationException, StudyGroupRepositoryException {
 
         ICommandFactory commandFactory = interpretator.getFactoryInstance(query.getCommandName());
 
-        Command command = commandFactory.createCommand(query.getCommandName(), query.getCommandType(), query.getArguments());
+        Command command = commandFactory.createCommand(query.getCommandName(), query.getArguments());
 
         return command.execute(query);
     }

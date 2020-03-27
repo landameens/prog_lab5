@@ -60,7 +60,6 @@ public final class Validator {
 
     private final Map<CommandName, Integer> numberOfCommandArguments = new HashMap<CommandName, Integer>() {
         {
-            put(HELP, 0);
             put(ADD, 0);
             put(UPDATE, 1);
             put(REMOVE_BY_ID, 1);
@@ -70,8 +69,10 @@ public final class Validator {
             put(COUNT_BY_GROUP_ADMIN, 0);
             put(FILTER_BY_SHOULD_BE_EXPELLED, 1);
             put(FILTER_LESS_THEN_SHOULD_BE_EXPELLED, 1);
+            put(HELP, 0);
+            put(INFO, 0);
+            put(SHOW, 0);
         }
-
     };
 
     /**

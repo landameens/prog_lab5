@@ -58,7 +58,7 @@ public class Person implements Cloneable{
         String name = groupAdminDTO.name;
         int height = groupAdminDTO.height;
         String passportID = groupAdminDTO.passportID;
-        Country nationality = Country.getCountry(groupAdminDTO.nationality);
+        Country nationality = Country.getCountry(groupAdminDTO.nationality.toLowerCase());
 
         return new Person(name,
                             height,
@@ -131,11 +131,10 @@ public class Person implements Cloneable{
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + System.lineSeparator() +
-                ", height=" + height + System.lineSeparator() +
-                ", passportID='" + passportID + System.lineSeparator() +
-                ", nationality=" + nationality + System.lineSeparator() +
-                '}';
+        return  System.lineSeparator() +
+                "  name= " + name + System.lineSeparator() +
+                "  height= " + height + System.lineSeparator() +
+                "  passportID= " + passportID + System.lineSeparator() +
+                "  nationality= " + nationality;
     }
 }

@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class SimpleCommandsFactory implements ICommandFactory {
 
+    //todo: сюда имя класса и его класс
     private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
         {
             put("help", HelpCommand.class);
@@ -19,12 +20,11 @@ public class SimpleCommandsFactory implements ICommandFactory {
 
     @Override
     public Command createCommand(String commandName,
-                                 String commandType,
                                  Map<String, String> arguments) throws CreationException {
         Class<? extends Command> clazz = classMap.get(commandName);
         try {
             Constructor<? extends Command> constructor = clazz.getConstructor(String.class, Map.class);
-            return constructor.newInstance(commandType, arguments);
+            return constructor.newInstance(commandName, arguments);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             throw new CreationException(e);
         }

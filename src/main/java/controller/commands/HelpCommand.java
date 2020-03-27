@@ -15,9 +15,8 @@ public class HelpCommand extends Command {
 
     @Override
     public Response execute(Query query) {
-        responseDTO = new ResponseDTO();
-        responseDTO.status = Status.SUCCESSFULLY.getCode();
         responseDTO.answer = getMessage();
+        responseDTO.status = Status.SUCCESSFULLY.getCode();
 
         return Response.getResponse(responseDTO);
     }
