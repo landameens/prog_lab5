@@ -17,7 +17,7 @@ public final class MinSet extends ConcreteSet {
 
         StudyGroup minStudyGroup = findMin(studyGroupComparator, studyGroups);
 
-        return new TreeSet<StudyGroup>() {
+        return new TreeSet<StudyGroup>(studyGroupComparator) {
             {
                 add(minStudyGroup.clone());
             }

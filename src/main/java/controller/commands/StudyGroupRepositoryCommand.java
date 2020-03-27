@@ -7,7 +7,7 @@ import domain.studyGroupRepository.IStudyGroupRepository;
 
 import java.util.Map;
 
-public class StudyGroupRepositoryCommand extends Command {
+public abstract class StudyGroupRepositoryCommand extends Command {
     protected IStudyGroupRepository studyGroupRepository;
 
     public StudyGroupRepositoryCommand(String type,
@@ -18,10 +18,7 @@ public class StudyGroupRepositoryCommand extends Command {
     }
 
 
-    //TODO: почему бы не сделать этот класс абстрактным, а этот метод тоже абстрактным?
     @Override
-    public Response execute(Query query) throws StudyGroupRepositoryException {
-        return Response.getResponse(responseDTO);
-    }
+    public abstract Response execute(Query query);
 
 }

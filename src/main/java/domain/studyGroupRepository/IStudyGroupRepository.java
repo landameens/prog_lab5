@@ -19,6 +19,4 @@ public interface IStudyGroupRepository {
     void update(StudyGroup studyGroup) throws StudyGroupRepositoryException;
 
     Set<StudyGroup> getConcreteSetOfStudyGroups(ConcreteSet concreteSet) throws StudyGroupRepositoryException;
-
-    StudyGroup findStudyGroupById(Long id);
 }

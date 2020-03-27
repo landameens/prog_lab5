@@ -19,5 +19,5 @@ public abstract class Command {
         responseDTO = new ResponseDTO();
     }
 
-    public abstract Response execute(Query query) throws StudyGroupRepositoryException;
+    public abstract Response execute(Query query);
 }

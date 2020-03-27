@@ -19,7 +19,7 @@ public class AddCommand extends StudyGroupRepositoryCommand {
     }
 
     @Override
-    public Response execute(Query query) throws StudyGroupRepositoryException {
+    public Response execute(Query query) {
 
         CoordinatesDTO coordinatesDTO = new CoordinatesDTO();
         coordinatesDTO.x = Integer.parseInt(args.get("xCoordinate"));
@@ -40,10 +40,14 @@ public class AddCommand extends StudyGroupRepositoryCommand {
         studyGroupDTO.semesterEnum = args.get("semesterEnum");
         studyGroupDTO.groupAdmin = personDTO;
 
-        studyGroupRepository.add(studyGroupDTO);
-        //TODO: ТА ЖЕ ФИГНЯ С ЭКСЕПШЕНАМИ
-        responseDTO.answer = "Группа добавлена";
-        responseDTO.status = Status.SUCCESSFULLY.getCode();
+        try {
+            studyGroupRepository.add(studyGroupDTO);
+            responseDTO.answer = "Группа добавлена";
+            responseDTO.status = Status.SUCCESSFULLY.getCode();
+        } catch (StudyGroupRepositoryException e) {
+            responseDTO.answer = e.getMessage();
+            responseDTO.status = Status.BAD_REQUEST.getCode();
+        }
 
         return Response.getResponse(responseDTO);
     }

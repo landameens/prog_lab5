@@ -6,27 +6,44 @@ import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroupRepository.IStudyGroupRepository;
+import domain.studyGroupRepository.concreteSet.ConcreteSet;
+import domain.studyGroupRepository.concreteSet.ConcreteSetWithSpecialField;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class RemoveById extends StudyGroupRepositoryCommand {
 
-    //TODO: опять в одну строку(
-    public RemoveById(String type, Map<String, String> args, IStudyGroupRepository studyGroupRepository) {
+    public RemoveById(String type,
+                      Map<String, String> args,
+                      IStudyGroupRepository studyGroupRepository) {
         super(type, args, studyGroupRepository);
     }
 
     @Override
-    public Response execute(Query query) throws StudyGroupRepositoryException {
-        //TODO: не забывай про ЛОГИЧЕСКИЕ ОТСТУПЫЫЫЫЫЫЫЫЫЫЫЫ
+    public Response execute(Query query){
         Long id = Long.parseLong(args.get("id"));
-        //TODO: хех, а зачем ты тогда писала ConcreteSetWithSpecialField????? переделывай поиск объекта, даже хотя это правильно)
-        StudyGroup removableStudyGroup = studyGroupRepository.findStudyGroupById(id);
-        studyGroupRepository.remove(removableStudyGroup);
-        //TODO: НЕ ПРОКИДЫВАЙ ЭКСЕПШЕНЫ ДАЛЬШЕ - ЛОВИШЬ ИЗ ПРЯМО ТУТ И ФОРМИРЕШЬ СООТВЕТСВЕННО РЕСПОНЗ
-        //TODO: ЭТО КАСАЕТСЯ ВСЕХ КОММАНД
-        responseDTO.answer = "Группа удалена.";
-        responseDTO.status = Status.SUCCESSFULLY.getCode();
+        ConcreteSet removableStudyGroupSet = new ConcreteSetWithSpecialField(StudyGroup.class, "id", id);
+
+        try {
+            Set<StudyGroup> groupSet = studyGroupRepository.getConcreteSetOfStudyGroups(removableStudyGroupSet);
+
+            if (!groupSet.isEmpty()) {
+                Iterator<StudyGroup> iterator = groupSet.iterator();
+                StudyGroup removableStudyGroup = iterator.next();
+                studyGroupRepository.remove(removableStudyGroup);
+                responseDTO.answer = "Группа удалена.";
+                responseDTO.status = Status.SUCCESSFULLY.getCode();
+            }
+
+            responseDTO.answer = "Группы с таким id не существует.";
+            responseDTO.status = Status.BAD_REQUEST.getCode();
+
+        } catch (StudyGroupRepositoryException e) {
+            responseDTO.answer = e.getMessage();
+            responseDTO.status = Status.BAD_REQUEST.getCode();
+        }
 
         return Response.getResponse(responseDTO);
     }

@@ -14,7 +14,7 @@ public class Controller {
         this.interpretator = interpretator;
     }
 
-    public Response handleQuery(Query query) throws CreationException, StudyGroupRepositoryException {
+    public Response handleQuery(Query query) throws CreationException {
 
         ICommandFactory commandFactory = interpretator.getFactoryInstance(query.getCommandName());
 
