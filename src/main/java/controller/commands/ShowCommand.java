@@ -38,7 +38,7 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
             StringBuilder allSrudyGroups = new StringBuilder();
 
             for (StudyGroup studyGroup : studyGroupSet){
-                allSrudyGroups.append(studyGroup.toString());
+                allSrudyGroups.append(studyGroup.toString()).append(System.lineSeparator()).append(System.lineSeparator());
             }
 
             return allSrudyGroups.toString();

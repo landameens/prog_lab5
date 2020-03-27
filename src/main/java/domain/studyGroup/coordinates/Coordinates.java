@@ -76,8 +76,6 @@ public class Coordinates implements Cloneable{
 
     @Override
     public String toString() {
-        return "Coordinates{" +
-                "x=" + x + System.lineSeparator() +
-                "y=" + y + '}';
+        return "x=" + x + "; " + "y=" + y;
     }
 }

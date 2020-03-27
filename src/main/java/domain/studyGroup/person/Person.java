@@ -131,10 +131,10 @@ public class Person implements Cloneable{
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + System.lineSeparator() +
-                "height=" + height + System.lineSeparator() +
-                "passportID='" + passportID + System.lineSeparator() +
-                "nationality=" + nationality + '}';
+        return  System.lineSeparator() +
+                "  name= " + name + System.lineSeparator() +
+                "  height= " + height + System.lineSeparator() +
+                "  passportID= " + passportID + System.lineSeparator() +
+                "  nationality= " + nationality;
     }
 }
