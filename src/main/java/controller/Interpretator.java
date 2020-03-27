@@ -18,6 +18,7 @@ public class Interpretator {
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
     }
 
+    //Todo: сюда дабавалять классы и их фабрику
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
         {
             put("help", SimpleCommandsFactory.class);

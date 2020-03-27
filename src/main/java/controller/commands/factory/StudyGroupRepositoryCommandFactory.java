@@ -18,6 +18,8 @@ public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
         this.studyGroupRepository = studyGroupRepository;
     }
 
+
+    //todo: сюда имя класса и его класс
     private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
         {
             put("show", ShowCommand.class);

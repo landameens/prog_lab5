@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class SimpleCommandsFactory implements ICommandFactory {
 
+    //todo: сюда имя класса и его класс
     private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
         {
             put("help", HelpCommand.class);
