@@ -28,6 +28,7 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
         Set<StudyGroup> studyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(allSet);
 
         responseDTO.answer = getMessage(studyGroupSet);
+        //TODO: ЭКСЕПШЕНЫ
         responseDTO.status = Status.SUCCESSFULLY.getCode();
         return Response.getResponse(responseDTO);
     }

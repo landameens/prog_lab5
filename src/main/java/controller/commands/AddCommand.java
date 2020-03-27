@@ -13,6 +13,7 @@ import domain.studyGroupRepository.IStudyGroupRepository;
 import java.util.Map;
 
 public class AddCommand extends StudyGroupRepositoryCommand {
+    //TODO: опять все в одну строку!
     public AddCommand(String type, Map<String, String> args, IStudyGroupRepository studyGroupRepository) {
         super(type, args, studyGroupRepository);
     }
@@ -40,6 +41,7 @@ public class AddCommand extends StudyGroupRepositoryCommand {
         studyGroupDTO.groupAdmin = personDTO;
 
         studyGroupRepository.add(studyGroupDTO);
+        //TODO: ТА ЖЕ ФИГНЯ С ЭКСЕПШЕНАМИ
         responseDTO.answer = "Группа добавлена";
         responseDTO.status = Status.SUCCESSFULLY.getCode();
 

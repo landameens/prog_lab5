@@ -18,6 +18,7 @@ public class StudyGroupRepositoryCommand extends Command {
     }
 
 
+    //TODO: почему бы не сделать этот класс абстрактным, а этот метод тоже абстрактным?
     @Override
     public Response execute(Query query) throws StudyGroupRepositoryException {
         return Response.getResponse(responseDTO);
