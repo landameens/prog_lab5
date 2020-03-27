@@ -162,4 +162,15 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         }
         studyGroupDAO.saveDTOs(studyGroupDTOSet);
     }
+
+
+    @Override
+    public StudyGroup findStudyGroupById(Long id){
+        for (StudyGroup currentStudyGroup : studyGroups){
+            if (currentStudyGroup.getId().equals(id)){
+                return currentStudyGroup;
+            }
+        }
+        return null;
+    }
 }
