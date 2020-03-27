@@ -25,7 +25,7 @@ import java.net.URL;
 public final class App {
     private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the file}";
 
-    public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException, StudyGroupRepositoryException {
+    public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException {
         ClassLoader classLoader = App.class.getClassLoader();
         String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
 

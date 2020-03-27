@@ -2,6 +2,8 @@ package app.query.queryBuilder;
 
 import app.CommandName;
 import app.CommandType;
+import app.Interpretator;
+import app.Validator;
 import app.query.Query;
 
 import java.util.HashMap;
@@ -12,6 +14,10 @@ import java.util.Map;
  * This class is responsible for making query of commands that has no arguments.
  */
 public class QueryBuilderForCommandsWithoutArguments extends QueryBuilder {
+
+    public QueryBuilderForCommandsWithoutArguments(Validator validator, Interpretator interpretator) {
+        super(validator, interpretator);
+    }
 
     /**
      * Makes query for commands without arguments by command name and command type.

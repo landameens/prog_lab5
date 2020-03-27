@@ -10,6 +10,8 @@ public class IdProducer {
            idList = initList();
         }
 
+
+
         public long getId(){
             int k = 0;
             Long resultId = idList.get(k);

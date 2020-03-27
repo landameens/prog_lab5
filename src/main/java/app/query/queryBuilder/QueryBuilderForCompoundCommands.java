@@ -3,6 +3,8 @@ package app.query.queryBuilder;
 import app.CommandName;
 import app.CommandType;
 import app.Exceptions.InputException;
+import app.Interpretator;
+import app.Validator;
 import app.query.Query;
 
 import java.util.HashMap;
@@ -13,6 +15,10 @@ import java.util.Map;
  * This class is responsible for making query of commands that has compound arguments.
  */
 public class QueryBuilderForCompoundCommands extends QueryBuilder {
+
+    public QueryBuilderForCompoundCommands(Validator validator, Interpretator interpretator) {
+        super(validator, interpretator);
+    }
 
     /**
      * Makes query for compound commands by command name, command type,

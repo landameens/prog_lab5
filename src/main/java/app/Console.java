@@ -39,20 +39,24 @@ public final class Console {
     public void start() throws InputException, IOException, InternalException {
         while (true){
        //     writeLine("Write command, please: \n");
+
             String command = reader.readLine();
             command = command.trim();
             String[] commandArray = command.split("[\\s]+");
+
        //     writeLine("value =" + Arrays.toString(commandArray));
        //     writeLine(commandArray[0]);
        //     validator.validateCommandName(commandArray[0]);
 
             CommandName commandName = interpretator.interpretateCommandName(commandArray[0]);
+
        //     writeLine("CommandName = " + commandName.getName());
+
             CommandType commandType = interpretator.interpretateCommandType(commandName);
             List<String> commandList = new ArrayList<>();
 
             Collections.addAll(commandList, commandArray);
-            validator.validateNumberOfArguments(commandName, commandType, commandList);
+             validator.validateNumberOfArguments(commandName, commandType, commandList);
 
             Map<String, String> arguments = new HashMap<>();
 
@@ -60,7 +64,7 @@ public final class Console {
                 arguments = getArgumentsOfCompoundCommands(commandName);
             }
 
-            QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory();
+            QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory(validator, interpretator);
             QueryBuilder queryBuilder = queryBuilderFactory.getQueryBuilder(commandType);
             Query query = queryBuilder.buildQuery(commandName,
                                                   commandList,

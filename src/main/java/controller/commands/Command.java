@@ -16,6 +16,7 @@ public abstract class Command {
                    Map<String, String> args) {
         this.name = name;
         this.args = args;
+        responseDTO = new ResponseDTO();
     }
 
     public abstract Response execute(Query query) throws StudyGroupRepositoryException;
