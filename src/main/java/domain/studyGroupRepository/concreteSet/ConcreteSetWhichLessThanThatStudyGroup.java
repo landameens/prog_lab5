@@ -21,7 +21,7 @@ public final class ConcreteSetWhichLessThanThatStudyGroup extends ConcreteSet {
     @Override
     public Set<StudyGroup> execute(Set<StudyGroup> studyGroups) {
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
-        Set<StudyGroup> finalStudyGroupSet = new TreeSet<>();
+        Set<StudyGroup> finalStudyGroupSet = new TreeSet<>(studyGroupComparator);
 
         for(StudyGroup studyGroup : studyGroups) {
             if (studyGroupComparator.compare(studyGroup, studyGroupForComparing) < 0) {

@@ -4,6 +4,7 @@ import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
 
 import java.lang.reflect.Field;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -26,7 +27,8 @@ public final class ConcreteSetWithSpecialField extends ConcreteSet {
 
     @Override
     public Set<StudyGroup> execute(Set<StudyGroup> studyGroups) throws StudyGroupRepositoryException {
-        Set<StudyGroup> finalStudyGroup = new TreeSet<>();
+        Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
+        Set<StudyGroup> finalStudyGroup = new TreeSet<>(studyGroupComparator);
 
         Field clazzField;
         try {

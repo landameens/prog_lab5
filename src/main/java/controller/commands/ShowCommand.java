@@ -23,12 +23,23 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
     }
 
     @Override
-    public Response execute(Query query) throws StudyGroupRepositoryException {
-        ConcreteSet allSet = new AllSet();
-        Set<StudyGroup> studyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(allSet);
+    public Response execute(Query query) {
+        try {
+            ConcreteSet allSet = new AllSet();
+            Set<StudyGroup> studyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(allSet);
 
-        responseDTO.answer = getMessage(studyGroupSet);
-        responseDTO.status = Status.SUCCESSFULLY.getCode();
+            responseDTO.answer = getMessage(studyGroupSet);
+
+            if (studyGroupSet.isEmpty()) {
+                responseDTO.answer = "Коллекция пуста.";
+            }
+            responseDTO.status = Status.SUCCESSFULLY.getCode();
+
+        } catch (StudyGroupRepositoryException e) {
+            responseDTO.answer = e.getMessage();
+            responseDTO.status = Status.BAD_REQUEST.getCode();
+        }
+
         return Response.getResponse(responseDTO);
     }
 

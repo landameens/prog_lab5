@@ -74,7 +74,7 @@ public final class Console {
 
             try {
                 writeLine(controller.handleQuery(query).getAnswer());
-            } catch (CreationException | StudyGroupRepositoryException e) {
+            } catch (CreationException e) {
                 throw new InputException(e.getMessage());
             }
         }

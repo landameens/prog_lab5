@@ -2,25 +2,33 @@ package controller.commands;
 
 import app.query.Query;
 import controller.response.Response;
-import controller.response.ResponseDTO;
 import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
+import domain.exception.VerifyException;
+import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.CoordinatesDTO;
 import domain.studyGroup.person.PersonDTO;
 import domain.studyGroupRepository.IStudyGroupRepository;
+import domain.studyGroupRepository.concreteSet.ConcreteSet;
+import domain.studyGroupRepository.concreteSet.ConcreteSetWithSpecialField;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
-public class AddCommand extends StudyGroupRepositoryCommand {
-    public AddCommand(String type,
-                      Map<String, String> args,
-                      IStudyGroupRepository studyGroupRepository) {
+import static domain.studyGroup.StudyGroup.getStudyGroup;
+
+public class UpdateCommad extends StudyGroupRepositoryCommand {
+    public UpdateCommad(String type,
+                        Map<String, String> args,
+                        IStudyGroupRepository studyGroupRepository) {
         super(type, args, studyGroupRepository);
     }
 
     @Override
     public Response execute(Query query) {
+        Long id = Long.parseLong(args.get("id"));
 
         CoordinatesDTO coordinatesDTO = new CoordinatesDTO();
         coordinatesDTO.x = Integer.parseInt(args.get("xCoordinate"));
@@ -33,6 +41,7 @@ public class AddCommand extends StudyGroupRepositoryCommand {
         personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
 
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
+        studyGroupDTO.id = id;
         studyGroupDTO.name =  args.get("StudyGroupName");
         studyGroupDTO.coordinates = coordinatesDTO;
         studyGroupDTO.studentsCount = Integer.parseInt(args.get("studentsCount"));
@@ -42,10 +51,13 @@ public class AddCommand extends StudyGroupRepositoryCommand {
         studyGroupDTO.groupAdmin = personDTO;
 
         try {
-            studyGroupRepository.add(studyGroupDTO);
-            responseDTO.answer = "Группа добавлена";
+            StudyGroup studyGroupNew = StudyGroup.getStudyGroup(studyGroupDTO);
+            studyGroupRepository.update(studyGroupNew);
+
+            responseDTO.answer = "Группа обновлена.";
             responseDTO.status = Status.SUCCESSFULLY.getCode();
-        } catch (StudyGroupRepositoryException e) {
+
+        } catch (StudyGroupRepositoryException | VerifyException e) {
             responseDTO.answer = e.getMessage();
             responseDTO.status = Status.BAD_REQUEST.getCode();
         }
