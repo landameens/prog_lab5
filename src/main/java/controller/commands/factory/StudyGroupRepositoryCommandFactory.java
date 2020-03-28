@@ -1,9 +1,6 @@
 package controller.commands.factory;
 
-import controller.commands.AddCommand;
-import controller.commands.Command;
-import controller.commands.RemoveById;
-import controller.commands.ShowCommand;
+import controller.commands.*;
 import domain.exception.CreationException;
 import domain.studyGroupRepository.IStudyGroupRepository;
 
@@ -25,7 +22,8 @@ public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
         {
             put("show", ShowCommand.class);
             put("add", AddCommand.class);
-            put("remove_by_id", RemoveById.class);
+            put("remove_by_id", RemoveByIdCommand.class);
+            put("clear", ClearCommand.class);
         }
     };
 

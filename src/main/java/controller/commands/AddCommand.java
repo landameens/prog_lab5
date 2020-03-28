@@ -13,8 +13,9 @@ import domain.studyGroupRepository.IStudyGroupRepository;
 import java.util.Map;
 
 public class AddCommand extends StudyGroupRepositoryCommand {
-    //TODO: опять все в одну строку!
-    public AddCommand(String type, Map<String, String> args, IStudyGroupRepository studyGroupRepository) {
+    public AddCommand(String type,
+                      Map<String, String> args,
+                      IStudyGroupRepository studyGroupRepository) {
         super(type, args, studyGroupRepository);
     }
 

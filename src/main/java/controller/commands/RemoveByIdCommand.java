@@ -13,11 +13,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class RemoveById extends StudyGroupRepositoryCommand {
+public class RemoveByIdCommand extends StudyGroupRepositoryCommand {
 
-    public RemoveById(String type,
-                      Map<String, String> args,
-                      IStudyGroupRepository studyGroupRepository) {
+    public RemoveByIdCommand(String type,
+                             Map<String, String> args,
+                             IStudyGroupRepository studyGroupRepository) {
         super(type, args, studyGroupRepository);
     }
 
@@ -29,6 +29,9 @@ public class RemoveById extends StudyGroupRepositoryCommand {
         try {
             Set<StudyGroup> groupSet = studyGroupRepository.getConcreteSetOfStudyGroups(removableStudyGroupSet);
 
+            responseDTO.answer = "Группы с таким id не существует.";
+            responseDTO.status = Status.BAD_REQUEST.getCode();
+
             if (!groupSet.isEmpty()) {
                 Iterator<StudyGroup> iterator = groupSet.iterator();
                 StudyGroup removableStudyGroup = iterator.next();
@@ -36,9 +39,6 @@ public class RemoveById extends StudyGroupRepositoryCommand {
                 responseDTO.answer = "Группа удалена.";
                 responseDTO.status = Status.SUCCESSFULLY.getCode();
             }
-
-            responseDTO.answer = "Группы с таким id не существует.";
-            responseDTO.status = Status.BAD_REQUEST.getCode();
 
         } catch (StudyGroupRepositoryException e) {
             responseDTO.answer = e.getMessage();
