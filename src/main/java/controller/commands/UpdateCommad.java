@@ -1,6 +1,5 @@
 package controller.commands;
 
-import app.query.Query;
 import controller.response.Response;
 import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
@@ -8,11 +7,13 @@ import domain.exception.VerifyException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.CoordinatesDTO;
+import domain.studyGroup.person.Country;
+import domain.studyGroup.person.Person;
 import domain.studyGroup.person.PersonDTO;
 import domain.studyGroupRepository.IStudyGroupRepository;
-import java.util.Map;
 
-import static domain.studyGroup.StudyGroup.getStudyGroup;
+import java.time.LocalDateTime;
+import java.util.Map;
 
 public class UpdateCommad extends StudyGroupRepositoryCommand {
     public UpdateCommad(String type,
@@ -22,7 +23,7 @@ public class UpdateCommad extends StudyGroupRepositoryCommand {
     }
 
     @Override
-    public Response execute(Query query) {
+    public Response execute() {
 
         Long id = Long.parseLong(args.get("id"));
         CoordinatesDTO coordinatesDTO = new CoordinatesDTO();
@@ -37,13 +38,14 @@ public class UpdateCommad extends StudyGroupRepositoryCommand {
 
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
         studyGroupDTO.id = id;
-        studyGroupDTO.name =  args.get("StudyGroupName");
+        studyGroupDTO.name = args.get("StudyGroupName");
         studyGroupDTO.coordinates = coordinatesDTO;
         studyGroupDTO.studentsCount = Integer.parseInt(args.get("studentsCount"));
         studyGroupDTO.shouldBeExpelled = Long.parseLong(args.get("shouldBeExpelled"));
         studyGroupDTO.formOfEducation = args.get("formOfEducation");
         studyGroupDTO.semesterEnum = args.get("semesterEnum");
         studyGroupDTO.groupAdmin = personDTO;
+        studyGroupDTO.creationDate = LocalDateTime.now();
 
         try {
             StudyGroup studyGroupNew = StudyGroup.getStudyGroup(studyGroupDTO);

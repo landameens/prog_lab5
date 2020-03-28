@@ -78,10 +78,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         StudyGroup studyGroup;
         try {
             studyGroup = studyGroupFactory.createNewStudyGroup(studyGroupDTO);
-        } catch (VerifyException e) {
+        } catch (VerifyException | CreationException e) {
             throw new StudyGroupRepositoryException(INTERNAL_ERROR_MESSAGE);
-        } catch (CreationException e) {
-            throw new StudyGroupRepositoryException("Внутренняя ошибка при создании StudyGroup.");
         }
 
         if (studyGroup == null) {

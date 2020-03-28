@@ -1,9 +1,9 @@
 package domain.studyGroup;
 
 public enum FormOfEducation {
-    DISTANCE_EDUCATION("distanceEducation"),
-    FULL_TIME_EDUCATION("fullTimeEducation"),
-    EVENING_CLASSES("eveningClasses");
+    DISTANCE_EDUCATION("distance_education"),
+    FULL_TIME_EDUCATION("full_time_education"),
+    EVENING_CLASSES("evening_classes");
 
     private String name;
     FormOfEducation(String name) {

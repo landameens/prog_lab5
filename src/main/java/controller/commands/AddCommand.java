@@ -1,8 +1,6 @@
 package controller.commands;
 
-import app.query.Query;
 import controller.response.Response;
-import controller.response.ResponseDTO;
 import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroupDTO;
@@ -10,6 +8,7 @@ import domain.studyGroup.coordinates.CoordinatesDTO;
 import domain.studyGroup.person.PersonDTO;
 import domain.studyGroupRepository.IStudyGroupRepository;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class AddCommand extends StudyGroupRepositoryCommand {
@@ -20,7 +19,7 @@ public class AddCommand extends StudyGroupRepositoryCommand {
     }
 
     @Override
-    public Response execute(Query query) {
+    public Response execute() {
 
         CoordinatesDTO coordinatesDTO = new CoordinatesDTO();
         coordinatesDTO.x = Integer.parseInt(args.get("xCoordinate"));
@@ -40,6 +39,7 @@ public class AddCommand extends StudyGroupRepositoryCommand {
         studyGroupDTO.formOfEducation = args.get("formOfEducation");
         studyGroupDTO.semesterEnum = args.get("semesterEnum");
         studyGroupDTO.groupAdmin = personDTO;
+        studyGroupDTO.creationDate = LocalDateTime.now();
 
         try {
             studyGroupRepository.add(studyGroupDTO);

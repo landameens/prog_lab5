@@ -1,11 +1,8 @@
 package controller.commands;
 
-import app.query.Query;
 import controller.response.Response;
-import controller.response.ResponseDTO;
 import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
-import domain.studyGroup.Semester;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.concreteSet.AllSet;
@@ -23,7 +20,7 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
     }
 
     @Override
-    public Response execute(Query query) {
+    public Response execute() {
         try {
             ConcreteSet allSet = new AllSet();
             Set<StudyGroup> studyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(allSet);
