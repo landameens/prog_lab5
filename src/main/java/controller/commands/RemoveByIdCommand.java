@@ -34,10 +34,9 @@ public class RemoveByIdCommand extends StudyGroupRepositoryCommand {
                 responseDTO.status = Status.BAD_REQUEST.getCode();
             }
 
-            Iterator<StudyGroup> iterator = groupSet.iterator();
-            StudyGroup removableStudyGroup = iterator.next();
-
-            studyGroupRepository.remove(removableStudyGroup);
+            for (StudyGroup studyGroup : groupSet) {
+                studyGroupRepository.remove(studyGroup);
+            }
 
             responseDTO.answer = "Группа удалена.";
             responseDTO.status = Status.SUCCESSFULLY.getCode();

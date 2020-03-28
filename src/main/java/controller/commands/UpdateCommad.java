@@ -10,12 +10,7 @@ import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.CoordinatesDTO;
 import domain.studyGroup.person.PersonDTO;
 import domain.studyGroupRepository.IStudyGroupRepository;
-import domain.studyGroupRepository.concreteSet.ConcreteSet;
-import domain.studyGroupRepository.concreteSet.ConcreteSetWithSpecialField;
-
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import static domain.studyGroup.StudyGroup.getStudyGroup;
 
@@ -28,8 +23,8 @@ public class UpdateCommad extends StudyGroupRepositoryCommand {
 
     @Override
     public Response execute(Query query) {
-        Long id = Long.parseLong(args.get("id"));
 
+        Long id = Long.parseLong(args.get("id"));
         CoordinatesDTO coordinatesDTO = new CoordinatesDTO();
         coordinatesDTO.x = Integer.parseInt(args.get("xCoordinate"));
         coordinatesDTO.y = Integer.parseInt(args.get("yCoordinate"));
