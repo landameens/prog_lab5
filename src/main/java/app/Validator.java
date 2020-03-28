@@ -60,42 +60,39 @@ public final class Validator {
 
     private final Map<CommandName, Integer> numberOfCommandArguments = new HashMap<CommandName, Integer>() {
         {
-            put(ADD, 0);
-            put(UPDATE, 1);
-            put(REMOVE_BY_ID, 1);
-            put(EXECUTE_SCRIPT, 1);
-            put(ADD_IF_MIN, 0);
-            put(REMOVE_LOWER, 0);
-            put(COUNT_BY_GROUP_ADMIN, 0);
-            put(FILTER_BY_SHOULD_BE_EXPELLED, 1);
-            put(FILTER_LESS_THEN_SHOULD_BE_EXPELLED, 1);
             put(HELP, 0);
             put(INFO, 0);
             put(SHOW, 0);
+            put(ADD, 0);
+            put(UPDATE, 1);
+            put(REMOVE_BY_ID, 1);
             put(CLEAR, 0);
+            put(SAVE, 0);
+            put(EXECUTE_SCRIPT, 1);
+            put(EXIT, 0);
+            put(ADD_IF_MIN, 0);
+            put(REMOVE_LOWER, 0);
+            put(HISTORY, 0);
+            put(COUNT_BY_GROUP_ADMIN, 0);
+            put(FILTER_BY_SHOULD_BE_EXPELLED, 1);
+            put(FILTER_LESS_THEN_SHOULD_BE_EXPELLED, 1);
+
+
         }
     };
 
     /**
      * Validates number of arguments for each command.
      * @param name
-     * @param type
      * @param commandList
      * @throws InputException
      */
-    public  void validateNumberOfArguments(CommandName name,
-                                           CommandType type,
-                                           List<String> commandList) throws InputException {
+    public void validateNumberOfArguments(CommandName name,
+                                          List<String> commandList) throws InputException {
         int numberOfArgs = commandList.size()-1;
-
-        if (type.equals(CommandType.COMMAND_WITHOUT_ARGUMENTS) & (numberOfArgs>0) ) {
+        if (numberOfArgs != numberOfCommandArguments.get(name)){
             throw new InputException(WRONG_NUMBER_OF_ARGUMENTS);
-        } else {
-            if (numberOfArgs != numberOfCommandArguments.get(name)){
-                throw new InputException(WRONG_NUMBER_OF_ARGUMENTS);
-            }
         }
-
     }
 
     /**

@@ -28,6 +28,7 @@ public final class App {
     public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException {
         ClassLoader classLoader = App.class.getClassLoader();
         String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
+        //String path = "C:\\Users\\Аня\\Desktop\\ЛАБОРАТОРНЫЕ РАБОТЫ\\prog_lab5\\src\\main\\resources";
 
         if (args.length > 0) {
             checkInputPath(args);
