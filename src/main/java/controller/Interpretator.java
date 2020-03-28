@@ -27,6 +27,7 @@ public class Interpretator {
             put("remove_by_id", StudyGroupRepositoryCommandFactory.class);
             put("clear", StudyGroupRepositoryCommandFactory.class);
             put("update", StudyGroupRepositoryCommandFactory.class);
+            put("add_if_min", StudyGroupRepositoryCommandFactory.class);
         }
     };
 

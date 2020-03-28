@@ -25,6 +25,7 @@ public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
             put("remove_by_id", RemoveByIdCommand.class);
             put("clear", ClearCommand.class);
             put("update", UpdateCommad.class);
+            put("add_if_min", AddIfMinCommand.class);
         }
     };
 
