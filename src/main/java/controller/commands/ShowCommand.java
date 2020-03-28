@@ -28,12 +28,11 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
             ConcreteSet allSet = new AllSet();
             Set<StudyGroup> studyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(allSet);
 
-            responseDTO.answer = "Коллекция пуста.";
+            responseDTO.answer = getMessage(studyGroupSet);
 
-            if (!studyGroupSet.isEmpty()) {
-                responseDTO.answer = getMessage(studyGroupSet);
+            if (studyGroupSet.isEmpty()) {
+                responseDTO.answer = "Коллекция пуста.";
             }
-
             responseDTO.status = Status.SUCCESSFULLY.getCode();
 
         } catch (StudyGroupRepositoryException e) {

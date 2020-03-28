@@ -29,17 +29,18 @@ public class RemoveByIdCommand extends StudyGroupRepositoryCommand {
         try {
             Set<StudyGroup> groupSet = studyGroupRepository.getConcreteSetOfStudyGroups(removableStudyGroupSet);
 
-            responseDTO.answer = "Группы с таким id не существует.";
-            responseDTO.status = Status.BAD_REQUEST.getCode();
-
-            if (!groupSet.isEmpty()) {
-                Iterator<StudyGroup> iterator = groupSet.iterator();
-                StudyGroup removableStudyGroup = iterator.next();
-                studyGroupRepository.remove(removableStudyGroup);
-                responseDTO.answer = "Группа удалена.";
-                responseDTO.status = Status.SUCCESSFULLY.getCode();
+            if (groupSet.isEmpty()) {
+                responseDTO.answer = "Группы с таким id не существует.";
+                responseDTO.status = Status.BAD_REQUEST.getCode();
             }
 
+            Iterator<StudyGroup> iterator = groupSet.iterator();
+            StudyGroup removableStudyGroup = iterator.next();
+
+            studyGroupRepository.remove(removableStudyGroup);
+
+            responseDTO.answer = "Группа удалена.";
+            responseDTO.status = Status.SUCCESSFULLY.getCode();
         } catch (StudyGroupRepositoryException e) {
             responseDTO.answer = e.getMessage();
             responseDTO.status = Status.BAD_REQUEST.getCode();
