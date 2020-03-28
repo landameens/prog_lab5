@@ -77,7 +77,6 @@ public final class Validator {
             put(FILTER_BY_SHOULD_BE_EXPELLED, 1);
             put(FILTER_LESS_THEN_SHOULD_BE_EXPELLED, 1);
 
-
         }
     };
 
