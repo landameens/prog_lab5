@@ -1,6 +1,5 @@
 package controller.commands;
 
-import app.query.Query;
 import controller.response.Response;
 import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
@@ -8,16 +7,13 @@ import domain.exception.VerifyException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.CoordinatesDTO;
+import domain.studyGroup.person.Country;
+import domain.studyGroup.person.Person;
 import domain.studyGroup.person.PersonDTO;
 import domain.studyGroupRepository.IStudyGroupRepository;
-import domain.studyGroupRepository.concreteSet.ConcreteSet;
-import domain.studyGroupRepository.concreteSet.ConcreteSetWithSpecialField;
 
-import java.util.Iterator;
+import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.Set;
-
-import static domain.studyGroup.StudyGroup.getStudyGroup;
 
 public class UpdateCommad extends StudyGroupRepositoryCommand {
     public UpdateCommad(String type,
@@ -27,9 +23,9 @@ public class UpdateCommad extends StudyGroupRepositoryCommand {
     }
 
     @Override
-    public Response execute(Query query) {
-        Long id = Long.parseLong(args.get("id"));
+    public Response execute() {
 
+        Long id = Long.parseLong(args.get("id"));
         CoordinatesDTO coordinatesDTO = new CoordinatesDTO();
         coordinatesDTO.x = Integer.parseInt(args.get("xCoordinate"));
         coordinatesDTO.y = Integer.parseInt(args.get("yCoordinate"));
@@ -42,13 +38,14 @@ public class UpdateCommad extends StudyGroupRepositoryCommand {
 
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
         studyGroupDTO.id = id;
-        studyGroupDTO.name =  args.get("StudyGroupName");
+        studyGroupDTO.name = args.get("StudyGroupName");
         studyGroupDTO.coordinates = coordinatesDTO;
         studyGroupDTO.studentsCount = Integer.parseInt(args.get("studentsCount"));
         studyGroupDTO.shouldBeExpelled = Long.parseLong(args.get("shouldBeExpelled"));
         studyGroupDTO.formOfEducation = args.get("formOfEducation");
         studyGroupDTO.semesterEnum = args.get("semesterEnum");
         studyGroupDTO.groupAdmin = personDTO;
+        studyGroupDTO.creationDate = LocalDateTime.now();
 
         try {
             StudyGroup studyGroupNew = StudyGroup.getStudyGroup(studyGroupDTO);

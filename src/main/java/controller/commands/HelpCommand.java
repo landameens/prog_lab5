@@ -1,8 +1,6 @@
 package controller.commands;
 
-import app.query.Query;
 import controller.response.Response;
-import controller.response.ResponseDTO;
 import controller.response.Status;
 
 import java.util.Map;
@@ -14,7 +12,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public Response execute(Query query) {
+    public Response execute() {
         responseDTO.answer = getMessage();
         responseDTO.status = Status.SUCCESSFULLY.getCode();
 

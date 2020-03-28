@@ -5,7 +5,6 @@ import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
 import domain.exception.CreationException;
-import domain.exception.StudyGroupRepositoryException;
 
 public class Controller {
     private Interpretator interpretator;
@@ -20,6 +19,6 @@ public class Controller {
 
         Command command = commandFactory.createCommand(query.getCommandName(), query.getArguments());
 
-        return command.execute(query);
+        return command.execute();
     }
 }

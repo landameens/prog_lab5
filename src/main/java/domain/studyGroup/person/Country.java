@@ -1,10 +1,10 @@
 package domain.studyGroup.person;
 
 public enum Country {
-    UNITED_KINGDOM("unitedKingdom"),
+    UNITED_KINGDOM("united_kingdom"),
     GERMANY("germany"),
     VATICAN("vatican"),
-    SOUTH_KOREA("southKorea"),
+    SOUTH_KOREA("south_korea"),
     JAPAN("japan");
 
     private String name;

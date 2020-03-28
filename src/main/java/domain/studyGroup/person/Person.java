@@ -21,7 +21,6 @@ public class Person implements Cloneable{
         this.height = height;
         checkPassportID(passportID);
         this.passportID = passportID;
-        checkNationality(nationality);
         this.nationality = nationality;
     }
 
@@ -45,11 +44,6 @@ public class Person implements Cloneable{
         }
 
         if (passportID.equals("")){
-            throw new VerifyException(EMPTY_VALUE);
-        }
-    }
-    private void checkNationality(Country nationality) throws VerifyException{
-        if (nationality == null){
             throw new VerifyException(EMPTY_VALUE);
         }
     }
@@ -102,7 +96,7 @@ public class Person implements Cloneable{
         return new Person( personDTO.name,
                 personDTO.height,
                 personDTO.passportID,
-                Country.getCountry(personDTO.nationality));
+                Country.getCountry(personDTO.nationality.toLowerCase()));
     }
 
     public static PersonDTO getPersonDTO(Person person){

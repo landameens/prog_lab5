@@ -255,8 +255,8 @@ public class StudyGroup implements Cloneable{
                 studyGroupDTO.creationDate,
                 studyGroupDTO.studentsCount,
                 studyGroupDTO.shouldBeExpelled,
-                FormOfEducation.getFormOfEducation(studyGroupDTO.formOfEducation),
-                Semester.getSemesterEnum(studyGroupDTO.semesterEnum),
+                FormOfEducation.getFormOfEducation(studyGroupDTO.formOfEducation.toLowerCase()),
+                Semester.getSemesterEnum(studyGroupDTO.semesterEnum.toLowerCase()),
                 Person.getPerson(studyGroupDTO.groupAdmin));
     }
 
