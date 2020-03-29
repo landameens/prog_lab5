@@ -1,6 +1,7 @@
 package controller.commands.factory;
 
 import controller.commands.Command;
+import controller.commands.ExitCommand;
 import controller.commands.HelpCommand;
 import domain.exception.CreationException;
 
@@ -15,6 +16,7 @@ public class SimpleCommandsFactory implements ICommandFactory {
     private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
         {
             put("help", HelpCommand.class);
+            put("exit", ExitCommand.class);
         }
     };
 

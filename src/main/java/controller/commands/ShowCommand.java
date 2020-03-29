@@ -25,19 +25,10 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
             ConcreteSet allSet = new AllSet();
             Set<StudyGroup> studyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(allSet);
 
-            responseDTO.answer = getMessage(studyGroupSet);
-
-            if (studyGroupSet.isEmpty()) {
-                responseDTO.answer = "Коллекция пуста.";
-            }
-            responseDTO.status = Status.SUCCESSFULLY.getCode();
-
+            return getSuccessfullyResponseDTO(getMessage(studyGroupSet));
         } catch (StudyGroupRepositoryException e) {
-            responseDTO.answer = e.getMessage();
-            responseDTO.status = Status.BAD_REQUEST.getCode();
+            return getBadRequestResponseDTO(e.getMessage());
         }
-
-        return Response.getResponse(responseDTO);
     }
 
     private String getMessage(Set<StudyGroup> studyGroupSet){

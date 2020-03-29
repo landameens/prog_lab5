@@ -13,10 +13,7 @@ public class HelpCommand extends Command {
 
     @Override
     public Response execute() {
-        responseDTO.answer = getMessage();
-        responseDTO.status = Status.SUCCESSFULLY.getCode();
-
-        return Response.getResponse(responseDTO);
+        return getSuccessfullyResponseDTO(getMessage());
     }
 
     private String getMessage() {

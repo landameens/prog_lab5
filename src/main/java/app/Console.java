@@ -6,6 +6,7 @@ import app.query.Query;
 import app.query.queryBuilder.QueryBuilder;
 import app.query.queryBuilder.QueryBuilderFactory;
 import controller.Controller;
+import controller.response.Response;
 import domain.exception.CreationException;
 import domain.exception.StudyGroupRepositoryException;
 
@@ -48,6 +49,7 @@ public final class Console {
         //    writeLine(commandArray[0]);
             validator.validateCommandName(commandArray[0]);
 
+            //TODO: интерперетоатор лишний, можно сразу использовать енам
             CommandName commandName = interpretator.interpretateCommandName(commandArray[0]);
 
         //    writeLine("CommandName = " + commandName.getName());
@@ -73,7 +75,12 @@ public final class Console {
         //     writeLine(query.toString());
 
             try {
-                writeLine(controller.handleQuery(query).getAnswer());
+                Response response = controller.handleQuery(query);
+                writeLine(response.getAnswer());
+
+                if (response.getStatus().getCode().equals("601")){
+                    System.exit(0);
+                }
             } catch (CreationException e) {
                 throw new InputException(e.getMessage());
             }

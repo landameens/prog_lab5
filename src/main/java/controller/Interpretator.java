@@ -28,6 +28,12 @@ public class Interpretator {
             put("clear", StudyGroupRepositoryCommandFactory.class);
             put("update", StudyGroupRepositoryCommandFactory.class);
             put("add_if_min", StudyGroupRepositoryCommandFactory.class);
+            put("save", StudyGroupRepositoryCommandFactory.class);
+            put("remove_lower", StudyGroupRepositoryCommandFactory.class);
+            put("exit", SimpleCommandsFactory.class);
+            put("filter_by_should_be_expelled", StudyGroupRepositoryCommandFactory.class);
+            put("filter_less_than_should_be_expelled", StudyGroupRepositoryCommandFactory.class);
+            put("count_by_group_admin", StudyGroupRepositoryCommandFactory.class);
         }
     };
 
