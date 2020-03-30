@@ -1,7 +1,6 @@
 package app.query.queryBuilder;
 
 import app.CommandName;
-import app.CommandType;
 import app.Interpretator;
 import app.Validator;
 import app.query.Query;

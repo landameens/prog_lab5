@@ -1,14 +1,11 @@
 package controller.commands;
 
 import controller.response.Response;
-import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.CoordinatesDTO;
-import domain.studyGroup.person.Country;
-import domain.studyGroup.person.Person;
 import domain.studyGroup.person.PersonDTO;
 import domain.studyGroupRepository.IStudyGroupRepository;
 

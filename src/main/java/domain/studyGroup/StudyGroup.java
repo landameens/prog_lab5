@@ -1,10 +1,8 @@
 package domain.studyGroup;
 
-import domain.exception.CreationException;
 import domain.exception.VerifyException;
 import domain.studyGroup.coordinates.Coordinates;
 import domain.studyGroup.person.Person;
-import domain.studyGroupFactory.idProducer.IdProducer;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;

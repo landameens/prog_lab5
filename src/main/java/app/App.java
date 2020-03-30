@@ -7,17 +7,11 @@ import java.io.IOException;
 
 import controller.Controller;
 import controller.Interpretator;
-import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
-import domain.studyGroup.StudyGroupDTO;
-import domain.studyGroup.coordinates.CoordinatesDTO;
-import domain.studyGroup.person.PersonDTO;
-import domain.studyGroupFactory.IStudyGroupFactory;
 import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
-import storage.StudyGroupDAO;
 import storage.exception.DAOException;
 
 import java.net.URL;
@@ -27,8 +21,8 @@ public final class App {
 
     public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException {
         ClassLoader classLoader = App.class.getClassLoader();
-        String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
-        //String path = "C:\\Users\\Аня\\Desktop\\ЛАБОРАТОРНЫЕ РАБОТЫ\\prog_lab5\\src\\main\\resources";
+        //String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
+        String path = "C:\\Users\\Аня\\Desktop\\ЛАБОРАТОРНЫЕ РАБОТЫ\\prog_lab5\\src\\main\\resources";
 
         if (args.length > 0) {
             checkInputPath(args);

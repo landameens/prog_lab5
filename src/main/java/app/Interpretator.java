@@ -51,15 +51,6 @@ public final class Interpretator {
     }
 
     /**
-     * For user's input string of a command name returns enum constant.
-     * @param name
-     * @return
-     */
-    public CommandName interpretateCommandName(String name){
-        return CommandName.getCommandNameEnum(name);
-    }
-
-    /**
      * Returns a map of fields and invitation messages for a command.
      * @param name
      * @param viewer
@@ -85,6 +76,4 @@ public final class Interpretator {
 
         return map;
     }
-
-
 }

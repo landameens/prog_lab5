@@ -1,6 +1,5 @@
 package domain.studyGroupRepository.concreteSet;
 
-import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
 
 import java.util.Comparator;
