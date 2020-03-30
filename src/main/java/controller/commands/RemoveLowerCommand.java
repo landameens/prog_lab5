@@ -3,24 +3,29 @@ package controller.commands;
 import controller.response.Response;
 import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
+import domain.exception.VerifyException;
+import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.CoordinatesDTO;
 import domain.studyGroup.person.PersonDTO;
+import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupRepository.IStudyGroupRepository;
+import domain.studyGroupRepository.concreteSet.ConcreteSet;
+import domain.studyGroupRepository.concreteSet.ConcreteSetWhichLessThanThatStudyGroup;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Set;
 
-public class AddCommand extends StudyGroupRepositoryCommand {
-    public AddCommand(String type,
-                      Map<String, String> args,
-                      IStudyGroupRepository studyGroupRepository) {
+public class RemoveLowerCommand extends StudyGroupRepositoryCommand {
+    public RemoveLowerCommand(String type,
+                              Map<String, String> args,
+                              IStudyGroupRepository studyGroupRepository) {
         super(type, args, studyGroupRepository);
     }
 
     @Override
     public Response execute() {
-
         CoordinatesDTO coordinatesDTO = new CoordinatesDTO();
         coordinatesDTO.x = Integer.parseInt(args.get("xCoordinate"));
         coordinatesDTO.y = Integer.parseInt(args.get("yCoordinate"));
@@ -40,15 +45,25 @@ public class AddCommand extends StudyGroupRepositoryCommand {
         studyGroupDTO.semesterEnum = args.get("semesterEnum");
         studyGroupDTO.groupAdmin = personDTO;
         studyGroupDTO.creationDate = LocalDateTime.now();
+        studyGroupDTO.id = 101L;
 
         try {
-            studyGroupRepository.add(studyGroupDTO);
+            StudyGroup comparedStudyGroup = StudyGroup.getStudyGroup(studyGroupDTO);
+            ConcreteSet lowerStudyGroupSet = new ConcreteSetWhichLessThanThatStudyGroup(comparedStudyGroup);
 
-            return getSuccessfullyResponseDTO("Группа добавлена");
-        } catch (StudyGroupRepositoryException e) {
+            Set<StudyGroup> removableStudyGroup = studyGroupRepository.getConcreteSetOfStudyGroups(lowerStudyGroupSet);
 
+            if (!removableStudyGroup.isEmpty()) {
+                for (StudyGroup studyGroup : removableStudyGroup) {
+                    studyGroupRepository.remove(studyGroup);
+                }
+
+                return getSuccessfullyResponseDTO("Группы, меньшие, чем заданная, удалены.");
+            }
+
+            return getPreconditionFailedResponseDTO("В коллекци нет групп, меньших, чем заданная.");
+        } catch (VerifyException | StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());
         }
-
     }
 }

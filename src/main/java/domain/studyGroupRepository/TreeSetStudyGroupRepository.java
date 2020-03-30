@@ -14,12 +14,7 @@ import storage.exception.DAOException;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.util.Comparator;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.TreeSet;
-
-import static domain.studyGroup.StudyGroup.getStudyGroupDTO;
+import java.util.*;
 
 /**
  * These class are realize IStudyGroupRepository interface for working with Tree set.
@@ -155,9 +150,12 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     @Override
     public void save() throws DAOException {
         Set<StudyGroupDTO> studyGroupDTOSet = new LinkedHashSet<>();
+
         for (StudyGroup studyGroup : studyGroups) {
-            studyGroupDTOSet.add(getStudyGroupDTO(studyGroup));
+            StudyGroupDTO studyGroupDTO = StudyGroup.getStudyGroupDTO(studyGroup);
+            studyGroupDTOSet.add(studyGroupDTO);
         }
+
         studyGroupDAO.saveDTOs(studyGroupDTOSet);
     }
 

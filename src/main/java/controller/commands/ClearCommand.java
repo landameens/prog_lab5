@@ -28,14 +28,10 @@ public class ClearCommand extends StudyGroupRepositoryCommand {
                 studyGroupRepository.remove(removableStudyGroup);
             }
 
-            responseDTO.answer = "Коллекция очищена.";
-            responseDTO.status = Status.SUCCESSFULLY.getCode();
+            return getSuccessfullyResponseDTO("Коллекция очищена.");
 
         } catch (StudyGroupRepositoryException e) {
-            responseDTO.answer = e.getMessage();
-            responseDTO.status = Status.INTERNAL_ERROR.getCode();
+            return getBadRequestResponseDTO(e.getMessage());
         }
-
-        return Response.getResponse(responseDTO);
     }
 }

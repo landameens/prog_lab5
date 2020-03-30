@@ -4,7 +4,8 @@ public enum Status {
     SUCCESSFULLY("200"),
     BAD_REQUEST("400"),
     INTERNAL_ERROR("500"),
-    PRECONDITION_FAILED("412");
+    PRECONDITION_FAILED("412"),
+    PROGRAMM_EXIT("601");
 
     private String code;
 

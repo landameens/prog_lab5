@@ -4,6 +4,7 @@ import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
+import storage.exception.DAOException;
 
 import java.util.Set;
 
@@ -19,4 +20,6 @@ public interface IStudyGroupRepository {
     void update(StudyGroup studyGroup) throws StudyGroupRepositoryException;
 
     Set<StudyGroup> getConcreteSetOfStudyGroups(ConcreteSet concreteSet) throws StudyGroupRepositoryException;
+
+    void save() throws DAOException;
 }

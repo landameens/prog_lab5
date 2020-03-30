@@ -2,6 +2,7 @@ package controller.commands;
 
 import controller.response.Response;
 import controller.response.ResponseDTO;
+import controller.response.Status;
 
 import java.util.Map;
 
@@ -15,6 +16,41 @@ public abstract class Command {
         this.name = name;
         this.args = args;
         responseDTO = new ResponseDTO();
+    }
+
+    protected Response getSuccessfullyResponseDTO(String message){
+        responseDTO.status = Status.SUCCESSFULLY.getCode();
+        responseDTO.answer = message;
+
+        return Response.getResponse(responseDTO);
+    }
+
+    protected Response getBadRequestResponseDTO(String message){
+        responseDTO.status = Status.BAD_REQUEST.getCode();
+        responseDTO.answer = message;
+
+        return Response.getResponse(responseDTO);
+    }
+
+    protected Response getInternalErrorResponseDTO(String message){
+        responseDTO.status = Status.INTERNAL_ERROR.getCode();
+        responseDTO.answer = message;
+
+        return Response.getResponse(responseDTO);
+    }
+
+    protected Response getPreconditionFailedResponseDTO(String message){
+        responseDTO.status = Status.PRECONDITION_FAILED.getCode();
+        responseDTO.answer = message;
+
+        return Response.getResponse(responseDTO);
+    }
+
+    protected Response getProgrammExitResponceDTO(String message){
+        responseDTO.status = Status.PROGRAMM_EXIT.getCode();
+        responseDTO.answer = message;
+
+        return Response.getResponse(responseDTO);
     }
 
     public abstract Response execute();

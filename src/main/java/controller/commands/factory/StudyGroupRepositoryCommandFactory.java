@@ -26,6 +26,11 @@ public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
             put("clear", ClearCommand.class);
             put("update", UpdateCommad.class);
             put("add_if_min", AddIfMinCommand.class);
+            put("save", SaveCommand.class);
+            put("remove_lower", RemoveLowerCommand.class);
+            put("filter_by_should_be_expelled", FilterByShouldBeExpelledCommand.class);
+            put("filter_less_than_should_be_expelled", FilterLessThanShouldBeExpelledCommand.class);
+            put("count_by_group_admin", CountByGroupAdminCommand.class);
         }
     };
 
