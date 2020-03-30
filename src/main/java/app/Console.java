@@ -43,6 +43,7 @@ public final class Console {
 
             String command = reader.readLine();
             command = command.trim();
+            command = command.toLowerCase();
             String[] commandArray = command.split("[\\s]+");
 
         //    writeLine("value =" + Arrays.toString(commandArray));
