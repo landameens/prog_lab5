@@ -50,6 +50,14 @@ public class StudyGroupDAO implements IStudyGroupDAO{
 
     @Override
     public void saveDTOs(Set<StudyGroupDTO> dto) throws DAOException {
+        File directory = new File(pathToFile);
+        File[] oldfiles =  directory.listFiles();
+
+        List<File> studyGroupFiles = Arrays.asList(oldfiles);
+        for (File studyGroupFile : studyGroupFiles) {
+            studyGroupFile.delete();
+        }
+
         List<StudyGroupDTO> studyGroupDTOs = new ArrayList<>(dto);
         List<String> names = fillListByNames(studyGroupDTOs);
         List<File> files = createFiles(names);
@@ -57,6 +65,7 @@ public class StudyGroupDAO implements IStudyGroupDAO{
     }
 
     private List<String> fillListByNames(List<StudyGroupDTO> studyGroupDTOs){
+
         List<String> names = new LinkedList<>();
         for (StudyGroupDTO studyGroupDTO : studyGroupDTOs){
             names.add(pathToFile + "/" + "StudyGroup" + studyGroupDTO.id + ".xml");

@@ -23,7 +23,7 @@ public class CountByGroupAdminCommand extends StudyGroupRepositoryCommand {
     public Response execute() {
         String passportID = args.get("groupAdminPassportID");
         String name = args.get("groupAdminName");
-        Country nationality = Country.getCountry(args.get("groupAdminNationality"));
+        Country nationality = Country.getCountry(args.get("groupAdminNationality").toLowerCase());
         int height = Integer.parseInt(args.get("groupAdminHeight"));
 
         try {
@@ -45,7 +45,8 @@ public class CountByGroupAdminCommand extends StudyGroupRepositoryCommand {
             }
 
 
-            return getSuccessfullyResponseDTO(Integer.toString(count));
+            String mesage = new StringBuilder().append("Групп с таким полем groupAdmin в коллекции - ").append(String.valueOf(count)).append(System.lineSeparator()).toString();
+            return getSuccessfullyResponseDTO(mesage);
         } catch (StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());
         }

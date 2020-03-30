@@ -34,6 +34,9 @@ public class Interpretator {
             put("filter_by_should_be_expelled", StudyGroupRepositoryCommandFactory.class);
             put("filter_less_than_should_be_expelled", StudyGroupRepositoryCommandFactory.class);
             put("count_by_group_admin", StudyGroupRepositoryCommandFactory.class);
+//            put("info", StudyGroupRepositoryCommandFactory.class);
+//            put("execute_script", StudyGroupRepositoryCommandFactory.class);
+//            put("history", SimpleCommandsFactory.class);
         }
     };
 
