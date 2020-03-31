@@ -8,7 +8,6 @@ import app.query.queryBuilder.QueryBuilderFactory;
 import controller.Controller;
 import controller.response.Response;
 import domain.exception.CreationException;
-import domain.exception.StudyGroupRepositoryException;
 
 import java.io.*;
 import java.util.*;
@@ -39,30 +38,22 @@ public final class Console {
 
     public void start() throws InputException, IOException, InternalException {
         while (true){
-            writeLine("Write command, please: \n");
+            writeLine(viewer.showInvitationCommandMessage());
 
             String command = reader.readLine();
             command = command.trim();
+            command = command.toLowerCase();
             String[] commandArray = command.split("[\\s]+");
-
-        //    writeLine("value =" + Arrays.toString(commandArray));
-        //    writeLine(commandArray[0]);
             validator.validateCommandName(commandArray[0]);
 
-            //TODO: интерперетоатор лишний, можно сразу использовать енам
-            CommandName commandName = interpretator.interpretateCommandName(commandArray[0]);
-
-        //    writeLine("CommandName = " + commandName.getName());
-
+            CommandName commandName = CommandName.getCommandNameEnum(commandArray[0]);
             CommandType commandType = interpretator.interpretateCommandType(commandName);
-        //    writeLine("CommandType = " + commandType);
-            List<String> commandList = new ArrayList<>();
 
+            List<String> commandList = new ArrayList<>();
             Collections.addAll(commandList, commandArray);
             validator.validateNumberOfArguments(commandName, commandList);
 
             Map<String, String> arguments = new HashMap<>();
-
             if (commandType.equals(CommandType.COMPOUND_COMMAND)){
                 arguments = getArgumentsOfCompoundCommands(commandName);
             }
@@ -72,7 +63,7 @@ public final class Console {
             Query query = queryBuilder.buildQuery(commandName,
                                                   commandList,
                                                   arguments);
-        //     writeLine(query.toString());
+    //         writeLine(query.toString());
 
             try {
                 Response response = controller.handleQuery(query);
@@ -120,7 +111,6 @@ public final class Console {
                 try {
                     String userInput = reader.readLine();
                     userInput = userInput.trim();
-                    //number of args?
                     validator.validateElementFields(field, userInput);
                     flag = false;
                     correctValue = userInput;

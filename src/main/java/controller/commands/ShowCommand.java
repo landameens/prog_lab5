@@ -1,7 +1,6 @@
 package controller.commands;
 
 import controller.response.Response;
-import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroupRepository.IStudyGroupRepository;
@@ -34,13 +33,13 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
     private String getMessage(Set<StudyGroup> studyGroupSet){
 
         if(!studyGroupSet.isEmpty()) {
-            StringBuilder allSrudyGroups = new StringBuilder();
+            StringBuilder allStudyGroups = new StringBuilder();
 
             for (StudyGroup studyGroup : studyGroupSet){
-                allSrudyGroups.append(studyGroup.toString()).append(System.lineSeparator()).append(System.lineSeparator());
+                allStudyGroups.append(studyGroup.toString()).append(System.lineSeparator()).append(System.lineSeparator());
             }
 
-            return allSrudyGroups.toString();
+            return allStudyGroups.toString();
         }
 
         return "Коллекция пуста.";

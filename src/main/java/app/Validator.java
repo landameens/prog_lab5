@@ -271,6 +271,4 @@ public final class Validator {
             throw new InputException(NOT_ENUM_CONSTANT);
         }
     }
-
-
 }

@@ -1,18 +1,13 @@
 package controller.commands;
 
-import app.query.Query;
 import controller.response.Response;
-import controller.response.Status;
 import domain.exception.StudyGroupRepositoryException;
-import domain.exception.VerifyException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.CoordinatesDTO;
 import domain.studyGroup.person.PersonDTO;
-import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.concreteSet.ConcreteSet;
-import domain.studyGroupRepository.concreteSet.ConcreteSetWhichLessThanThatStudyGroup;
 import domain.studyGroupRepository.concreteSet.ConcreteSetWithSpecialField;
 import domain.studyGroupRepository.concreteSet.MinSet;
 

@@ -12,17 +12,17 @@ import static app.CommandName.*;
 public final class Viewer {
     private final Map<String, String> addCommandMessages = new LinkedHashMap<String, String>() {
         {
-            put("StudyGroupName","Введите название группы: ");
-            put("xCoordinate","Введите ");
-            put("yCoordinate","");
-            put("studentsCount","Введите количество студентов в группе: ");
-            put("shouldBeExpelled","Введите количество студентов, которых скоро отчислят:");
-            put("formOfEducation","Введите форму образования: {DISTANCE_EDUCATION; FULL_TIME_EDUCATION; EVENING_CLASSES;} ");
-            put("semesterEnum","Введите номер семестра: {FIRST; SECOND; FOURTH; EIGHTH;} ");
-            put("groupAdminName","Введите имя администратора группы: ");
-            put("groupAdminHeight","Введите рост администратора группы: ");
-            put("groupAdminPassportID","Введите паспортные данные администратора группы: ");
-            put("groupAdminNationality","Введите национальность администратора группы: {UNITED_KINGDOM; GERMANY; VATICAN; SOUTH_KOREA; JAPAN;} ");
+            put("StudyGroupName","Введите название группы: " + System.lineSeparator());
+            put("xCoordinate","Введите координату X: " + System.lineSeparator());
+            put("yCoordinate","Введите координату Y: " + System.lineSeparator());
+            put("studentsCount","Введите количество студентов в группе: " + System.lineSeparator());
+            put("shouldBeExpelled","Введите количество студентов, которых скоро отчислят: " + System.lineSeparator());
+            put("formOfEducation","Введите форму образования: {DISTANCE_EDUCATION; FULL_TIME_EDUCATION; EVENING_CLASSES;} " + System.lineSeparator());
+            put("semesterEnum","Введите номер семестра: {FIRST; SECOND; FOURTH; EIGHTH;} " + System.lineSeparator());
+            put("groupAdminName","Введите имя администратора группы: " + System.lineSeparator());
+            put("groupAdminHeight","Введите рост администратора группы: " + System.lineSeparator());
+            put("groupAdminPassportID","Введите паспортные данные администратора группы: " + System.lineSeparator());
+            put("groupAdminNationality","Введите национальность администратора группы: {UNITED_KINGDOM; GERMANY; VATICAN; SOUTH_KOREA; JAPAN;} " + System.lineSeparator());
         }
     };
 
@@ -40,8 +40,8 @@ public final class Viewer {
             put(ADD, addCommandMessages);
             put(ADD_IF_MIN, addCommandMessages);
             put(REMOVE_LOWER, addCommandMessages);
-            put(COUNT_BY_GROUP_ADMIN, countByGroupAdminCommandMessages);  //???
-            put(UPDATE, addCommandMessages); //не забыть что там еще id был
+            put(COUNT_BY_GROUP_ADMIN, countByGroupAdminCommandMessages);
+            put(UPDATE, addCommandMessages);
 
         }
     };
@@ -50,5 +50,7 @@ public final class Viewer {
         return inputMessagesMap;
     }
 
-
+    public String showInvitationCommandMessage(){
+        return "Enter a command, please: ";
+    }
 }

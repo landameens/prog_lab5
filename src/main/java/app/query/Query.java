@@ -1,7 +1,5 @@
 package app.query;
 
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

@@ -1,7 +1,6 @@
 package controller.commands;
 
 import controller.response.Response;
-import controller.response.Status;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import storage.exception.DAOException;
 
