@@ -14,14 +14,14 @@ import java.util.*;
 public class StudyGroupDAO implements IStudyGroupDAO{
     private final static String EMPTY_DIRECTORY_ERROR = "Отсутствуют файлы.";
 
-    private String pathToFile;
+    private String pathToStudyGroups;
     public StudyGroupDAO(String pathToFile) {
-        this.pathToFile = pathToFile;
+        this.pathToStudyGroups = pathToFile + "\\studyGroups";
     }
 
     @Override
     public Set<StudyGroupDTO> getDTOs() throws DAOException {
-        File directory = new File(pathToFile);
+        File directory = new File(pathToStudyGroups);
         File[] files =  directory.listFiles();
 
         if (files == null){
@@ -50,7 +50,7 @@ public class StudyGroupDAO implements IStudyGroupDAO{
 
     @Override
     public void saveDTOs(Set<StudyGroupDTO> dto) throws DAOException {
-        File directory = new File(pathToFile);
+        File directory = new File(pathToStudyGroups);
         File[] oldfiles =  directory.listFiles();
 
         List<File> studyGroupFiles = Arrays.asList(oldfiles);
@@ -68,7 +68,7 @@ public class StudyGroupDAO implements IStudyGroupDAO{
 
         List<String> names = new LinkedList<>();
         for (StudyGroupDTO studyGroupDTO : studyGroupDTOs){
-            names.add(pathToFile + "/" + "StudyGroup" + studyGroupDTO.id + ".xml");
+            names.add(pathToStudyGroups + "/" + "StudyGroup" + studyGroupDTO.id + ".xml");
         }
         return names;
     }

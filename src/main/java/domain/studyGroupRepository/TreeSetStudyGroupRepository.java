@@ -7,6 +7,7 @@ import domain.exception.VerifyException;
 import domain.studyGroupFactory.IStudyGroupFactory;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
+import storage.CollectionInfoDAO;
 import storage.IStudyGroupDAO;
 import storage.Saveable;
 import storage.StudyGroupDAO;
@@ -29,6 +30,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private IStudyGroupFactory studyGroupFactory;
     private Set<StudyGroup> studyGroups;
     private IStudyGroupDAO studyGroupDAO;
+    private CollectionInfoDAO collectionInfoDAO;
+    private CollectionInfo collectionInfo;
 
     public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory,
                                        String path) throws DAOException, VerifyException {
@@ -38,6 +41,12 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
         File directory = new File(path);
         studyGroups = getInitialFiles(directory, studyGroupComparator);
+        collectionInfo = getInfos(path);
+    }
+
+    private CollectionInfo getInfos(String path) throws DAOException {
+        collectionInfoDAO = new CollectionInfoDAO(path);
+        return collectionInfoDAO.getInfos();
     }
 
     private Set<StudyGroup> getInitialFiles(File directory,
@@ -84,6 +93,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         if (!studyGroups.add(studyGroup)) {
             throw new StudyGroupRepositoryException(SUCH_GROUP_EXIST_ERROR_MESSAGE);
         }
+
+        collectionInfo.size = studyGroups.size();
     }
 
     /**
@@ -96,6 +107,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         if (!studyGroups.remove(studyGroup)){
             throw new StudyGroupRepositoryException(NO_SUCH_STUDY_GROUP_ERROR_MESSAGE);
         }
+
+        collectionInfo.size = studyGroups.size();
     }
 
     /**
@@ -157,6 +170,12 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         }
 
         studyGroupDAO.saveDTOs(studyGroupDTOSet);
+        collectionInfoDAO.saveInfos(collectionInfo);
+    }
+
+    @Override
+    public CollectionInfo getInfo() {
+        return collectionInfo;
     }
 
 }

@@ -22,4 +22,6 @@ public interface IStudyGroupRepository {
     Set<StudyGroup> getConcreteSetOfStudyGroups(ConcreteSet concreteSet) throws StudyGroupRepositoryException;
 
     void save() throws DAOException;
+
+    CollectionInfo getInfo();
 }

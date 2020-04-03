@@ -31,6 +31,7 @@ public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
             put("filter_by_should_be_expelled", FilterByShouldBeExpelledCommand.class);
             put("filter_less_than_should_be_expelled", FilterLessThanShouldBeExpelledCommand.class);
             put("count_by_group_admin", CountByGroupAdminCommand.class);
+            put("info", InfoCommand.class);
         }
     };
 

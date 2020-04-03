@@ -18,7 +18,6 @@ public class CountByGroupAdminCommand extends StudyGroupRepositoryCommand {
         super(type, args, studyGroupRepository);
     }
 
-    //Todo: дописать
     @Override
     public Response execute() {
         String passportID = args.get("groupAdminPassportID");

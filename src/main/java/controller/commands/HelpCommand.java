@@ -33,7 +33,7 @@ public class HelpCommand extends Command {
         stringBuilder.append("history : вывести последние 15 команд (без их аргументов)").append(System.lineSeparator());
         stringBuilder.append("count_by_group_admin groupAdmin : вывести количество элементов, значение поля groupAdmin которых равно заданном").append(System.lineSeparator());
         stringBuilder.append("filter_by_should_be_expelled shouldBeExpelled : вывести элементы, значение поля shouldBeExpelled которых равно заданному").append(System.lineSeparator());
-        stringBuilder.append("filter_less_than_should_be_expelled shouldBeExpelled : вывести элементы, значение поля shouldBeExpelled которых меньше заданного");
+        stringBuilder.append("filter_less_than_should_be_expelled shouldBeExpelled : вывести элементы, значение поля shouldBeExpelled которых меньше заданного").append(System.lineSeparator());
 
         return stringBuilder.toString();
     }
