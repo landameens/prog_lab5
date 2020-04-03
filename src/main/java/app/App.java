@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import controller.Controller;
 import controller.Interpretator;
+import domain.commandsRepository.ArrayListCommandsRepository;
+import domain.commandsRepository.ICommandsRepository;
 import domain.exception.VerifyException;
 import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupFactory.idProducer.IdProducer;
@@ -47,8 +49,9 @@ public final class App {
         IdProducer idProducer = new IdProducer();
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
         IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
-        Interpretator interpretator = new Interpretator(studyGroupRepository);
-        Controller controller = new Controller(interpretator);
+        ICommandsRepository commandsRepository = new ArrayListCommandsRepository();
+        Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
+        Controller controller = new Controller(interpretator, commandsRepository);
 
         Console console = new Console(System.in, System.out, controller);
         try {

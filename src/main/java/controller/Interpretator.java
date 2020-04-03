@@ -1,8 +1,10 @@
 package controller;
 
+import controller.commands.factory.HistoryRepositoryCommandFactory;
 import controller.commands.factory.ICommandFactory;
 import controller.commands.factory.SimpleCommandsFactory;
 import controller.commands.factory.StudyGroupRepositoryCommandFactory;
+import domain.commandsRepository.ICommandsRepository;
 import domain.studyGroupRepository.IStudyGroupRepository;
 
 import java.util.HashMap;
@@ -12,10 +14,12 @@ public class Interpretator {
 
     private ICommandFactory simpleCommandsFactory;
     private ICommandFactory studyGroupRepositoryCommandFactory;
+    private ICommandFactory commandRepositoryFactory;
 
-    public Interpretator(IStudyGroupRepository studyGroupRepository) {
+    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
+        commandRepositoryFactory = new HistoryRepositoryCommandFactory(commandsRepository);
     }
 
     //Todo: сюда дабавалять классы и их фабрику
@@ -36,7 +40,7 @@ public class Interpretator {
             put("count_by_group_admin", StudyGroupRepositoryCommandFactory.class);
             put("info", StudyGroupRepositoryCommandFactory.class);
 //            put("execute_script", StudyGroupRepositoryCommandFactory.class);
-//            put("history", SimpleCommandsFactory.class);
+            put("history", HistoryRepositoryCommandFactory.class);
         }
     };
 
@@ -50,6 +54,10 @@ public class Interpretator {
 
         if (clazz.equals(studyGroupRepositoryCommandFactory.getClass())) {
             return studyGroupRepositoryCommandFactory;
+        }
+
+        if(clazz.equals(commandRepositoryFactory.getClass())){
+            return commandRepositoryFactory;
         }
 
         return null;
