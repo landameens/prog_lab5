@@ -94,6 +94,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
             throw new StudyGroupRepositoryException(SUCH_GROUP_EXIST_ERROR_MESSAGE);
         }
 
+        //TODO: это здесь вообще необязательно, будет достаточно перенести это в getCollectionInfo для обновления поля
+        // (дублирование кода)
         collectionInfo.size = studyGroups.size();
     }
 

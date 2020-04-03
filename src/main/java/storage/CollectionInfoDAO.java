@@ -40,6 +40,8 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
             }
         }
 
+        //TODO: не круто, нвдо рефакторить, ты можешь проверить ретерн выше на нулл и если будет нул (значит нет сохраненной инфы)
+        // то вызвать метод например createCollectionInfo()
         CollectionInfo info = new CollectionInfo();
         info.creationDate = ZonedDateTime.now();
         info.size = 0;

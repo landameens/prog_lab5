@@ -7,5 +7,6 @@ public interface ICommandsRepository {
 
     List<CommandDTO> getHistory();
 
+    //TODO: лишнее
     String getHistorytext();
 }

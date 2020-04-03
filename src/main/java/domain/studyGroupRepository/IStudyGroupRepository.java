@@ -21,6 +21,7 @@ public interface IStudyGroupRepository {
 
     Set<StudyGroup> getConcreteSetOfStudyGroups(ConcreteSet concreteSet) throws StudyGroupRepositoryException;
 
+    //TODO: какого фига это тут, если у тебя интерфейс Saveable???
     void save() throws DAOException;
 
     CollectionInfo getInfo();

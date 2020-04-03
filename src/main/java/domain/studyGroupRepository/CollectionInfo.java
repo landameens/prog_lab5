@@ -15,6 +15,7 @@ import java.time.ZonedDateTime;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public final class CollectionInfo {
+    //TODO: можно сузить diamond operator (extends)
     public Class<?> type;
     @XmlJavaTypeAdapter(ZonedDateTimeAdapter.class)
     public ZonedDateTime creationDate;

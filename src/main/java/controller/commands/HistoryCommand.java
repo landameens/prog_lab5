@@ -17,6 +17,7 @@ public class HistoryCommand extends Command {
 
     @Override
     public Response execute() {
+        //TODO: логика здесь, а не в репозитории (см тудушки там)
         String answer = commandsRepository.getHistorytext();
 
         return getSuccessfullyResponseDTO(answer);
