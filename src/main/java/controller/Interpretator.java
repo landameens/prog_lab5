@@ -22,7 +22,6 @@ public class Interpretator {
         commandRepositoryFactory = new HistoryRepositoryCommandFactory(commandsRepository);
     }
 
-    //Todo: сюда дабавалять классы и их фабрику
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
         {
             put("help", SimpleCommandsFactory.class);
@@ -39,7 +38,7 @@ public class Interpretator {
             put("filter_less_than_should_be_expelled", StudyGroupRepositoryCommandFactory.class);
             put("count_by_group_admin", StudyGroupRepositoryCommandFactory.class);
             put("info", StudyGroupRepositoryCommandFactory.class);
-//            put("execute_script", StudyGroupRepositoryCommandFactory.class);
+            put("execute_script", StudyGroupRepositoryCommandFactory.class);
             put("history", HistoryRepositoryCommandFactory.class);
         }
     };

@@ -17,19 +17,14 @@ public class HistoryRepository implements ICommandsRepository {
 
     @Override
     public List<Record> getRecords(int quantity) {
-
-        List<Record> answer = new ArrayList<>();
-
-        int number = 0;
-        for(Record commandDTO : historyList){
-            number++;
-            answer.add(commandDTO);
-
-            if(number == quantity){
-                break;
+        for (Record record : historyList) {
+            if(historyList.size() <= quantity){
+                return historyList;
             }
+
+            historyList.remove(record);
         }
 
-        return answer;
+        return null;
     }
 }
