@@ -17,7 +17,6 @@ public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
     }
 
 
-    //todo: сюда имя класса и его класс
     private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
         {
             put("show", ShowCommand.class);

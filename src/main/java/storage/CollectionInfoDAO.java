@@ -1,6 +1,5 @@
 package storage;
 
-import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroupRepository.CollectionInfo;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
 import storage.exception.DAOException;
@@ -30,6 +29,7 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
     }
 
     private CollectionInfo deserialize(List<File> collectionInfo)throws DAOException{
+
         for (File file : collectionInfo) {
             try {
                 JAXBContext context = JAXBContext.newInstance(CollectionInfo.class);
@@ -40,17 +40,20 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
             }
         }
 
-        //TODO: не круто, нвдо рефакторить, ты можешь проверить ретерн выше на нулл и если будет нул (значит нет сохраненной инфы)
-        // то вызвать метод например createCollectionInfo()
+        return createCollectionInfo();
+    }
+
+    private CollectionInfo createCollectionInfo(){
         CollectionInfo info = new CollectionInfo();
         info.creationDate = ZonedDateTime.now();
         info.size = 0;
         info.type = TreeSetStudyGroupRepository.class;
+
         return info;
     }
 
     @Override
-    public void saveInfos(CollectionInfo collectionInfo) throws DAOException {
+    public void saveInfo(CollectionInfo collectionInfo) throws DAOException {
         File file = new File(pathToInfo);
         file.delete();
         serialize(file, collectionInfo);

@@ -1,5 +1,6 @@
 package domain.studyGroupRepository;
 
+import domain.studyGroup.StudyGroup;
 import storage.adapters.LocalDateTimeAdapter;
 import storage.adapters.ZonedDateTimeAdapter;
 
@@ -9,14 +10,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 @XmlRootElement
 @XmlType(name = "collectionInfo")
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public final class CollectionInfo {
-    //TODO: можно сузить diamond operator (extends)
-    public Class<?> type;
+    public Class<TreeSetStudyGroupRepository> type;
     @XmlJavaTypeAdapter(ZonedDateTimeAdapter.class)
     public ZonedDateTime creationDate;
     public int size;
@@ -24,11 +26,11 @@ public final class CollectionInfo {
 
     @Override
     public String toString() {
-        return "CollectionInfo{" + System.lineSeparator() +
-                "type='" + type + '\'' + System.lineSeparator() +
-                ", creationDate=" + creationDate + System.lineSeparator() +
-                ", size=" + size +
-                '}';
+        DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
+        return "Информация о текущей коллекции:" + System.lineSeparator() +
+                "type = " + type.getSimpleName() + System.lineSeparator() +
+                "creationDate = " + creationDate.format(formatter) + System.lineSeparator() +
+                "size = " + size + System.lineSeparator();
     }
 }
 

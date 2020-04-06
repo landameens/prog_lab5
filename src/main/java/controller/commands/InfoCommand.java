@@ -16,6 +16,5 @@ public class InfoCommand extends StudyGroupRepositoryCommand {
     @Override
     public Response execute() {
         return getSuccessfullyResponseDTO(studyGroupRepository.getInfo().toString());
-        //TODO:отформатируй вывод, нифига не понятна
     }
 }

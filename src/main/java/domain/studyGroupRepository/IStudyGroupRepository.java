@@ -4,6 +4,7 @@ import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
+import storage.Saveable;
 import storage.exception.DAOException;
 
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.Set;
  * Interface for working with the repository where Study Groups stored.
  * To get a set of Study Groups using the abstract class ConcreteSet.
  */
-public interface IStudyGroupRepository {
+public interface IStudyGroupRepository extends Saveable {
     void add(StudyGroupDTO studyGroupDTO) throws StudyGroupRepositoryException;
 
     void remove(StudyGroup studyGroup) throws StudyGroupRepositoryException;
@@ -20,9 +21,6 @@ public interface IStudyGroupRepository {
     void update(StudyGroup studyGroup) throws StudyGroupRepositoryException;
 
     Set<StudyGroup> getConcreteSetOfStudyGroups(ConcreteSet concreteSet) throws StudyGroupRepositoryException;
-
-    //TODO: какого фига это тут, если у тебя интерфейс Saveable???
-    void save() throws DAOException;
 
     CollectionInfo getInfo();
 }

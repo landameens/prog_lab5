@@ -1,8 +1,10 @@
 package controller.commands;
 
 import controller.response.Response;
+import domain.commandsRepository.Record;
 import domain.commandsRepository.ICommandsRepository;
 
+import java.util.List;
 import java.util.Map;
 
 public class HistoryCommand extends Command {
@@ -17,9 +19,19 @@ public class HistoryCommand extends Command {
 
     @Override
     public Response execute() {
-        //TODO: логика здесь, а не в репозитории (см тудушки там)
-        String answer = commandsRepository.getHistorytext();
+        List<Record> historyList = commandsRepository.getRecords(15);
+        String answer = getAnswer(historyList);
 
         return getSuccessfullyResponseDTO(answer);
     }
+
+    private String getAnswer(List<Record> historyList) {
+        StringBuilder answer = new StringBuilder();
+        for (Record record : historyList){
+            answer.append(record.toString()).append(System.lineSeparator());
+        }
+
+        return answer.toString();
+    }
+
 }

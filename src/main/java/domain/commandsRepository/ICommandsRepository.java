@@ -3,10 +3,7 @@ package domain.commandsRepository;
 import java.util.List;
 
 public interface ICommandsRepository {
-    void add(CommandDTO commandDTO);
+    void add(Record commandDTO);
 
-    List<CommandDTO> getHistory();
-
-    //TODO: лишнее
-    String getHistorytext();
+    List<Record> getRecords(int quantity);
 }

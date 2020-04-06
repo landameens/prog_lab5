@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import controller.Controller;
 import controller.Interpretator;
-import domain.commandsRepository.ArrayListCommandsRepository;
+import domain.commandsRepository.HistoryRepository;
 import domain.commandsRepository.ICommandsRepository;
 import domain.exception.VerifyException;
 import domain.studyGroupFactory.StudyGroupFactory;
@@ -23,8 +23,8 @@ public final class App {
 
     public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException {
         ClassLoader classLoader = App.class.getClassLoader();
-        String path = "C:\\Users\\speci\\Desktop\\JAVA\\PROJECTS\\nadya\\prog_lab5\\src\\main\\resources";
-        //String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
+        //String path = "C:\\Users\\speci\\Desktop\\JAVA\\PROJECTS\\nadya\\prog_lab5\\src\\main\\resources";
+        String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
         //String path = "C:\\Users\\Аня\\Desktop\\ЛАБОРАТОРНЫЕ РАБОТЫ\\prog_lab5\\src\\main\\resources";
 
         if (args.length > 0) {
@@ -49,7 +49,7 @@ public final class App {
         IdProducer idProducer = new IdProducer();
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
         IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
-        ICommandsRepository commandsRepository = new ArrayListCommandsRepository();
+        ICommandsRepository commandsRepository = new HistoryRepository();
         Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
         Controller controller = new Controller(interpretator, commandsRepository);
 

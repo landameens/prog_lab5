@@ -94,9 +94,6 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
             throw new StudyGroupRepositoryException(SUCH_GROUP_EXIST_ERROR_MESSAGE);
         }
 
-        //TODO: это здесь вообще необязательно, будет достаточно перенести это в getCollectionInfo для обновления поля
-        // (дублирование кода)
-        collectionInfo.size = studyGroups.size();
     }
 
     /**
@@ -109,8 +106,6 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         if (!studyGroups.remove(studyGroup)){
             throw new StudyGroupRepositoryException(NO_SUCH_STUDY_GROUP_ERROR_MESSAGE);
         }
-
-        collectionInfo.size = studyGroups.size();
     }
 
     /**
@@ -158,10 +153,12 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         return concreteSet.execute(studyGroups);
     }
 
-    /**
-     * Saves Study Groups using StudyGroupDAO
-     * @throws DAOException
-     */
+    @Override
+    public CollectionInfo getInfo() {
+        collectionInfo.size = studyGroups.size();
+        return collectionInfo;
+    }
+
     @Override
     public void save() throws DAOException {
         Set<StudyGroupDTO> studyGroupDTOSet = new LinkedHashSet<>();
@@ -172,12 +169,6 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         }
 
         studyGroupDAO.saveDTOs(studyGroupDTOSet);
-        collectionInfoDAO.saveInfos(collectionInfo);
+        collectionInfoDAO.saveInfo(collectionInfo);
     }
-
-    @Override
-    public CollectionInfo getInfo() {
-        return collectionInfo;
-    }
-
 }

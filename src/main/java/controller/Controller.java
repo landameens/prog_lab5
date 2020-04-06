@@ -4,7 +4,7 @@ import app.query.Query;
 import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
-import domain.commandsRepository.CommandDTO;
+import domain.commandsRepository.Record;
 import domain.commandsRepository.ICommandsRepository;
 import domain.exception.CreationException;
 
@@ -23,7 +23,7 @@ public class Controller {
 
         Command command = commandFactory.createCommand(query.getCommandName(), query.getArguments());
 
-        CommandDTO commandDTO = new CommandDTO();
+        Record commandDTO = new Record();
         commandDTO.name = query.getCommandName();
 
         commandsRepository.add(commandDTO);
