@@ -49,6 +49,7 @@ public class ExecuteScriptCommand extends StudyGroupRepositoryCommand {
 
         StringBuilder answer = new StringBuilder();
 
+        //todo нечитаемо, рефакторинг
         while (iterator.hasNext()){
             String line = iterator.next();
 
