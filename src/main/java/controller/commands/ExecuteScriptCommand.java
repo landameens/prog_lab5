@@ -49,7 +49,6 @@ public class ExecuteScriptCommand extends StudyGroupRepositoryCommand {
 
         StringBuilder answer = new StringBuilder();
 
-        //todo нечитаемо, рефакторинг
         while (iterator.hasNext()){
             String line = iterator.next();
 
@@ -57,39 +56,55 @@ public class ExecuteScriptCommand extends StudyGroupRepositoryCommand {
                 continue;
             }
 
-            line = line.trim();
-            String[] commandArray = line.split("[\\s]+");
-
-            String commandName = commandArray[0];
-            ICommandFactory commandFactory = interpretator.getFactoryInstance(commandName);
-
-            Map<String, String> args = new HashMap<>();
-            CommandType commandType = interpretatorToType.interpretateCommandType(CommandName.getCommandNameEnum(commandName));
-
-            if (commandType.equals(CommandType.COMPOUND_COMMAND)){
-                args = getArguments(commandName, iterator);
-            }
-
             try {
-                Command command = commandFactory.createCommand(commandName, args);
+                String[] commandArray = getCommandArray(line);
+                String commandName = commandArray[0];
 
-                Record commandDTO = new Record();
-                commandDTO.name = commandName;
-                commandsRepository.add(commandDTO);
+                Command command = createCommand(commandName, iterator);
 
-                answer = answer.append(command.execute().getAnswer());
+                addToHistory(commandName);
+
+                String thisCommandAnswer = command.execute().getAnswer();
+                answer = answer.append(thisCommandAnswer);
 
             } catch (CreationException e) {
                 return getBadRequestResponseDTO(e.getMessage());
             }
-
         }
-
         return getSuccessfullyResponseDTO(answer.toString());
+    }
 
+    private Command createCommand(String commandName, Iterator<String> iterator) throws CreationException {
+        ICommandFactory commandFactory = interpretator.getFactoryInstance(commandName);
+        Map<String, String> args = getArguments(commandName, iterator);
+
+        return commandFactory.createCommand(commandName, args);
+    }
+
+    private void addToHistory(String commandName) {
+        Record commandDTO = new Record();
+        commandDTO.name = commandName;
+        commandsRepository.add(commandDTO);
     }
 
     private Map<String, String> getArguments(String commandName, Iterator<String> iterator) {
+        Map<String, String> args = new HashMap<>();
+
+        CommandType commandType = interpretatorToType.interpretateCommandType(CommandName.getCommandNameEnum(commandName));
+
+        if (commandType.equals(CommandType.COMPOUND_COMMAND)){
+            args = getArgumentsForCompoundCommand(commandName, iterator);
+        }
+
+        return args;
+    }
+
+    private String[] getCommandArray(String line) {
+        line = line.trim();
+        return line.split("[\\s]+");
+    }
+
+    private Map<String, String> getArgumentsForCompoundCommand(String commandName, Iterator<String> iterator) {
         Map<String,String> returnableArgs = new HashMap<>();
         Map<String, String> mapForInputArguments = interpretatorToType.getMapForInputArguments(CommandName.getCommandNameEnum(commandName), viewer);
 

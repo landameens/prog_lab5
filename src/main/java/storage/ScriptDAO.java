@@ -18,9 +18,8 @@ public class ScriptDAO implements IScriptDAO {
         String thisCommand = "execute_script " + path;
 
         File file = new File(path);
-        //TODO NAMING
-        FileReader fr = new FileReader(file);
-        BufferedReader reader = new BufferedReader(fr);
+        FileReader fileReader = new FileReader(file);
+        BufferedReader reader = new BufferedReader(fileReader);
 
 
         List<String> scriptInput = new ArrayList<>();
