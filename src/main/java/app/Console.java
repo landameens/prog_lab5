@@ -63,7 +63,7 @@ public final class Console {
             Query query = queryBuilder.buildQuery(commandName,
                                                   commandList,
                                                   arguments);
-    //         writeLine(query.toString());
+    //          writeLine(query.toString());
 
             try {
                 Response response = controller.handleQuery(query);

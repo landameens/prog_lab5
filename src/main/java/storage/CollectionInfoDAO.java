@@ -55,8 +55,9 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
     @Override
     public void saveInfo(CollectionInfo collectionInfo) throws DAOException {
         File file = new File(pathToInfo);
-        file.delete();
-        serialize(file, collectionInfo);
+        if (file.delete()){
+            serialize(file, collectionInfo);
+        }
     }
 
     private void serialize(File file, CollectionInfo collectionInfo) throws DAOException {
