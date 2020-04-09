@@ -19,6 +19,10 @@ public class StudyGroupFactory implements IStudyGroupFactory {
         this.idProducer = idProducer;
     }
 
+    public IdProducer getIdProducer() {
+        return idProducer;
+    }
+
     @Override
     public StudyGroup createNewStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException {
         if (studyGroupDTO == null){
@@ -47,5 +51,4 @@ public class StudyGroupFactory implements IStudyGroupFactory {
                             semesterEnum,
                             groupAdmin);
     }
-
 }

@@ -1,10 +1,9 @@
 package domain.studyGroupRepository;
 
+import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupRepository.concreteSet.ConcreteSet;
-import domain.exception.CreationException;
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
-import domain.studyGroupFactory.IStudyGroupFactory;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import storage.collectionInfoDAO.CollectionInfoDAO;
@@ -27,13 +26,13 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private static final String SUCH_GROUP_EXIST_ERROR_MESSAGE = "Такая группа уже существует.";
     private static final String NO_SUCH_STUDY_GROUP_ERROR_MESSAGE = "Такой группы нет в репозитории.";
 
-    private IStudyGroupFactory studyGroupFactory;
+    private StudyGroupFactory studyGroupFactory;
     private Set<StudyGroup> studyGroups;
     private IStudyGroupDAO studyGroupDAO;
     private CollectionInfoDAO collectionInfoDAO;
     private CollectionInfo collectionInfo;
 
-    public TreeSetStudyGroupRepository(IStudyGroupFactory studyGroupFactory,
+    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory,
                                        String path) throws DAOException, VerifyException {
         this.studyGroupFactory = studyGroupFactory;
         studyGroupDAO = new StudyGroupDAO(path);
@@ -82,7 +81,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         StudyGroup studyGroup;
         try {
             studyGroup = studyGroupFactory.createNewStudyGroup(studyGroupDTO);
-        } catch (VerifyException | CreationException e) {
+        } catch (VerifyException e) {
             throw new StudyGroupRepositoryException(INTERNAL_ERROR_MESSAGE);
         }
 
@@ -170,6 +169,6 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
 
         studyGroupDAO.saveDTOs(studyGroupDTOSet);
         collectionInfoDAO.saveInfo(collectionInfo);
-
+        studyGroupFactory.getIdProducer().saveId();
     }
 }

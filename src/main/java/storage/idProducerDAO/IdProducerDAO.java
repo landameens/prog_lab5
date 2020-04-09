@@ -15,19 +15,18 @@ public class IdProducerDAO implements IIdProducerDAO {
     }
 
     @Override
-    public List<Long> getDefaultIdProducerDTO() throws DAOException {
+    public List<Long> getIdProducerDTO() throws DAOException {
         try (ObjectInput objectInput = new ObjectInputStream(new FileInputStream(path))){
 
             List<Long> listId = (List<Long>) objectInput.readObject();
 
-            if (listId == null){
+            if (listId.isEmpty()){
                 List<Long> newListId = new ArrayList<>();
                 for (long i = 1; i < 100; i++){
                     newListId.add(i);
                 }
                 return newListId;
             }
-
             return listId;
         } catch (IOException | ClassNotFoundException e) {
             throw new DAOException(e.getMessage());
