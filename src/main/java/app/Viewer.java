@@ -51,6 +51,6 @@ public final class Viewer {
     }
 
     public String showInvitationCommandMessage(){
-        return "Enter a command, please: ";
+        return "Enter a command, please: " + System.lineSeparator();
     }
 }

@@ -16,6 +16,7 @@ import java.util.*;
  * This class is responsible for input-output, it forms the query and handles it to controller to get response.
  */
 public final class Console {
+    private static final String START_MESSAGE_STRING = "Добро пожаловать в наше приложение! Для ознакомления с существующими командами, введите команду 'help'." + System.lineSeparator();
     private final String INTERNAL_ERROR_WITH_IO = "Ошибка ввода-вывода. ";
 
     private BufferedReader reader;
@@ -36,22 +37,38 @@ public final class Console {
         viewer = new Viewer();
     }
 
-    public void start() throws InputException, IOException, InternalException {
+    public void start() throws InternalException, InputException {
+        writeLine(START_MESSAGE_STRING);
         while (true){
             writeLine(viewer.showInvitationCommandMessage());
 
-            String command = reader.readLine();
+            String command = null;
+            try {
+                command = reader.readLine();
+            } catch (IOException e) {
+                throw new InternalException(e.getMessage());
+            }
             command = command.trim();
             command = command.toLowerCase();
             String[] commandArray = command.split("[\\s]+");
-            validator.validateCommandName(commandArray[0]);
+
+            try {
+                validator.validateCommandName(commandArray[0]);
+            } catch (InputException e) {
+                writeLine(e.getMessage());
+                continue;
+            }
 
             CommandName commandName = CommandName.getCommandNameEnum(commandArray[0]);
             CommandType commandType = interpretator.interpretateCommandType(commandName);
 
             List<String> commandList = new ArrayList<>();
             Collections.addAll(commandList, commandArray);
-            validator.validateNumberOfArguments(commandName, commandList);
+            try {
+                validator.validateNumberOfArguments(commandName, commandList);
+            } catch (InputException e) {
+                writeLine(e.getMessage());
+            }
 
             Map<String, String> arguments = new HashMap<>();
             if (commandType.equals(CommandType.COMPOUND_COMMAND)){
@@ -60,10 +77,14 @@ public final class Console {
 
             QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory(validator, interpretator);
             QueryBuilder queryBuilder = queryBuilderFactory.getQueryBuilder(commandType);
-            Query query = queryBuilder.buildQuery(commandName,
-                                                  commandList,
-                                                  arguments);
-    //          writeLine(query.toString());
+            Query query = null;
+            try {
+                query = queryBuilder.buildQuery(commandName,
+                                                      commandList,
+                                                      arguments);
+            } catch (InputException e) {
+                writeLine(e.getMessage());
+            }
 
             try {
                 Response response = controller.handleQuery(query);
