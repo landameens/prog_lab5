@@ -14,6 +14,7 @@ import storage.exception.DAOException;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -32,15 +33,19 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private CollectionInfoDAO collectionInfoDAO;
     private CollectionInfo collectionInfo;
 
-    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory,
-                                       String path) throws DAOException, VerifyException {
+    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory) throws DAOException, VerifyException {
         this.studyGroupFactory = studyGroupFactory;
-        studyGroupDAO = new StudyGroupDAO(path);
+
+        ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
+        URL groupsUrl = classLoader.getResource("studyGroups");
+        studyGroupDAO = new StudyGroupDAO(groupsUrl.getFile());
 
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
-        File directory = new File(path);
-        studyGroups = getInitialFiles(directory, studyGroupComparator);
-        collectionInfo = getInfos(path);
+        File file = new File(groupsUrl.getFile());
+        studyGroups = getInitialFiles(file, studyGroupComparator);
+
+        URL infoUrl = classLoader.getResource("info");
+        collectionInfo = getInfos(infoUrl.getPath());
     }
 
     private CollectionInfo getInfos(String path) throws DAOException {
@@ -50,6 +55,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
 
     private Set<StudyGroup> getInitialFiles(File directory,
                                             Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
+        System.out.println(directory);
         if (!(directory.listFiles().length == 0)) {
             Set<StudyGroupDTO> studyGroupDTOSet;
             Set<StudyGroup> studyGroups = new TreeSet<>(studyGroupComparator);

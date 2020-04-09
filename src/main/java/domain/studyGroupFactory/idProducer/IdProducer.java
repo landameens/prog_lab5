@@ -4,6 +4,7 @@ import storage.exception.DAOException;
 import storage.idProducerDAO.IIdProducerDAO;
 import storage.idProducerDAO.IdProducerDAO;
 
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,8 +12,11 @@ public class IdProducer {
     private List<Long> idList;
     private IIdProducerDAO idProducerDAO;
 
-    public IdProducer(String path) throws DAOException {
-        this.idProducerDAO = new IdProducerDAO(path);
+    public IdProducer() {
+        ClassLoader classLoader = IdProducer.class.getClassLoader();
+        URL url = classLoader.getResource("idProducer");
+
+        this.idProducerDAO = new IdProducerDAO(url.getFile());
         idList = getInitialCollection();
     }
 

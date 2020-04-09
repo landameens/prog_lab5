@@ -10,20 +10,21 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.FileReader;
 import java.util.*;
 
 public class StudyGroupDAO implements IStudyGroupDAO {
     private final static String EMPTY_DIRECTORY_ERROR = "Отсутствуют файлы.";
 
-    private String pathToStudyGroups;
+    private File file;
+
     public StudyGroupDAO(String pathToFile) {
-        this.pathToStudyGroups = pathToFile + "\\studyGroups";
+        this.file = new File(pathToFile);
     }
 
     @Override
     public Set<StudyGroupDTO> getDTOs() throws DAOException {
-        File directory = new File(pathToStudyGroups);
-        File[] files =  directory.listFiles();
+        File[] files =  file.listFiles();
 
         if (files == null){
             throw new DAOException(EMPTY_DIRECTORY_ERROR);
@@ -51,8 +52,7 @@ public class StudyGroupDAO implements IStudyGroupDAO {
 
     @Override
     public void saveDTOs(Set<StudyGroupDTO> dto) throws DAOException {
-        File directory = new File(pathToStudyGroups);
-        File[] oldfiles =  directory.listFiles();
+        File[] oldfiles =  file.listFiles();
 
         List<File> studyGroupFiles = Arrays.asList(oldfiles);
         for (File studyGroupFile : studyGroupFiles) {
@@ -69,7 +69,7 @@ public class StudyGroupDAO implements IStudyGroupDAO {
 
         List<String> names = new LinkedList<>();
         for (StudyGroupDTO studyGroupDTO : studyGroupDTOs){
-            names.add(pathToStudyGroups + "/" + "StudyGroup" + studyGroupDTO.id + ".xml");
+            names.add(file.getName() + "/" + "StudyGroup" + studyGroupDTO.id + ".xml");
         }
         return names;
     }

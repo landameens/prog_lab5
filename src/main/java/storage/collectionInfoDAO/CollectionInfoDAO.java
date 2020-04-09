@@ -16,7 +16,7 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
     private String pathToInfo;
 
     public CollectionInfoDAO(String pathToFile) {
-        this.pathToInfo = pathToFile + "//info";
+        this.pathToInfo = pathToFile;
     }
 
     @Override

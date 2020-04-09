@@ -23,23 +23,18 @@ public final class App {
     public static void main(String[] args) throws InternalException, VerifyException, DAOException {
         ClassLoader classLoader = App.class.getClassLoader();
 
-        String path = "prog_lab5-1.0-SNAPSHOT\\lib\\prog_lab5-1.0-SNAPSHOT";
-        //String path = "C:\\Users\\speci\\Desktop\\JAVA\\PROJECTS\\nadya\\prog_lab5\\src\\main\\resources";
-        //String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
-        //String path = "C:\\Users\\Аня\\Desktop\\ЛАБОРАТОРНЫЕ РАБОТЫ\\prog_lab5\\src\\main\\resources";
-
         if (args.length > 0) {
             checkInputPath(args);
 
             PathModifiers modifier = PathModifiers.getPathModifiers(args[1]);
 
             if (modifier.equals(PathModifiers.ABSOLUTE)) {
-                path = args[2];
+                //path = args[2];
             }
 
             if (modifier.equals(PathModifiers.RELATIVE)) {
                 URL fileURL = classLoader.getResource(args[2]);
-                path = fileURL.getFile();
+                //path = fileURL.getFile();
             }
 
             if (modifier == null) {
@@ -48,9 +43,9 @@ public final class App {
         }
 
 
-        IdProducer idProducer = new IdProducer(path);
+        IdProducer idProducer = new IdProducer();
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
-        IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
+        IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory);
         ICommandsRepository commandsRepository = new HistoryRepository();
         Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
         Controller controller = new Controller(interpretator, commandsRepository);
