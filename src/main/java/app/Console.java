@@ -68,6 +68,7 @@ public final class Console {
                 validator.validateNumberOfArguments(commandName, commandList);
             } catch (InputException e) {
                 writeLine(e.getMessage());
+                continue;
             }
 
             Map<String, String> arguments = new HashMap<>();
@@ -84,6 +85,7 @@ public final class Console {
                                                       arguments);
             } catch (InputException e) {
                 writeLine(e.getMessage());
+                continue;
             }
 
             try {
