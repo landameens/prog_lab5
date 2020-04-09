@@ -35,7 +35,7 @@ public class IdProducerDAO implements IIdProducerDAO {
         }
 
         return dto;*/
-        File file = new File(path);
+        File file = new File(path + "IdProducer");
         try(ObjectInput objectInput = new ObjectInputStream(new FileInputStream(file))) {
             return (IdProducerDTO) objectInput.readObject();
         } catch (IOException | ClassNotFoundException exception) {
@@ -62,7 +62,7 @@ public class IdProducerDAO implements IIdProducerDAO {
             e.printStackTrace();
         }*/
 
-        File file = new File(path);
+        File file = new File(path + "IdProducer");
         try (ObjectOutput objectOutputStream = new ObjectOutputStream(new FileOutputStream(file))) {
             objectOutputStream.writeObject(dto);
         } catch (IOException e) {
