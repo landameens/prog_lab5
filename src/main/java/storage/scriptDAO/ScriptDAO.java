@@ -14,6 +14,8 @@ public class ScriptDAO implements IScriptDAO {
         this.path = path;
     }
 
+    private String firstCommand = "execute_script " + path;
+
     @Override
     public List<String> getScript() throws IOException, RecursionExeption {
         String thisCommand = "execute_script " + path;
@@ -29,7 +31,7 @@ public class ScriptDAO implements IScriptDAO {
         while (reader.ready()) {
             String command = reader.readLine();
 
-            if (command.toLowerCase().equals(thisCommand)){
+            if (command.toLowerCase().equals(thisCommand) || command.toLowerCase().equals(firstCommand)){
                 throw new RecursionExeption("Рекурсия!");
             }
 

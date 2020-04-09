@@ -1,5 +1,6 @@
 package storage.collectionInfoDAO;
 
+import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.CollectionInfo;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
 import storage.exception.DAOException;
@@ -9,6 +10,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -56,7 +58,8 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
     public void saveInfo(CollectionInfo collectionInfo) throws DAOException {
         File file = new File(pathToInfo);
         if (file.delete()){
-            serialize(file, collectionInfo);
+            File file1 = new File(pathToInfo);
+            serialize(file1, collectionInfo);
         }
     }
 

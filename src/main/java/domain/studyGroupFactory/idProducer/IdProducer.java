@@ -16,7 +16,7 @@ public class IdProducer {
         ClassLoader classLoader = IdProducer.class.getClassLoader();
         URL url = classLoader.getResource("idProducer");
 
-        this.idProducerDAO = new IdProducerDAO(url.getFile());
+            this.idProducerDAO = new IdProducerDAO(url.getPath()+"//idProducer");
         try {
             idList = idProducerDAO.getList();
         } catch (DAOException e) {

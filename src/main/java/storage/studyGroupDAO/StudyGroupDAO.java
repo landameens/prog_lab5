@@ -2,6 +2,7 @@ package storage.studyGroupDAO;
 
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
+import domain.studyGroupRepository.CollectionInfo;
 import storage.exception.DAOException;
 import storage.studyGroupDAO.IStudyGroupDAO;
 
@@ -11,6 +12,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileReader;
+import java.net.URL;
 import java.util.*;
 
 public class StudyGroupDAO implements IStudyGroupDAO {
@@ -19,6 +21,7 @@ public class StudyGroupDAO implements IStudyGroupDAO {
     private File file;
 
     public StudyGroupDAO(String pathToFile) {
+
         this.file = new File(pathToFile);
     }
 
@@ -53,6 +56,7 @@ public class StudyGroupDAO implements IStudyGroupDAO {
     @Override
     public void saveDTOs(Set<StudyGroupDTO> dto) throws DAOException {
         System.out.println(file);
+        String path = file.getPath();
         File[] oldfiles =  file.listFiles();
 
         List<File> studyGroupFiles = Arrays.asList(oldfiles);
@@ -61,16 +65,16 @@ public class StudyGroupDAO implements IStudyGroupDAO {
         }
 
         List<StudyGroupDTO> studyGroupDTOs = new ArrayList<>(dto);
-        List<String> names = fillListByNames(studyGroupDTOs);
+        List<String> names = fillListByNames(studyGroupDTOs, path);
         List<File> files = createFiles(names);
         serialize(dto, files);
     }
 
-    private List<String> fillListByNames(List<StudyGroupDTO> studyGroupDTOs){
+    private List<String> fillListByNames(List<StudyGroupDTO> studyGroupDTOs, String path){
 
         List<String> names = new LinkedList<>();
         for (StudyGroupDTO studyGroupDTO : studyGroupDTOs){
-            names.add(file.getName() + "/" + "StudyGroup" + studyGroupDTO.id + ".xml");
+            names.add(path + "//StudyGroup" + studyGroupDTO.id + ".xml");
         }
         return names;
     }
