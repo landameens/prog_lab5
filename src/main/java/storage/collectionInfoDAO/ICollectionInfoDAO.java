@@ -1,4 +1,4 @@
-package storage;
+package storage.collectionInfoDAO;
 
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroupRepository.CollectionInfo;

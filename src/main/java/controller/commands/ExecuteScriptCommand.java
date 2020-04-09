@@ -8,8 +8,8 @@ import domain.commandsRepository.ICommandsRepository;
 import domain.commandsRepository.Record;
 import domain.exception.CreationException;
 import domain.studyGroupRepository.IStudyGroupRepository;
-import storage.IScriptDAO;
-import storage.ScriptDAO;
+import storage.scriptDAO.IScriptDAO;
+import storage.scriptDAO.ScriptDAO;
 import storage.exception.RecursionExeption;
 
 import java.io.IOException;

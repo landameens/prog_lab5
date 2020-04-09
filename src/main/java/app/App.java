@@ -3,7 +3,6 @@ package app;
 import app.Exceptions.InputException;
 import app.Exceptions.InternalException;
 
-import java.io.IOException;
 
 import controller.Controller;
 import controller.Interpretator;
@@ -21,8 +20,10 @@ import java.net.URL;
 public final class App {
     private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the file}";
 
-    public static void main(String[] args) throws IOException, InternalException, VerifyException, DAOException {
+    public static void main(String[] args) throws InternalException, VerifyException, DAOException {
         ClassLoader classLoader = App.class.getClassLoader();
+
+        //String path = "prog_lab5-1.0-SNAPSHOT\\lib\\prog_lab5-1.0-SNAPSHOT";
         //String path = "C:\\Users\\speci\\Desktop\\JAVA\\PROJECTS\\nadya\\prog_lab5\\src\\main\\resources";
         String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
         //String path = "C:\\Users\\Аня\\Desktop\\ЛАБОРАТОРНЫЕ РАБОТЫ\\prog_lab5\\src\\main\\resources";
@@ -46,7 +47,8 @@ public final class App {
             }
         }
 
-        IdProducer idProducer = new IdProducer();
+
+        IdProducer idProducer = new IdProducer(path);
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
         IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
         ICommandsRepository commandsRepository = new HistoryRepository();

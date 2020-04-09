@@ -1,4 +1,4 @@
-package storage;
+package storage.studyGroupDAO;
 
 import storage.exception.DAOException;
 

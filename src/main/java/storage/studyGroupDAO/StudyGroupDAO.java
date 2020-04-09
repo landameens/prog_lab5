@@ -1,8 +1,9 @@
-package storage;
+package storage.studyGroupDAO;
 
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import storage.exception.DAOException;
+import storage.studyGroupDAO.IStudyGroupDAO;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -11,7 +12,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.*;
 
-public class StudyGroupDAO implements IStudyGroupDAO{
+public class StudyGroupDAO implements IStudyGroupDAO {
     private final static String EMPTY_DIRECTORY_ERROR = "Отсутствуют файлы.";
 
     private String pathToStudyGroups;

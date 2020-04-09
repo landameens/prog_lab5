@@ -4,8 +4,7 @@ import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
-import storage.Saveable;
-import storage.exception.DAOException;
+import storage.studyGroupDAO.Saveable;
 
 import java.util.Set;
 

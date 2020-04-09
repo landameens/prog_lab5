@@ -1,4 +1,4 @@
-package storage;
+package storage.scriptDAO;
 
 import storage.exception.RecursionExeption;
 

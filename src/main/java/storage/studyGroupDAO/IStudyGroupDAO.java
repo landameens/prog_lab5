@@ -1,4 +1,4 @@
-package storage;
+package storage.studyGroupDAO;
 
 import domain.studyGroup.StudyGroupDTO;
 import storage.exception.DAOException;

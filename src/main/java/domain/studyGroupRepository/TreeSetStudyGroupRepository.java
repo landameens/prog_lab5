@@ -7,10 +7,10 @@ import domain.exception.VerifyException;
 import domain.studyGroupFactory.IStudyGroupFactory;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
-import storage.CollectionInfoDAO;
-import storage.IStudyGroupDAO;
-import storage.Saveable;
-import storage.StudyGroupDAO;
+import storage.collectionInfoDAO.CollectionInfoDAO;
+import storage.studyGroupDAO.IStudyGroupDAO;
+import storage.studyGroupDAO.Saveable;
+import storage.studyGroupDAO.StudyGroupDAO;
 import storage.exception.DAOException;
 
 import javax.xml.bind.JAXBException;
@@ -170,5 +170,6 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
 
         studyGroupDAO.saveDTOs(studyGroupDTOSet);
         collectionInfoDAO.saveInfo(collectionInfo);
+
     }
 }
