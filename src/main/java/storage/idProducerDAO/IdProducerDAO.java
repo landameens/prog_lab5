@@ -1,16 +1,39 @@
-package storage.idManagerDAO;
+package storage.idProducerDAO;
 
-import java.util.List;
+import domain.studyGroupFactory.idProducer.IdProducerDTO;
+import storage.exception.DAOException;
 
-public class IdManagerDAO implements IIdManagerDAO{
+import java.io.*;
+
+public class IdProducerDAO implements IIdProducerDAO {
     private String path;
 
-    public IdManagerDAO(String path) {
-        this.path = path;
+    public IdProducerDAO(String path) {
+        this.path = path + "\\idProducer\\default";
     }
 
     @Override
-    public List<Integer> getDefaultIdList() {
+    public Long getDefaultIdProducerDTO() throws DAOException {
+        try (ObjectInput objectInput = new ObjectInputStream(new FileInputStream(path))){
 
+            Long defaultId = (Long) objectInput.readObject();
+
+            if (defaultId == null){
+                return 1L;
+            }
+
+            return defaultId;
+        } catch (IOException | ClassNotFoundException e) {
+            throw new DAOException(e.getMessage());
+        }
+    }
+
+
+    public void saveIdProducerDTO(IdProducerDTO dto) throws DAOException {
+        try (ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream(path))){
+            objectOutput.writeObject(dto);
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage());
+        }
     }
 }
