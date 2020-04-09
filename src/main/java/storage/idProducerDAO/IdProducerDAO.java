@@ -4,6 +4,7 @@ import domain.studyGroupFactory.idProducer.IdProducerDTO;
 import storage.exception.DAOException;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,30 +16,44 @@ public class IdProducerDAO implements IIdProducerDAO {
     }
 
     @Override
-    public List<Long> getIdProducerDTO() throws DAOException {
-        try (ObjectInput objectInput = new ObjectInputStream(new FileInputStream(path))){
-
-            List<Long> listId = (List<Long>) objectInput.readObject();
-
-            if (listId.isEmpty()){
-                List<Long> newListId = new ArrayList<>();
-                for (long i = 1; i < 100; i++){
-                    newListId.add(i);
-                }
-                return newListId;
-            }
-            return listId;
-        } catch (IOException | ClassNotFoundException e) {
-            throw new DAOException(e.getMessage());
+    public IdProducerDTO getIdProducerDTO() throws DAOException {
+        IdProducerDTO dto = new IdProducerDTO();
+        List<Long> newListId = new ArrayList<>();
+        for (long i = 1; i < 100; i++){
+            newListId.add(i);
         }
+        dto.IdCollection = newListId;
+
+        File file = new File(path);
+        byte[] bytes = file.toString().getBytes();
+
+        ByteArrayInputStream byteInputStream = new ByteArrayInputStream(bytes);
+        try (ObjectInput objectInput = new ObjectInputStream(byteInputStream)){
+            dto.IdCollection = (List<Long>) objectInput.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new DAOException(e);
+        }
+
+        return dto;
     }
 
 
     public void saveIdProducerDTO(IdProducerDTO dto) throws DAOException {
-        try (ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream(path))){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try (ObjectOutput objectOutput = new ObjectOutputStream(byteArrayOutputStream)){
             objectOutput.writeObject(dto);
         } catch (IOException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(e);
+        }
+
+        File file = new File(path);
+        file.delete();
+        OutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(file);
+            outputStream.write(byteArrayOutputStream.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

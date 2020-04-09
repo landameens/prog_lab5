@@ -3,6 +3,7 @@ package domain.studyGroupFactory.idProducer;
 import storage.exception.DAOException;
 import storage.idProducerDAO.IdProducerDAO;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class IdProducer {
@@ -11,7 +12,16 @@ public class IdProducer {
 
     public IdProducer(String path) throws DAOException {
         this.idProducerDAO = new IdProducerDAO(path);
-        idList = idProducerDAO.getIdProducerDTO();
+        idList = getInitialCollection();
+                //idProducerDAO.getIdProducerDTO().IdCollection;
+    }
+
+    private List<Long> getInitialCollection() {
+        List<Long> newListId = new LinkedList<>();
+        for (long i = 1; i < 100; i++){
+            newListId.add(i);
+        }
+        return newListId;
     }
 
 
@@ -28,9 +38,4 @@ public class IdProducer {
         idProducerDAO.saveIdProducerDTO(idProducerDTO);
     }
 
-    private  List<Long> getDefaultId(String path) throws DAOException {
-        IdProducerDAO idProducerDAO = new IdProducerDAO(path);
-
-        return idProducerDAO.getIdProducerDTO();
-    }
 }
