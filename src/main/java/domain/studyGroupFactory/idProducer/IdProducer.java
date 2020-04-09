@@ -1,6 +1,7 @@
 package domain.studyGroupFactory.idProducer;
 
 import storage.exception.DAOException;
+import storage.idProducerDAO.IIdProducerDAO;
 import storage.idProducerDAO.IdProducerDAO;
 
 import java.util.LinkedList;
@@ -8,12 +9,11 @@ import java.util.List;
 
 public class IdProducer {
     private List<Long> idList;
-    private IdProducerDAO idProducerDAO;
+    private IIdProducerDAO idProducerDAO;
 
     public IdProducer(String path) throws DAOException {
         this.idProducerDAO = new IdProducerDAO(path);
         idList = getInitialCollection();
-                //idProducerDAO.getIdProducerDTO().IdCollection;
     }
 
     private List<Long> getInitialCollection() {
