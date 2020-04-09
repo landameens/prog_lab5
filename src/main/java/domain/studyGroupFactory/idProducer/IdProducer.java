@@ -20,11 +20,10 @@ public class IdProducer {
         try {
             idList = idProducerDAO.getList();
         } catch (DAOException e) {
-            //todo не забыть обработать
+            e.printStackTrace();
         }
         if (idList == null) {
             idList = getInitialCollection();
-
         }
     }
 

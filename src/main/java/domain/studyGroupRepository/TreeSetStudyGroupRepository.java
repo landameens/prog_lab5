@@ -38,7 +38,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
 
         ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
         URL groupsUrl = classLoader.getResource("studyGroups");
-        studyGroupDAO = new StudyGroupDAO(groupsUrl.getFile());
+        studyGroupDAO = new StudyGroupDAO(groupsUrl.getPath());
 
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
         File file = new File(groupsUrl.getFile());

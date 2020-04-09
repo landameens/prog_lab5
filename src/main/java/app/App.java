@@ -16,17 +16,13 @@ import domain.studyGroupRepository.TreeSetStudyGroupRepository;
 import storage.exception.DAOException;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public final class App {
     private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the file}";
 
     public static void main(String[] args) throws InternalException, VerifyException, DAOException {
         ClassLoader classLoader = App.class.getClassLoader();
-
-        String path = "..\\lib\\prog_lab5-1.0-SNAPSHOT";
-        //String path = "C:\\Users\\speci\\Desktop\\JAVA\\PROJECTS\\nadya\\prog_lab5\\src\\main\\resources";
-        //String path = "C:\\Users\\user\\Desktop\\Programming\\prog_lab5\\src\\main\\resources";
-        //String path = "C:\\Users\\Аня\\Desktop\\ЛАБОРАТОРНЫЕ РАБОТЫ\\prog_lab5\\src\\main\\resources";
 
         if (args.length > 0) {
             checkInputPath(args);
@@ -48,7 +44,7 @@ public final class App {
         }
 
 
-        IdProducer idProducer = new IdProducer();
+        IdProducer idProducer = new IdProducer(new ArrayList<>());
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
         IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory);
         ICommandsRepository commandsRepository = new HistoryRepository();
