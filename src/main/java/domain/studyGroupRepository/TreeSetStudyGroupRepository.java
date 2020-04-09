@@ -55,7 +55,6 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
 
     private Set<StudyGroup> getInitialFiles(File directory,
                                             Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
-        System.out.println(directory);
         if (!(directory.listFiles().length == 0)) {
             Set<StudyGroupDTO> studyGroupDTOSet;
             Set<StudyGroup> studyGroups = new TreeSet<>(studyGroupComparator);

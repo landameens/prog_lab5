@@ -6,7 +6,7 @@ import storage.exception.DAOException;
 import java.util.List;
 
 public interface IIdProducerDAO {
-    IdProducerDTO getIdProducerDTO() throws DAOException;
+    List<Long> getList() throws DAOException;
 
     void saveIdProducerDTO(IdProducerDTO dto) throws DAOException;
 }

@@ -15,9 +15,13 @@ public class IdProducerDAO implements IIdProducerDAO {
     }
 
     @Override
-    public IdProducerDTO getIdProducerDTO() throws DAOException {
+    public List<Long> getList() throws DAOException {
+        if (file.listFiles().length == 0) {
+            return null;
+        }
+
         try(ObjectInput objectInput = new ObjectInputStream(new FileInputStream(file))) {
-            return (IdProducerDTO) objectInput.readObject();
+            return ((IdProducerDTO) objectInput.readObject()).IdCollection;
         } catch (IOException | ClassNotFoundException exception) {
             throw new DAOException(exception);
         }

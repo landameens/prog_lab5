@@ -12,12 +12,20 @@ public class IdProducer {
     private List<Long> idList;
     private IIdProducerDAO idProducerDAO;
 
-    public IdProducer() {
+    public IdProducer(List<Long> list) {
         ClassLoader classLoader = IdProducer.class.getClassLoader();
         URL url = classLoader.getResource("idProducer");
 
         this.idProducerDAO = new IdProducerDAO(url.getFile());
-        idList = getInitialCollection();
+        try {
+            idList = idProducerDAO.getList();
+        } catch (DAOException e) {
+            //todo не забыть обработать
+        }
+        if (idList == null) {
+            idList = getInitialCollection();
+
+        }
     }
 
     private List<Long> getInitialCollection() {
