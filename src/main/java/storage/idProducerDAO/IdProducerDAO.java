@@ -4,6 +4,8 @@ import domain.studyGroupFactory.idProducer.IdProducerDTO;
 import storage.exception.DAOException;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IdProducerDAO implements IIdProducerDAO {
     private String path;
@@ -13,16 +15,20 @@ public class IdProducerDAO implements IIdProducerDAO {
     }
 
     @Override
-    public Long getDefaultIdProducerDTO() throws DAOException {
+    public List<Long> getDefaultIdProducerDTO() throws DAOException {
         try (ObjectInput objectInput = new ObjectInputStream(new FileInputStream(path))){
 
-            Long defaultId = (Long) objectInput.readObject();
+            List<Long> listId = (List<Long>) objectInput.readObject();
 
-            if (defaultId == null){
-                return 1L;
+            if (listId == null){
+                List<Long> newListId = new ArrayList<>();
+                for (long i = 1; i < 100; i++){
+                    newListId.add(i);
+                }
+                return newListId;
             }
 
-            return defaultId;
+            return listId;
         } catch (IOException | ClassNotFoundException e) {
             throw new DAOException(e.getMessage());
         }

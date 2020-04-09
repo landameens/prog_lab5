@@ -14,7 +14,6 @@ public class IdProducer {
         }
 
 
-
         public long getId(){
             int k = 0;
             Long resultId = idList.get(k);
@@ -23,16 +22,12 @@ public class IdProducer {
         }
 
         private List<Long> initList(String path) throws DAOException {
+            List<Long> list = getDefaultId(path);
 
-            Long defaultId = getDefaultId(path);
-            List<Long> list = new LinkedList<>();
-            for (long i = defaultId; i < 100; i++){
-                list.add(i);
-            }
             return list;
         }
 
-    private Long getDefaultId(String path) throws DAOException {
+    private  List<Long> getDefaultId(String path) throws DAOException {
         IdProducerDAO idProducerDAO = new IdProducerDAO(path);
 
         return idProducerDAO.getDefaultIdProducerDTO();

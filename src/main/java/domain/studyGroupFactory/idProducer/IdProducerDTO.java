@@ -1,6 +1,8 @@
 package domain.studyGroupFactory.idProducer;
 
+import java.util.List;
+
 public class IdProducerDTO {
 
-    public Long maxIdInThisCollection;
+    public List<Long> IdCollection;
 }
