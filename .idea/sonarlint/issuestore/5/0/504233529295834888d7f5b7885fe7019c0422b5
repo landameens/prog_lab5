@@ -1,0 +1,9 @@
+
+t
+java:S1171"YMove the contents of this initializer to a standard constructor or to field initializers.(ÒÌâ–øÿÿÿÿ
+G
+java:S3599",Use another way to initialize this instance.(ô³†ßúÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(¶É 
+h
+java:S3776&"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(’É×Ò
+V	java:S125"<This block of commented-out lines of code should be removed.(ñÏ£þüÿÿÿÿ

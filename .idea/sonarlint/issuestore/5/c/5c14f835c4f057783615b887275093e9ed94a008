@@ -1,0 +1,10 @@
+
+h	java:S112ì"FDefine and throw a dedicated exception instead of using a generic one.(¯åÕøÿÿÿÿ8ÆøÎ.
+k
+java:S1182à"HUse super.clone() to create and seed the cloned instance to be returned.(ş¿¥üÿÿÿÿ8ÆøÎ.
+v
+java:S2975à"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(ş¿¥üÿÿÿÿ8ÆøÎ.
+]	java:S107"AConstructor has 9 parameters, which is greater than 7 authorized.(şùÖ˜8ÆøÎ.
+Y	java:S125Á"<This block of commented-out lines of code should be removed.(´Ì¤¼8ÆøÎ.
+a
+java:S1128"?Remove this unused import 'domain.exception.CreationException'.(Óı–”ıÿÿÿÿ8ğÃõğ.

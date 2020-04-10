@@ -1,0 +1,22 @@
+help
+show
+
+
+info
+
+add
+p211
+16
+398
+19
+2
+DISTANCE_EDUCATION
+EIGHTH
+kOLYA
+165
+L98K
+UNITED_KINGDOM
+
+
+execute_script skript2.txt
+
