@@ -18,5 +18,5 @@ L98K
 UNITED_KINGDOM
 
 
-execute_script C:\Users\user\Desktop\Programming\prog_lab5\src\main\resources\script\skript2
+execute_script skript2.txt
 

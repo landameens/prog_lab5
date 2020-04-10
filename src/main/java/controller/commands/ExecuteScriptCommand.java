@@ -7,12 +7,15 @@ import domain.commandsRepository.HistoryRepository;
 import domain.commandsRepository.ICommandsRepository;
 import domain.commandsRepository.Record;
 import domain.exception.CreationException;
+import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.IStudyGroupRepository;
+import domain.studyGroupRepository.TreeSetStudyGroupRepository;
 import storage.scriptDAO.IScriptDAO;
 import storage.scriptDAO.ScriptDAO;
 import storage.exception.RecursionExeption;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 public class ExecuteScriptCommand extends StudyGroupRepositoryCommand {
@@ -33,7 +36,11 @@ public class ExecuteScriptCommand extends StudyGroupRepositoryCommand {
 
     @Override
     public Response execute() {
-        IScriptDAO scriptDAO = new ScriptDAO(args.get("file_name"));
+        ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
+        URL url = classLoader.getResource("script");
+        String path = url.getFile() + "//" + args.get("file_name");
+
+        IScriptDAO scriptDAO = new ScriptDAO(path);
         try {
             List<String> script = scriptDAO.getScript();
 

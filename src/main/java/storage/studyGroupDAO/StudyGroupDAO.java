@@ -55,7 +55,6 @@ public class StudyGroupDAO implements IStudyGroupDAO {
 
     @Override
     public void saveDTOs(Set<StudyGroupDTO> dto) throws DAOException {
-        System.out.println(file);
         String path = file.getPath();
         File[] oldfiles =  file.listFiles();
 

@@ -27,14 +27,14 @@ public final class App {
         if (args.length > 0) {
             checkInputPath(args);
 
-            PathModifiers modifier = PathModifiers.getPathModifiers(args[1]);
+            PathModifiers modifier = PathModifiers.getPathModifiers(args[0]);
 
             if (modifier.equals(PathModifiers.ABSOLUTE)) {
                 //path = args[2];
             }
 
             if (modifier.equals(PathModifiers.RELATIVE)) {
-                URL fileURL = classLoader.getResource(args[2]);
+                URL fileURL = classLoader.getResource(args[1]);
                 //path = fileURL.getFile();
             }
 

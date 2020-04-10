@@ -1,9 +1,9 @@
 package storage.scriptDAO;
 
 import storage.exception.RecursionExeption;
-import storage.scriptDAO.IScriptDAO;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +23,6 @@ public class ScriptDAO implements IScriptDAO {
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader reader = new BufferedReader(fileReader);
-
 
         List<String> scriptInput = new ArrayList<>();
         scriptInput.add(reader.readLine());
