@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class IdProducer {
     private List<Long> idList;
     private IIdProducerDAO idProducerDAO;
@@ -16,14 +17,17 @@ public class IdProducer {
         ClassLoader classLoader = IdProducer.class.getClassLoader();
         URL url = classLoader.getResource("idProducer");
 
-            this.idProducerDAO = new IdProducerDAO(url.getPath()+"//idProducer");
+        this.idProducerDAO = new IdProducerDAO(url.getFile());
         try {
-            idList = idProducerDAO.getList();
+            //idList = idProducerDAO.getList();
+            IdProducerDTO idProducerDTO = idProducerDAO.getIdProducerDTO();
+            if (idProducerDTO == null) {
+                idList = getInitialCollection();
+            } else {
+                idList = idProducerDTO.IdCollection;
+            }
         } catch (DAOException e) {
             e.printStackTrace();
-        }
-        if (idList == null) {
-            idList = getInitialCollection();
         }
     }
 

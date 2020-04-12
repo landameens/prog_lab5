@@ -10,10 +10,64 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class IdProducerDAO implements IIdProducerDAO {
-    private File file;
+    //private File file;
+    private File directoryForStoringFiles;
 
     public IdProducerDAO(String path) {
-        this.file = checkToFile(path);
+    //    this.file = checkToFile(path);
+        directoryForStoringFiles = new File(path);
+    }
+
+    @Override
+    public IdProducerDTO getIdProducerDTO() throws DAOException {
+        File sourceFile = getSourceFile(directoryForStoringFiles);
+
+        if (sourceFile == null) {
+            return null;
+        }
+
+        try (ObjectInput objectInput = new ObjectInputStream(new FileInputStream(sourceFile))) {
+            return (IdProducerDTO) objectInput.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    private File getSourceFile(File directoryForStoringFiles) {
+        File[] files = directoryForStoringFiles.listFiles();
+        if (files.length == 0) {
+            return null;
+        }
+
+        return files[0];
+    }
+
+    @Override
+    public List<Long> getList() throws DAOException {
+        return null;
+    }
+
+    @Override
+    public void saveIdProducerDTO(IdProducerDTO dto) throws DAOException {
+        cleanDirectory();
+
+        File sourceFile = new File(directoryForStoringFiles + "\\idProducer.txt");
+        try(ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream(sourceFile))) {
+            objectOutput.writeObject(dto);
+        } catch (IOException exception) {
+            throw new DAOException(exception);
+        }
+    }
+
+    private void cleanDirectory() {
+        File[] files = directoryForStoringFiles.listFiles();
+        if (files == null) {
+            return;
+        }
+
+        for (File file : files) {
+            file.delete();
+        }
     }
 
     private class TransfertDTO{
@@ -21,7 +75,7 @@ public class IdProducerDAO implements IIdProducerDAO {
         public Long L;
     }
 
-    public List<Long> getList() throws DAOException {
+    /*public List<Long> getList() throws DAOException {
         List<Long> longs = new ArrayList<>();
         List<String> strings;
 
@@ -89,5 +143,5 @@ public class IdProducerDAO implements IIdProducerDAO {
         }
 
         return file;
-    }
+    }*/
 }
