@@ -21,16 +21,16 @@ import java.util.*;
 public class ExecuteScriptCommand extends StudyGroupRepositoryCommand {
     private Interpretator interpretator;
     private app.Interpretator interpretatorToType;
-    private ICommandsRepository commandsRepository;
     private Viewer viewer;
+    private ICommandsRepository history;
 
     public ExecuteScriptCommand(String type,
                                 Map<String, String> args,
                                 IStudyGroupRepository studyGroupRepository){
         super(type, args, studyGroupRepository);
-        interpretator = new Interpretator(studyGroupRepository);
+        this.history = new HistoryRepository();
+        interpretator = new Interpretator(studyGroupRepository, history);
         interpretatorToType = new app.Interpretator();
-        this.commandsRepository = new HistoryRepository();
         viewer = new Viewer();
     }
 
@@ -91,7 +91,7 @@ public class ExecuteScriptCommand extends StudyGroupRepositoryCommand {
     private void addToHistory(String commandName) {
         Record commandDTO = new Record();
         commandDTO.name = commandName;
-        commandsRepository.add(commandDTO);
+        history.add(commandDTO);
     }
 
     private Map<String, String> getArguments(String commandName, Iterator<String> iterator) {

@@ -30,7 +30,7 @@ public final class App {
             PathModifiers modifier = PathModifiers.getPathModifiers(args[0]);
 
             if (modifier.equals(PathModifiers.ABSOLUTE)) {
-                //path = args[2];
+                //path = args[1];
             }
 
             if (modifier.equals(PathModifiers.RELATIVE)) {

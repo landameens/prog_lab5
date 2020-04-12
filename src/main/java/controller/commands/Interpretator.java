@@ -5,6 +5,7 @@ import controller.commands.factory.ICommandFactory;
 import controller.commands.factory.SimpleCommandsFactory;
 import controller.commands.factory.StudyGroupRepositoryCommandFactory;
 import domain.commandsRepository.HistoryRepository;
+import domain.commandsRepository.ICommandsRepository;
 import domain.studyGroupRepository.IStudyGroupRepository;
 
 import java.util.HashMap;
@@ -15,11 +16,10 @@ public class Interpretator {
     private ICommandFactory studyGroupRepositoryCommandFactory;
     private ICommandFactory commandRepositoryFactory;
 
-    public Interpretator(IStudyGroupRepository studyGroupRepository) {
+    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository historyRepository) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
-        commandRepositoryFactory = new HistoryRepositoryCommandFactory(new HistoryRepository() {
-        });
+        commandRepositoryFactory = new HistoryRepositoryCommandFactory(historyRepository);
     }
 
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){

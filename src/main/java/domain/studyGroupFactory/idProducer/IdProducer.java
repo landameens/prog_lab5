@@ -31,7 +31,7 @@ public class IdProducer {
         }
     }
 
-    private List<Long> getInitialCollection() {
+    private List<Long> getInitialCollection(){
         List<Long> newListId = new LinkedList<>();
         for (long i = 1; i < 100; i++){
             newListId.add(i);
@@ -49,6 +49,16 @@ public class IdProducer {
 
     public void saveId() throws DAOException {
         IdProducerDTO idProducerDTO = new IdProducerDTO();
+        idProducerDTO.IdCollection = idList;
+        idProducerDAO.saveIdProducerDTO(idProducerDTO);
+    }
+
+    public void clear() throws DAOException {
+        IdProducerDTO idProducerDTO = new IdProducerDTO();
+        idList.clear();
+        for(long i = 1L; i <= 100; i++){
+            idList.add(i);
+        }
         idProducerDTO.IdCollection = idList;
         idProducerDAO.saveIdProducerDTO(idProducerDTO);
     }
