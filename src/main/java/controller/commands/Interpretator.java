@@ -1,9 +1,6 @@
 package controller.commands;
 
-import controller.commands.factory.HistoryRepositoryCommandFactory;
-import controller.commands.factory.ICommandFactory;
-import controller.commands.factory.SimpleCommandsFactory;
-import controller.commands.factory.StudyGroupRepositoryCommandFactory;
+import controller.commands.factory.*;
 import domain.commandsRepository.HistoryRepository;
 import domain.commandsRepository.ICommandsRepository;
 import domain.studyGroupRepository.IStudyGroupRepository;
@@ -15,11 +12,13 @@ public class Interpretator {
     private ICommandFactory simpleCommandsFactory;
     private ICommandFactory studyGroupRepositoryCommandFactory;
     private ICommandFactory commandRepositoryFactory;
+    private ICommandFactory scriptFactory;
 
     public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository historyRepository) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
         commandRepositoryFactory = new HistoryRepositoryCommandFactory(historyRepository);
+        scriptFactory = new ScriptCommandFactory(studyGroupRepository, historyRepository);
     }
 
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
@@ -38,7 +37,7 @@ public class Interpretator {
             put("filter_less_than_should_be_expelled", StudyGroupRepositoryCommandFactory.class);
             put("count_by_group_admin", StudyGroupRepositoryCommandFactory.class);
             put("info", StudyGroupRepositoryCommandFactory.class);
-            put("execute_script", StudyGroupRepositoryCommandFactory.class);
+            put("execute_script", ScriptCommandFactory.class);
             put("history", HistoryRepositoryCommandFactory.class);
         }
     };
@@ -57,6 +56,10 @@ public class Interpretator {
 
         if(clazz.equals(commandRepositoryFactory.getClass())){
             return commandRepositoryFactory;
+        }
+
+        if(clazz.equals(scriptFactory.getClass())){
+            return scriptFactory;
         }
 
         return null;
