@@ -1,6 +1,5 @@
 package storage.collectionInfoDAO;
 
-import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.CollectionInfo;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
 import storage.exception.DAOException;
@@ -10,7 +9,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.*;
 

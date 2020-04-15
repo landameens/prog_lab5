@@ -52,7 +52,7 @@ public class ExecuteScriptCommand extends Command {
 
     }
 
-    private Response executeScript(List<String> script) throws RecursionExeption {
+    private Response executeScript(List<String> script){
         Iterator<String> iterator = script.iterator();
 
         StringBuilder answer = new StringBuilder();
@@ -69,7 +69,6 @@ public class ExecuteScriptCommand extends Command {
                 String commandName = commandArray[0];
 
                 Command command = createCommand(commandArray, iterator);
-
 
                 addToHistory(commandName);
 

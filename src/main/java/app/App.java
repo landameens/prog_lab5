@@ -23,6 +23,7 @@ public final class App {
 
     public static void main(String[] args) throws InternalException, VerifyException, DAOException {
         ClassLoader classLoader = App.class.getClassLoader();
+        String path = "";
 
         if (args.length > 0) {
             checkInputPath(args);
@@ -30,15 +31,15 @@ public final class App {
             PathModifiers modifier = PathModifiers.getPathModifiers(args[0]);
 
             if (modifier.equals(PathModifiers.ABSOLUTE)) {
-                //path = args[1];
+                path = args[1];
             }
 
             if (modifier.equals(PathModifiers.RELATIVE)) {
                 URL fileURL = classLoader.getResource(args[1]);
-                //path = fileURL.getFile();
+                path = fileURL.getFile();
             }
 
-            if (modifier == null) {
+            if (!modifier.equals(PathModifiers.RELATIVE) && !modifier.equals(PathModifiers.ABSOLUTE)) {
                 System.err.println(LACK_OF_ARGUMENTS_ERROR);
             }
         }
