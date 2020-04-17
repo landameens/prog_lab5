@@ -1,5 +1,6 @@
 package controller;
 
+import controller.commands.RecursionChecker;
 import controller.commands.factory.ScriptCommandFactory;
 import controller.commands.factory.HistoryRepositoryCommandFactory;
 import controller.commands.factory.ICommandFactory;
@@ -22,7 +23,7 @@ public class Interpretator {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
         commandRepositoryFactory = new HistoryRepositoryCommandFactory(commandsRepository);
-        scriptCommandFactory = new ScriptCommandFactory(studyGroupRepository, commandsRepository);
+        scriptCommandFactory = new ScriptCommandFactory(studyGroupRepository, commandsRepository, new RecursionChecker());
     }
 
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){

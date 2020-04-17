@@ -1,6 +1,7 @@
 package controller.commands;
 
 import app.*;
+import controller.Script;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
 import domain.commandsRepository.ICommandsRepository;
@@ -21,16 +22,18 @@ public class ExecuteScriptCommand extends Command {
     private app.Interpretator interpretatorToType;
     private Viewer viewer;
     private ICommandsRepository history;
-    private IStudyGroupRepository studyGroupRepository;
+    private RecursionChecker recursionChecker;
+
 
     public ExecuteScriptCommand(String type,
                                 Map<String, String> args,
                                 IStudyGroupRepository studyGroupRepository,
-                                ICommandsRepository commandsRepository){
+                                ICommandsRepository commandsRepository,
+                                RecursionChecker recursionChecker){
         super(type, args);
         this.history = commandsRepository;
-        this.studyGroupRepository = studyGroupRepository;
-        interpretator = new Interpretator(studyGroupRepository, commandsRepository);
+        this.recursionChecker = recursionChecker;
+        interpretator = new Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
         interpretatorToType = new app.Interpretator();
         viewer = new Viewer();
     }
@@ -43,17 +46,20 @@ public class ExecuteScriptCommand extends Command {
 
         IScriptDAO scriptDAO = new ScriptDAO(path);
         try {
-            List<String> script = scriptDAO.getScript();
-
-            return executeScript(script);
+            Script script = new Script();
+            script.setTextScript(scriptDAO.getScript());
+            if (recursionChecker.check(script.hashCode())){
+                return executeScript(script);
+            } else throw new RecursionExeption("Рекурсия!");
         } catch (IOException | RecursionExeption e) {
             return getBadRequestResponseDTO(e.getMessage());
         }
 
     }
 
-    private Response executeScript(List<String> script){
-        Iterator<String> iterator = script.iterator();
+    private Response executeScript(Script script){
+
+        Iterator<String> iterator = script.getTextScript().iterator();
 
         StringBuilder answer = new StringBuilder();
 

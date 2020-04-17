@@ -14,11 +14,11 @@ public class Interpretator {
     private ICommandFactory commandRepositoryFactory;
     private ICommandFactory scriptFactory;
 
-    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository historyRepository) {
+    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository historyRepository, RecursionChecker recursionChecker) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
         commandRepositoryFactory = new HistoryRepositoryCommandFactory(historyRepository);
-        scriptFactory = new ScriptCommandFactory(studyGroupRepository, historyRepository);
+        scriptFactory = new ScriptCommandFactory(studyGroupRepository, historyRepository, recursionChecker);
     }
 
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
