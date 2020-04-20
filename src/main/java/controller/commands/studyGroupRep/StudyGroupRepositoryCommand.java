@@ -1,5 +1,6 @@
-package controller.commands;
+package controller.commands.studyGroupRep;
 
+import controller.commands.Command;
 import controller.response.Response;
 import domain.studyGroupRepository.IStudyGroupRepository;
 

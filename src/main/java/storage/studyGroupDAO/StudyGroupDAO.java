@@ -15,6 +15,10 @@ import java.io.FileReader;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * These class realize IStudyGroupDAO.
+ * It uses for working with Study Groups in the storage.
+ */
 public class StudyGroupDAO implements IStudyGroupDAO {
     private final static String EMPTY_DIRECTORY_ERROR = "Отсутствуют файлы.";
 
@@ -25,6 +29,11 @@ public class StudyGroupDAO implements IStudyGroupDAO {
         this.file = new File(pathToFile);
     }
 
+    /**
+     * This method decerialize xml-file with Study groups from storage.
+     * @return Set of Study Group
+     * @throws DAOException
+     */
     @Override
     public Set<StudyGroupDTO> getDTOs() throws DAOException {
         File[] files =  file.listFiles();
@@ -53,6 +62,11 @@ public class StudyGroupDAO implements IStudyGroupDAO {
         return studyGroupDTOSet;
     }
 
+    /**
+     * This method writes all study group to xml-file in the memory.
+     * @param dto
+     * @throws DAOException
+     */
     @Override
     public void saveDTOs(Set<StudyGroupDTO> dto) throws DAOException {
         String path = file.getPath();

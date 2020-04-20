@@ -8,6 +8,9 @@ import domain.commandsRepository.Record;
 import domain.commandsRepository.ICommandsRepository;
 import domain.exception.CreationException;
 
+/**
+ * Class for processing user requests
+ */
 public class Controller {
     private Interpretator interpretator;
     private ICommandsRepository commandsRepository;
@@ -17,6 +20,12 @@ public class Controller {
         this.commandsRepository = commandsRepository;
     }
 
+    /**
+     * Method for creating and executing a user's command
+     * @param query
+     * @return response to the command
+     * @throws CreationException
+     */
     public Response handleQuery(Query query) throws CreationException {
 
         ICommandFactory commandFactory = interpretator.getFactoryInstance(query.getCommandName());

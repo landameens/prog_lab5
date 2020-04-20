@@ -1,8 +1,8 @@
 package controller.commands.factory;
 
 import controller.commands.Command;
-import controller.commands.ExecuteScriptCommand;
-import controller.commands.RecursionChecker;
+import controller.commands.scripts.ExecuteScriptCommand;
+import controller.commands.scripts.RecursionChecker;
 import domain.commandsRepository.ICommandsRepository;
 import domain.exception.CreationException;
 import domain.studyGroupRepository.IStudyGroupRepository;
@@ -12,6 +12,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory for scriptCommand.
+ */
 public class ScriptCommandFactory implements ICommandFactory {
     private IStudyGroupRepository studyGroupRepository;
     private ICommandsRepository commandsRepository;
@@ -30,6 +33,13 @@ public class ScriptCommandFactory implements ICommandFactory {
         }
     };
 
+    /**
+     * Method for creating a command with instances of a group repository, and a repository with executed commands using reflection
+     * @param commandName
+     * @param arguments
+     * @return Command
+     * @throws CreationException
+     */
     @Override
     public Command createCommand(String commandName,
                                  Map<String, String> arguments) throws CreationException {

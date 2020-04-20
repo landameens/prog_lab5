@@ -1,6 +1,6 @@
 package controller;
 
-import controller.commands.RecursionChecker;
+import controller.commands.scripts.RecursionChecker;
 import controller.commands.factory.ScriptCommandFactory;
 import controller.commands.factory.HistoryRepositoryCommandFactory;
 import controller.commands.factory.ICommandFactory;

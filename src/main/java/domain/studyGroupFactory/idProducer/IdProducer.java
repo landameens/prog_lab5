@@ -8,7 +8,9 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * This class has idList, where stored all free id.
+ */
 public class IdProducer {
     private List<Long> idList;
     private IIdProducerDAO idProducerDAO;
@@ -19,7 +21,6 @@ public class IdProducer {
 
         this.idProducerDAO = new IdProducerDAO(url.getFile());
         try {
-            //idList = idProducerDAO.getList();
             IdProducerDTO idProducerDTO = idProducerDAO.getIdProducerDTO();
             if (idProducerDTO == null) {
                 idList = getInitialCollection();

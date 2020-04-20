@@ -1,13 +1,16 @@
 package controller.commands;
 
 import controller.commands.factory.*;
-import domain.commandsRepository.HistoryRepository;
+import controller.commands.scripts.RecursionChecker;
 import domain.commandsRepository.ICommandsRepository;
 import domain.studyGroupRepository.IStudyGroupRepository;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class for an assign to a command to each factory
+ */
 public class Interpretator {
     private ICommandFactory simpleCommandsFactory;
     private ICommandFactory studyGroupRepositoryCommandFactory;
@@ -42,7 +45,11 @@ public class Interpretator {
         }
     };
 
-
+    /**
+     * Method to get an instance of the factory for the name of the command
+     * @param name
+     * @return factory corresponding to the command
+     */
     public ICommandFactory getFactoryInstance(String name){
         Class<? extends ICommandFactory> clazz = commandFactoryMap.get(name);
 

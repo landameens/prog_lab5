@@ -5,6 +5,9 @@ import storage.exception.DAOException;
 
 import java.io.*;
 
+/**
+ * Class for writing and reading the IdProducer state
+ */
 public class IdProducerDAO implements IIdProducerDAO {
     private File directoryForStoringFiles;
 
@@ -12,6 +15,11 @@ public class IdProducerDAO implements IIdProducerDAO {
         directoryForStoringFiles = new File(path);
     }
 
+    /**
+     * This method reads DTO from the memory.
+     * @return IdProducerDTO
+     * @throws DAOException
+     */
     @Override
     public IdProducerDTO getIdProducerDTO() throws DAOException{
         File sourceFile = getSourceFile(directoryForStoringFiles);
@@ -36,7 +44,11 @@ public class IdProducerDAO implements IIdProducerDAO {
         return files[0];
     }
 
-
+    /**
+     * This method saves DTO on the memory.
+     * @param dto
+     * @throws DAOException
+     */
     @Override
     public void saveIdProducerDTO(IdProducerDTO dto) throws DAOException {
         cleanDirectory();

@@ -1,7 +1,8 @@
-package controller.commands;
+package controller.commands.scripts;
 
 import app.*;
 import controller.Script;
+import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
 import domain.commandsRepository.ICommandsRepository;
@@ -18,7 +19,7 @@ import java.net.URL;
 import java.util.*;
 
 public class ExecuteScriptCommand extends Command {
-    private Interpretator interpretator;
+    private controller.commands.Interpretator interpretator;
     private app.Interpretator interpretatorToType;
     private Viewer viewer;
     private ICommandsRepository history;
@@ -33,7 +34,7 @@ public class ExecuteScriptCommand extends Command {
         super(type, args);
         this.history = commandsRepository;
         this.recursionChecker = recursionChecker;
-        interpretator = new Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
+        interpretator = new controller.commands.Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
         interpretatorToType = new app.Interpretator();
         viewer = new Viewer();
     }

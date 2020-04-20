@@ -1,5 +1,6 @@
-package controller.commands;
+package controller.commands.history;
 
+import controller.commands.Command;
 import controller.response.Response;
 import domain.commandsRepository.Record;
 import domain.commandsRepository.ICommandsRepository;

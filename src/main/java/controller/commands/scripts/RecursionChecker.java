@@ -1,4 +1,4 @@
-package controller.commands;
+package controller.commands.scripts;
 
 import java.util.Set;
 import java.util.TreeSet;

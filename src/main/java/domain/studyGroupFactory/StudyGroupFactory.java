@@ -11,6 +11,9 @@ import domain.studyGroup.person.Person;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class for create new study group with study group DTO.
+ */
 public class StudyGroupFactory implements IStudyGroupFactory {
 
     private final IdProducer idProducer;
@@ -23,6 +26,12 @@ public class StudyGroupFactory implements IStudyGroupFactory {
         return idProducer;
     }
 
+    /**
+     * This method creates a new instance of the study group when it receives the studu group DTO.
+     * @param studyGroupDTO
+     * @return new studyGroup
+     * @throws VerifyException
+     */
     @Override
     public StudyGroup createNewStudyGroup(StudyGroupDTO studyGroupDTO) throws VerifyException {
         if (studyGroupDTO == null){

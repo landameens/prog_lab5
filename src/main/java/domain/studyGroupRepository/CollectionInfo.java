@@ -1,7 +1,5 @@
 package domain.studyGroupRepository;
 
-import domain.studyGroup.StudyGroup;
-import storage.adapters.LocalDateTimeAdapter;
 import storage.adapters.ZonedDateTimeAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,7 +14,6 @@ import java.time.format.DateTimeFormatter;
 @XmlRootElement
 @XmlType(name = "collectionInfo")
 @XmlAccessorType(XmlAccessType.FIELD)
-
 public final class CollectionInfo {
     public Class<TreeSetStudyGroupRepository> type;
     @XmlJavaTypeAdapter(ZonedDateTimeAdapter.class)

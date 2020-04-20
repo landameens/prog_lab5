@@ -12,6 +12,10 @@ import java.io.File;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+/**
+ * These class realize ICollectionInfoDAO.
+ * It uses for working with Collection Info in the storage.
+ */
 public class CollectionInfoDAO implements ICollectionInfoDAO {
     private String pathToInfo;
 
@@ -19,6 +23,11 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
         this.pathToInfo = pathToFile;
     }
 
+    /**
+     * This method decerialize xml-file with infos from storage.
+     * @return collectionInfo
+     * @throws DAOException
+     */
     @Override
     public CollectionInfo getInfos() throws DAOException {
         File file = new File(pathToInfo);
@@ -52,6 +61,11 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
         return info;
     }
 
+    /**
+     * This method writes Collection Info to xml-file in the memory.
+     * @param collectionInfo
+     * @throws DAOException
+     */
     @Override
     public void saveInfo(CollectionInfo collectionInfo) throws DAOException {
         File file = new File(pathToInfo.concat("\\info.xml"));

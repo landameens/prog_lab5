@@ -1,12 +1,12 @@
 package storage.scriptDAO;
 
-import storage.exception.RecursionExeption;
-
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class reads script from the memory and writes it to ArrayList.
+ */
 public class ScriptDAO implements IScriptDAO {
     private String path;
 
