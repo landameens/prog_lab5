@@ -10,6 +10,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory for commands which uses study Group repository.
+ */
 public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
     private IStudyGroupRepository studyGroupRepository;
 

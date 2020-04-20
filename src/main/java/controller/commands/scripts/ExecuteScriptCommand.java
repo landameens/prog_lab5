@@ -1,7 +1,6 @@
 package controller.commands.scripts;
 
 import app.*;
-import controller.Script;
 import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
@@ -39,6 +38,11 @@ public class ExecuteScriptCommand extends Command {
         viewer = new Viewer();
     }
 
+    /**
+     * Method for executing command.
+     * If it has the recursion, it throws Recursion exception.
+     * @return response
+     */
     @Override
     public Response execute() {
         ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
@@ -58,6 +62,11 @@ public class ExecuteScriptCommand extends Command {
 
     }
 
+    /**
+     * Method for executng received script.
+     * @param script
+     * @return response
+     */
     private Response executeScript(Script script){
 
         Iterator<String> iterator = script.getTextScript().iterator();
@@ -89,6 +98,13 @@ public class ExecuteScriptCommand extends Command {
         return getSuccessfullyResponseDTO(answer.toString());
     }
 
+    /**
+     * This method create command and return them.
+     * @param commandArray
+     * @param iterator
+     * @return command
+     * @throws CreationException
+     */
     private Command createCommand(String[] commandArray, Iterator<String> iterator) throws CreationException {
         String commandName = commandArray[0];
         ICommandFactory commandFactory = interpretator.getFactoryInstance(commandName);
@@ -97,12 +113,22 @@ public class ExecuteScriptCommand extends Command {
         return commandFactory.createCommand(commandName, args);
     }
 
+    /**
+     * This method adds the name of the executable command to the history.
+     * @param commandName
+     */
     private void addToHistory(String commandName) {
         Record commandDTO = new Record();
         commandDTO.name = commandName;
         history.add(commandDTO);
     }
 
+    /**
+     * This method gets command arguments depending on the type of command.
+     * @param commandArray
+     * @param iterator
+     * @return  map of arguments
+     */
     private Map<String, String> getArguments(String[] commandArray, Iterator<String> iterator) {
         Map<String, String> args = new HashMap<>();
 

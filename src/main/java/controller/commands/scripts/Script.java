@@ -1,8 +1,11 @@
-package controller;
+package controller.commands.scripts;
 
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Shell class for scripts.
+ */
 public class Script {
     private List<String> textScript;
 

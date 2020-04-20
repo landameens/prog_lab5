@@ -10,6 +10,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory for simple commands, like help and exit.
+ */
 public class SimpleCommandsFactory implements ICommandFactory {
 
     private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
