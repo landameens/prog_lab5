@@ -32,10 +32,10 @@ public class RemoveByIdCommand extends StudyGroupRepositoryCommand {
             }
 
             if (groupSet.isEmpty()) {
-                return getPreconditionFailedResponseDTO("Группы с таким id не существует.");
+                return getPreconditionFailedResponseDTO("Группы с таким id не существует." + System.lineSeparator());
             }
 
-            return getSuccessfullyResponseDTO("Группа удалена.");
+            return getSuccessfullyResponseDTO("Группа удалена." + System.lineSeparator());
 
         } catch (StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());

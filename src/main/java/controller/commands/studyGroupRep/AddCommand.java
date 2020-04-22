@@ -44,7 +44,7 @@ public class AddCommand extends StudyGroupRepositoryCommand {
         try {
             studyGroupRepository.add(studyGroupDTO);
 
-            return getSuccessfullyResponseDTO("Группа добавлена");
+            return getSuccessfullyResponseDTO("Группа добавлена" + System.lineSeparator());
         } catch (StudyGroupRepositoryException e) {
 
             return getBadRequestResponseDTO(e.getMessage());

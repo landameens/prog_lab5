@@ -1,6 +1,5 @@
 package controller.commands.studyGroupRep;
 
-import controller.commands.studyGroupRep.StudyGroupRepositoryCommand;
 import controller.response.Response;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
@@ -28,7 +27,7 @@ public class ClearCommand extends StudyGroupRepositoryCommand {
                 studyGroupRepository.remove(removableStudyGroup);
             }
 
-            return getSuccessfullyResponseDTO("Коллекция очищена.");
+            return getSuccessfullyResponseDTO("Коллекция очищена." + System.lineSeparator());
 
         } catch (StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());

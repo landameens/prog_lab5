@@ -59,7 +59,7 @@ public class AddIfMinCommand extends StudyGroupRepositoryCommand {
                 StudyGroupDTO currentStudyGroupDTO = StudyGroup.getStudyGroupDTO(studyGroup);
 
                 if (studyGroupDTOComparator.compare(currentStudyGroupDTO, studyGroupDTO) == 0){
-                    return getSuccessfullyResponseDTO("Группа добавлена.");
+                    return getSuccessfullyResponseDTO("Группа добавлена." + System.lineSeparator());
                 }
 
                 ConcreteSet concreteSet = new ConcreteSetWithSpecialField(StudyGroup.class, "studentsCount", studyGroupDTO.studentsCount);

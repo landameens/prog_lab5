@@ -34,7 +34,7 @@ public class FilterLessThanShouldBeExpelledCommand extends StudyGroupRepositoryC
             }
 
             if(message.length() == 0){
-                return getPreconditionFailedResponseDTO("Групп с мешьшим значением поля shold_be_expelled в коллекции нет.");
+                return getPreconditionFailedResponseDTO("Групп с мешьшим значением поля shold_be_expelled в коллекции нет." + System.lineSeparator());
             }
 
             return getSuccessfullyResponseDTO(message.toString());

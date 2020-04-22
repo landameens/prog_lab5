@@ -49,7 +49,7 @@ public class UpdateCommad extends StudyGroupRepositoryCommand {
             StudyGroup studyGroupNew = StudyGroup.getStudyGroup(studyGroupDTO);
             studyGroupRepository.update(studyGroupNew);
 
-            return getSuccessfullyResponseDTO("Группа обновлена.");
+            return getSuccessfullyResponseDTO("Группа обновлена." + System.lineSeparator());
         } catch (StudyGroupRepositoryException | VerifyException e) {
             return getBadRequestResponseDTO(e.getMessage());
         }
