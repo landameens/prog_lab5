@@ -1,5 +1,7 @@
 package controller;
 
+import controller.commands.scripts.RecursionChecker;
+import controller.commands.factory.ScriptCommandFactory;
 import controller.commands.factory.HistoryRepositoryCommandFactory;
 import controller.commands.factory.ICommandFactory;
 import controller.commands.factory.SimpleCommandsFactory;
@@ -15,11 +17,13 @@ public class Interpretator {
     private ICommandFactory simpleCommandsFactory;
     private ICommandFactory studyGroupRepositoryCommandFactory;
     private ICommandFactory commandRepositoryFactory;
+    private ICommandFactory scriptCommandFactory;
 
     public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
         commandRepositoryFactory = new HistoryRepositoryCommandFactory(commandsRepository);
+        scriptCommandFactory = new ScriptCommandFactory(studyGroupRepository, commandsRepository, new RecursionChecker());
     }
 
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
@@ -38,7 +42,7 @@ public class Interpretator {
             put("filter_less_than_should_be_expelled", StudyGroupRepositoryCommandFactory.class);
             put("count_by_group_admin", StudyGroupRepositoryCommandFactory.class);
             put("info", StudyGroupRepositoryCommandFactory.class);
-            put("execute_script", StudyGroupRepositoryCommandFactory.class);
+            put("execute_script", ScriptCommandFactory.class);
             put("history", HistoryRepositoryCommandFactory.class);
         }
     };
@@ -57,6 +61,10 @@ public class Interpretator {
 
         if(clazz.equals(commandRepositoryFactory.getClass())){
             return commandRepositoryFactory;
+        }
+
+        if(clazz.equals(scriptCommandFactory.getClass())){
+            return scriptCommandFactory;
         }
 
         return null;

@@ -1,5 +1,6 @@
-package controller.commands;
+package controller.commands.studyGroupRep;
 
+import controller.commands.studyGroupRep.StudyGroupRepositoryCommand;
 import controller.response.Response;
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
@@ -48,7 +49,7 @@ public class UpdateCommad extends StudyGroupRepositoryCommand {
             StudyGroup studyGroupNew = StudyGroup.getStudyGroup(studyGroupDTO);
             studyGroupRepository.update(studyGroupNew);
 
-            return getSuccessfullyResponseDTO("Группа обновлена.");
+            return getSuccessfullyResponseDTO("Группа обновлена." + System.lineSeparator());
         } catch (StudyGroupRepositoryException | VerifyException e) {
             return getBadRequestResponseDTO(e.getMessage());
         }

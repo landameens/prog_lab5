@@ -3,6 +3,9 @@ package domain.commandsRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * These class are realize ICommandRepository interface for working with ArraList.
+ */
 public class HistoryRepository implements ICommandsRepository {
     private List<Record> historyList;
 

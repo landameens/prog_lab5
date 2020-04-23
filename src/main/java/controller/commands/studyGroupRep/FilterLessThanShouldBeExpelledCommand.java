@@ -1,5 +1,6 @@
-package controller.commands;
+package controller.commands.studyGroupRep;
 
+import controller.commands.studyGroupRep.StudyGroupRepositoryCommand;
 import controller.response.Response;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
@@ -33,7 +34,7 @@ public class FilterLessThanShouldBeExpelledCommand extends StudyGroupRepositoryC
             }
 
             if(message.length() == 0){
-                return getPreconditionFailedResponseDTO("Групп с мешьшим значением поля shold_be_expelled в коллекции нет.");
+                return getPreconditionFailedResponseDTO("Групп с мешьшим значением поля shold_be_expelled в коллекции нет." + System.lineSeparator());
             }
 
             return getSuccessfullyResponseDTO(message.toString());

@@ -1,5 +1,8 @@
 package controller.response;
 
+/**
+ * All response codes of the executed command.
+ */
 public enum Status {
     SUCCESSFULLY("200"),
     BAD_REQUEST("400"),

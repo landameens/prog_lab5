@@ -1,6 +1,7 @@
 package controller.commands.factory;
 
 import controller.commands.*;
+import controller.commands.studyGroupRep.*;
 import domain.exception.CreationException;
 import domain.studyGroupRepository.IStudyGroupRepository;
 
@@ -9,6 +10,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory for commands which uses study Group repository.
+ */
 public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
     private IStudyGroupRepository studyGroupRepository;
 
@@ -31,7 +35,6 @@ public class StudyGroupRepositoryCommandFactory implements ICommandFactory {
             put("filter_less_than_should_be_expelled", FilterLessThanShouldBeExpelledCommand.class);
             put("count_by_group_admin", CountByGroupAdminCommand.class);
             put("info", InfoCommand.class);
-            put("execute_script", ExecuteScriptCommand.class);
         }
     };
 

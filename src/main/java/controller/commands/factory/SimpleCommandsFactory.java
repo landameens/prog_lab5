@@ -3,7 +3,6 @@ package controller.commands.factory;
 import controller.commands.Command;
 import controller.commands.ExitCommand;
 import controller.commands.HelpCommand;
-import controller.commands.HistoryCommand;
 import domain.exception.CreationException;
 
 import java.lang.reflect.Constructor;
@@ -11,6 +10,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory for simple commands, like help and exit.
+ */
 public class SimpleCommandsFactory implements ICommandFactory {
 
     private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {

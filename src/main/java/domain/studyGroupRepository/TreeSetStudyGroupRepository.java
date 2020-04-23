@@ -1,5 +1,6 @@
 package domain.studyGroupRepository;
 
+import domain.studyGroupFactory.IStudyGroupFactory;
 import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import domain.exception.StudyGroupRepositoryException;
@@ -33,19 +34,26 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private CollectionInfoDAO collectionInfoDAO;
     private CollectionInfo collectionInfo;
 
-    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory) throws DAOException, VerifyException {
+
+    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory, String path) throws DAOException, VerifyException {
         this.studyGroupFactory = studyGroupFactory;
 
-        ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
-        URL groupsUrl = classLoader.getResource("studyGroups");
-        studyGroupDAO = new StudyGroupDAO(groupsUrl.getPath());
+        String pathToInfo = path;
+        if (path.equals("")) {
+            ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
+            URL groupsUrl = classLoader.getResource("studyGroups");
+            path = groupsUrl.getFile();
 
+            URL infoUrl = classLoader.getResource("info");
+            pathToInfo = infoUrl.getFile();
+        }
+
+        studyGroupDAO = new StudyGroupDAO(path);
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
-        File file = new File(groupsUrl.getFile());
+        File file = new File(path);
         studyGroups = getInitialFiles(file, studyGroupComparator);
 
-        URL infoUrl = classLoader.getResource("info");
-        collectionInfo = getInfos(infoUrl.getPath());
+        collectionInfo = getInfos(pathToInfo);
     }
 
     private CollectionInfo getInfos(String path) throws DAOException {
@@ -107,6 +115,11 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
      */
     @Override
     public void remove(StudyGroup studyGroup) throws StudyGroupRepositoryException {
+        try {
+            studyGroupFactory.getIdProducer().clear();
+        } catch (DAOException e) {
+            throw new StudyGroupRepositoryException(e.getMessage());
+        }
         if (!studyGroups.remove(studyGroup)){
             throw new StudyGroupRepositoryException(NO_SUCH_STUDY_GROUP_ERROR_MESSAGE);
         }
@@ -162,6 +175,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         collectionInfo.size = studyGroups.size();
         return collectionInfo;
     }
+
 
     @Override
     public void save() throws DAOException {

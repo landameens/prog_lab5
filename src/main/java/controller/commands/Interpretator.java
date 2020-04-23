@@ -1,25 +1,27 @@
 package controller.commands;
 
-import controller.commands.factory.HistoryRepositoryCommandFactory;
-import controller.commands.factory.ICommandFactory;
-import controller.commands.factory.SimpleCommandsFactory;
-import controller.commands.factory.StudyGroupRepositoryCommandFactory;
-import domain.commandsRepository.HistoryRepository;
+import controller.commands.factory.*;
+import controller.commands.scripts.RecursionChecker;
+import domain.commandsRepository.ICommandsRepository;
 import domain.studyGroupRepository.IStudyGroupRepository;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class for an assign to a command to each factory
+ */
 public class Interpretator {
     private ICommandFactory simpleCommandsFactory;
     private ICommandFactory studyGroupRepositoryCommandFactory;
     private ICommandFactory commandRepositoryFactory;
+    private ICommandFactory scriptFactory;
 
-    public Interpretator(IStudyGroupRepository studyGroupRepository) {
+    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository historyRepository, RecursionChecker recursionChecker) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
-        commandRepositoryFactory = new HistoryRepositoryCommandFactory(new HistoryRepository() {
-        });
+        commandRepositoryFactory = new HistoryRepositoryCommandFactory(historyRepository);
+        scriptFactory = new ScriptCommandFactory(studyGroupRepository, historyRepository, recursionChecker);
     }
 
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
@@ -38,12 +40,16 @@ public class Interpretator {
             put("filter_less_than_should_be_expelled", StudyGroupRepositoryCommandFactory.class);
             put("count_by_group_admin", StudyGroupRepositoryCommandFactory.class);
             put("info", StudyGroupRepositoryCommandFactory.class);
-            put("execute_script", StudyGroupRepositoryCommandFactory.class);
+            put("execute_script", ScriptCommandFactory.class);
             put("history", HistoryRepositoryCommandFactory.class);
         }
     };
 
-
+    /**
+     * Method to get an instance of the factory for the name of the command
+     * @param name
+     * @return factory corresponding to the command
+     */
     public ICommandFactory getFactoryInstance(String name){
         Class<? extends ICommandFactory> clazz = commandFactoryMap.get(name);
 
@@ -57,6 +63,10 @@ public class Interpretator {
 
         if(clazz.equals(commandRepositoryFactory.getClass())){
             return commandRepositoryFactory;
+        }
+
+        if(clazz.equals(scriptFactory.getClass())){
+            return scriptFactory;
         }
 
         return null;

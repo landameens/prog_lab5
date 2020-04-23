@@ -1,7 +1,10 @@
 package controller.response;
 
+/**
+ * This class represents the response to the executable command.
+ * It has a response to the executed command, and a response code.
+ */
 public class Response {
-
     private Status status;
     private String answer;
 

@@ -1,6 +1,5 @@
 package storage.collectionInfoDAO;
 
-import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.CollectionInfo;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
 import storage.exception.DAOException;
@@ -10,10 +9,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+/**
+ * These class realize ICollectionInfoDAO.
+ * It uses for working with Collection Info in the storage.
+ */
 public class CollectionInfoDAO implements ICollectionInfoDAO {
     private String pathToInfo;
 
@@ -21,6 +23,11 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
         this.pathToInfo = pathToFile;
     }
 
+    /**
+     * This method decerialize xml-file with infos from storage.
+     * @return collectionInfo
+     * @throws DAOException
+     */
     @Override
     public CollectionInfo getInfos() throws DAOException {
         File file = new File(pathToInfo);
@@ -54,13 +61,17 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
         return info;
     }
 
+    /**
+     * This method writes Collection Info to xml-file in the memory.
+     * @param collectionInfo
+     * @throws DAOException
+     */
     @Override
     public void saveInfo(CollectionInfo collectionInfo) throws DAOException {
-        File file = new File(pathToInfo);
-        if (file.delete()){
-            File file1 = new File(pathToInfo);
-            serialize(file1, collectionInfo);
-        }
+        File file = new File(pathToInfo.concat("\\info.xml"));
+        file.delete();
+        File file1 = new File(pathToInfo.concat("\\info.xml"));
+        serialize(file1, collectionInfo);
     }
 
     private void serialize(File file, CollectionInfo collectionInfo) throws DAOException {

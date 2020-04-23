@@ -1,4 +1,4 @@
-package controller.commands;
+package controller.commands.studyGroupRep;
 
 import controller.response.Response;
 import domain.exception.StudyGroupRepositoryException;
@@ -42,6 +42,6 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
             return allStudyGroups.toString();
         }
 
-        return "Коллекция пуста.";
+        return "Коллекция пуста.".concat(System.lineSeparator());
     }
 }

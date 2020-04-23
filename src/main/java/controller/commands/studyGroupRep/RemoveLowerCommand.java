@@ -1,5 +1,6 @@
-package controller.commands;
+package controller.commands.studyGroupRep;
 
+import controller.commands.studyGroupRep.StudyGroupRepositoryCommand;
 import controller.response.Response;
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
@@ -56,10 +57,10 @@ public class RemoveLowerCommand extends StudyGroupRepositoryCommand {
                     studyGroupRepository.remove(studyGroup);
                 }
 
-                return getSuccessfullyResponseDTO("Группы, меньшие, чем заданная, удалены.");
+                return getSuccessfullyResponseDTO("Группы, меньшие, чем заданная, удалены." + System.lineSeparator());
             }
 
-            return getPreconditionFailedResponseDTO("В коллекци нет групп, меньших, чем заданная.");
+            return getPreconditionFailedResponseDTO("В коллекци нет групп, меньших, чем заданная." + System.lineSeparator());
         } catch (VerifyException | StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());
         }

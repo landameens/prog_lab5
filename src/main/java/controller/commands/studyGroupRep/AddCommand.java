@@ -1,5 +1,6 @@
-package controller.commands;
+package controller.commands.studyGroupRep;
 
+import controller.commands.studyGroupRep.StudyGroupRepositoryCommand;
 import controller.response.Response;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroupDTO;
@@ -43,7 +44,7 @@ public class AddCommand extends StudyGroupRepositoryCommand {
         try {
             studyGroupRepository.add(studyGroupDTO);
 
-            return getSuccessfullyResponseDTO("Группа добавлена");
+            return getSuccessfullyResponseDTO("Группа добавлена" + System.lineSeparator());
         } catch (StudyGroupRepositoryException e) {
 
             return getBadRequestResponseDTO(e.getMessage());

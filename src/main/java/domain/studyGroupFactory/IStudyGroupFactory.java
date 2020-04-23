@@ -6,7 +6,7 @@ import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 
 /**
- * 
+ * Interface for StudyGroup Factory.
  */
 public interface IStudyGroupFactory {
 

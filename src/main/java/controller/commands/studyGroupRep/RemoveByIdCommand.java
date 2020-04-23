@@ -1,5 +1,6 @@
-package controller.commands;
+package controller.commands.studyGroupRep;
 
+import controller.commands.studyGroupRep.StudyGroupRepositoryCommand;
 import controller.response.Response;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
@@ -31,10 +32,10 @@ public class RemoveByIdCommand extends StudyGroupRepositoryCommand {
             }
 
             if (groupSet.isEmpty()) {
-                return getPreconditionFailedResponseDTO("Группы с таким id не существует.");
+                return getPreconditionFailedResponseDTO("Группы с таким id не существует." + System.lineSeparator());
             }
 
-            return getSuccessfullyResponseDTO("Группа удалена.");
+            return getSuccessfullyResponseDTO("Группа удалена." + System.lineSeparator());
 
         } catch (StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());

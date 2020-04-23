@@ -76,7 +76,6 @@ public final class Validator {
             put(COUNT_BY_GROUP_ADMIN, 0);
             put(FILTER_BY_SHOULD_BE_EXPELLED, 1);
             put(FILTER_LESS_THEN_SHOULD_BE_EXPELLED, 1);
-
         }
     };
 
