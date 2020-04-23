@@ -15,7 +15,7 @@ public class IdProducer {
     private List<Long> idList;
     private IIdProducerDAO idProducerDAO;
 
-    public IdProducer(String path) {
+    public IdProducer(List<Long> list, String path) {
         if (path.equals("")) {
             ClassLoader classLoader = IdProducer.class.getClassLoader();
             URL url = classLoader.getResource("idProducer");

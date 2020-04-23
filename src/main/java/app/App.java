@@ -45,7 +45,7 @@ public final class App {
         }
 
 
-        IdProducer idProducer = new IdProducer(path);
+        IdProducer idProducer = new IdProducer(new ArrayList<Long>(), path);
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
         IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
         ICommandsRepository commandsRepository = new HistoryRepository();
