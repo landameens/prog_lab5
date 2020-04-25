@@ -16,18 +16,19 @@ import java.util.Map;
  * Factory for scriptCommand.
  */
 public class ScriptCommandFactory implements ICommandFactory {
-    private IStudyGroupRepository studyGroupRepository;
-    private ICommandsRepository commandsRepository;
-    private RecursionChecker recursionChecker;
+    private final IStudyGroupRepository studyGroupRepository;
+    private final ICommandsRepository commandsRepository;
+    private final RecursionChecker recursionChecker;
+    private String path;
 
-    public ScriptCommandFactory(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository, RecursionChecker recursionChecker) {
+    public ScriptCommandFactory(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository, RecursionChecker recursionChecker, String path) {
         this.commandsRepository = commandsRepository;
         this.studyGroupRepository = studyGroupRepository;
         this.recursionChecker = recursionChecker;
-
+        this.path = path;
     }
 
-    private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
+    private final Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
         {
             put("execute_script", ExecuteScriptCommand.class);
         }
@@ -46,8 +47,8 @@ public class ScriptCommandFactory implements ICommandFactory {
         Class<? extends Command> clazz = classMap.get(commandName);
 
         try {
-            Constructor<? extends Command> constructor = clazz.getConstructor(String.class, Map.class, IStudyGroupRepository.class, ICommandsRepository.class, RecursionChecker.class);
-            return constructor.newInstance(commandName, arguments, studyGroupRepository, commandsRepository, recursionChecker);
+            Constructor<? extends Command> constructor = clazz.getConstructor(String.class, Map.class, IStudyGroupRepository.class, ICommandsRepository.class, RecursionChecker.class, String.class);
+            return constructor.newInstance(commandName, arguments, studyGroupRepository, commandsRepository, recursionChecker, path);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             throw new CreationException(e);
         }

@@ -35,10 +35,9 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private CollectionInfo collectionInfo;
 
 
-    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory, String path) throws DAOException, VerifyException {
+    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory, String path, String pathToInfo) throws DAOException, VerifyException {
         this.studyGroupFactory = studyGroupFactory;
 
-        String pathToInfo = path;
         if (path.equals("")) {
             ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
             URL groupsUrl = classLoader.getResource("studyGroups");

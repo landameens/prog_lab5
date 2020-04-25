@@ -12,19 +12,22 @@ import java.util.Map;
  * Class for an assign to a command to each factory
  */
 public class Interpretator {
-    private ICommandFactory simpleCommandsFactory;
-    private ICommandFactory studyGroupRepositoryCommandFactory;
-    private ICommandFactory commandRepositoryFactory;
-    private ICommandFactory scriptFactory;
+    private final ICommandFactory simpleCommandsFactory;
+    private final ICommandFactory studyGroupRepositoryCommandFactory;
+    private final ICommandFactory commandRepositoryFactory;
+    private final ICommandFactory scriptFactory;
 
-    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository historyRepository, RecursionChecker recursionChecker) {
+    public Interpretator(IStudyGroupRepository studyGroupRepository,
+                         ICommandsRepository historyRepository,
+                         RecursionChecker recursionChecker,
+                         String path) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
         commandRepositoryFactory = new HistoryRepositoryCommandFactory(historyRepository);
-        scriptFactory = new ScriptCommandFactory(studyGroupRepository, historyRepository, recursionChecker);
+        scriptFactory = new ScriptCommandFactory(studyGroupRepository, historyRepository, recursionChecker, path);
     }
 
-    private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
+    private final Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
         {
             put("help", SimpleCommandsFactory.class);
             put("show", StudyGroupRepositoryCommandFactory.class);

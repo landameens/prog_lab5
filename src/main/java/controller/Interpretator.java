@@ -19,11 +19,11 @@ public class Interpretator {
     private ICommandFactory commandRepositoryFactory;
     private ICommandFactory scriptCommandFactory;
 
-    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository) {
+    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository, String path) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
         commandRepositoryFactory = new HistoryRepositoryCommandFactory(commandsRepository);
-        scriptCommandFactory = new ScriptCommandFactory(studyGroupRepository, commandsRepository, new RecursionChecker());
+        scriptCommandFactory = new ScriptCommandFactory(studyGroupRepository, commandsRepository, new RecursionChecker(), path);
     }
 
     private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){

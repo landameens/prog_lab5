@@ -18,24 +18,27 @@ import java.net.URL;
 import java.util.*;
 
 public class ExecuteScriptCommand extends Command {
-    private controller.commands.Interpretator interpretator;
-    private app.Interpretator interpretatorToType;
-    private Viewer viewer;
-    private ICommandsRepository history;
-    private RecursionChecker recursionChecker;
+    private final controller.commands.Interpretator interpretator;
+    private final app.Interpretator interpretatorToType;
+    private final Viewer viewer;
+    private final ICommandsRepository history;
+    private final RecursionChecker recursionChecker;
+    private String path;
 
 
     public ExecuteScriptCommand(String type,
                                 Map<String, String> args,
                                 IStudyGroupRepository studyGroupRepository,
                                 ICommandsRepository commandsRepository,
-                                RecursionChecker recursionChecker){
+                                RecursionChecker recursionChecker,
+                                String path){
         super(type, args);
         this.history = commandsRepository;
         this.recursionChecker = recursionChecker;
-        interpretator = new controller.commands.Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
+        interpretator = new controller.commands.Interpretator(studyGroupRepository, commandsRepository, recursionChecker, path);
         interpretatorToType = new app.Interpretator();
         viewer = new Viewer();
+        this.path = path;
     }
 
     /**
@@ -45,10 +48,13 @@ public class ExecuteScriptCommand extends Command {
      */
     @Override
     public Response execute() {
-        ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
-        URL url = classLoader.getResource("script");
-        String path = url.getFile() + "/" + args.get("file_name");
+        if(path.equals("")) {
+            ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
+            URL url = classLoader.getResource("script");
+            path = url.getFile();
+        }
 
+        path = path + "/" + args.get("file_name");
         IScriptDAO scriptDAO = new ScriptDAO(path);
         try {
             Script script = new Script();
