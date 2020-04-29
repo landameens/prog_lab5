@@ -20,59 +20,34 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public final class App {
-    private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the file}";
+    private static final String ARGUMENTS_ERROR = "Большое количество аргументов. Пожалуйста, введите имя файла с начальными данными. ";
 
     public static void main(String[] args) throws InternalException, VerifyException, DAOException {
-        ClassLoader classLoader = App.class.getClassLoader();
         String path = "";
-
         if (args.length > 0) {
             checkInputPath(args);
 
-            PathModifiers modifier = PathModifiers.getPathModifiers(args[0]);
-
-            if (modifier.equals(PathModifiers.ABSOLUTE)) {
-                path = args[1];
-            }
-
-            if (modifier.equals(PathModifiers.RELATIVE)) {
-                URL fileURL = classLoader.getResource(args[1]);
-                path = fileURL.getFile();
-            }
+            ClassLoader classLoader = App.class.getClassLoader();
+            path = classLoader.getResource("studyGroups").getFile().substring(0, 22).concat(args[0]);
 
             File file = new File(path);
-
             if (!file.exists()){
-                System.err.println("Такого файла не существует.");
+                System.err.println("Такого файла не существует. Проверьте наличие такого файла и повторите попытку.");
                 System.exit(1);
             }
 
             if(!file.canExecute()){
-                System.err.println("Пожалуйста, предоставьте права доступа.");
+                System.err.println("Недостаточно прав. Пожалуйста, предоставьте права доступа и повторите попытку.");
                 System.exit(1);
             }
-
-            if (!modifier.equals(PathModifiers.RELATIVE) && !modifier.equals(PathModifiers.ABSOLUTE)) {
-                System.err.println(LACK_OF_ARGUMENTS_ERROR);
-            }
-
         }
 
-        String pathToGroups = path;
-        String pathToInfo = path;
-        String pathToIdProducer = path;
 
-        if (!path.equals("")) {
-            pathToGroups = path + "/studyGroups";
-            pathToInfo = path + "/info";
-            pathToIdProducer = path + "idProducer";
-        }
-
-        IdProducer idProducer = new IdProducer(new ArrayList<>(), pathToIdProducer);
+        IdProducer idProducer = new IdProducer();
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
-        IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, pathToGroups, pathToInfo);
+        IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
         ICommandsRepository commandsRepository = new HistoryRepository();
-        Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository, path);
+        Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
         Controller controller = new Controller(interpretator, commandsRepository);
 
         Console console = new Console(System.in, System.out, controller);
@@ -84,8 +59,8 @@ public final class App {
     }
 
     private static void checkInputPath(String[] args) {
-        if (args.length != 2) {
-            System.err.println(LACK_OF_ARGUMENTS_ERROR);
+        if (args.length > 1) {
+            System.err.println(ARGUMENTS_ERROR);
             System.exit(1);
         }
     }

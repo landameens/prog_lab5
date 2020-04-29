@@ -19,12 +19,11 @@ public class Interpretator {
 
     public Interpretator(IStudyGroupRepository studyGroupRepository,
                          ICommandsRepository historyRepository,
-                         RecursionChecker recursionChecker,
-                         String path) {
+                         RecursionChecker recursionChecker) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
         commandRepositoryFactory = new HistoryRepositoryCommandFactory(historyRepository);
-        scriptFactory = new ScriptCommandFactory(studyGroupRepository, historyRepository, recursionChecker, path);
+        scriptFactory = new ScriptCommandFactory(studyGroupRepository, historyRepository, recursionChecker);
     }
 
     private final Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){

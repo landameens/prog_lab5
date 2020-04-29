@@ -28,24 +28,24 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private static final String SUCH_GROUP_EXIST_ERROR_MESSAGE = "Такая группа уже существует.";
     private static final String NO_SUCH_STUDY_GROUP_ERROR_MESSAGE = "Такой группы нет в репозитории.";
 
-    private StudyGroupFactory studyGroupFactory;
-    private Set<StudyGroup> studyGroups;
-    private IStudyGroupDAO studyGroupDAO;
+    private final StudyGroupFactory studyGroupFactory;
+    private final Set<StudyGroup> studyGroups;
+    private final IStudyGroupDAO studyGroupDAO;
     private CollectionInfoDAO collectionInfoDAO;
-    private CollectionInfo collectionInfo;
+    private final CollectionInfo collectionInfo;
 
 
-    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory, String path, String pathToInfo) throws DAOException, VerifyException {
+    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory, String path) throws DAOException, VerifyException {
         this.studyGroupFactory = studyGroupFactory;
+        ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
 
         if (path.equals("")) {
-            ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
             URL groupsUrl = classLoader.getResource("studyGroups");
             path = groupsUrl.getFile();
-
-            URL infoUrl = classLoader.getResource("info");
-            pathToInfo = infoUrl.getFile();
         }
+
+        URL infoUrl = classLoader.getResource("info");
+        String pathToInfo = infoUrl.getFile();
 
         studyGroupDAO = new StudyGroupDAO(path);
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();

@@ -23,22 +23,19 @@ public class ExecuteScriptCommand extends Command {
     private final Viewer viewer;
     private final ICommandsRepository history;
     private final RecursionChecker recursionChecker;
-    private String path;
 
 
     public ExecuteScriptCommand(String type,
                                 Map<String, String> args,
                                 IStudyGroupRepository studyGroupRepository,
                                 ICommandsRepository commandsRepository,
-                                RecursionChecker recursionChecker,
-                                String path){
+                                RecursionChecker recursionChecker){
         super(type, args);
         this.history = commandsRepository;
         this.recursionChecker = recursionChecker;
-        interpretator = new controller.commands.Interpretator(studyGroupRepository, commandsRepository, recursionChecker, path);
+        interpretator = new controller.commands.Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
         interpretatorToType = new app.Interpretator();
         viewer = new Viewer();
-        this.path = path;
     }
 
     /**
@@ -48,13 +45,11 @@ public class ExecuteScriptCommand extends Command {
      */
     @Override
     public Response execute() {
-        if(path.equals("")) {
-            ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
-            URL url = classLoader.getResource("script");
-            path = url.getFile();
-        }
+        ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
+        URL url = classLoader.getResource("script");
+        String path = url.getFile();
 
-        path = path + "/" + args.get("file_name");
+        path = path + "\\" + args.get("file_name");
         IScriptDAO scriptDAO = new ScriptDAO(path);
         try {
             Script script = new Script();

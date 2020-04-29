@@ -19,13 +19,11 @@ public class ScriptCommandFactory implements ICommandFactory {
     private final IStudyGroupRepository studyGroupRepository;
     private final ICommandsRepository commandsRepository;
     private final RecursionChecker recursionChecker;
-    private String path;
 
-    public ScriptCommandFactory(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository, RecursionChecker recursionChecker, String path) {
+    public ScriptCommandFactory(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository, RecursionChecker recursionChecker) {
         this.commandsRepository = commandsRepository;
         this.studyGroupRepository = studyGroupRepository;
         this.recursionChecker = recursionChecker;
-        this.path = path;
     }
 
     private final Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
@@ -47,8 +45,8 @@ public class ScriptCommandFactory implements ICommandFactory {
         Class<? extends Command> clazz = classMap.get(commandName);
 
         try {
-            Constructor<? extends Command> constructor = clazz.getConstructor(String.class, Map.class, IStudyGroupRepository.class, ICommandsRepository.class, RecursionChecker.class, String.class);
-            return constructor.newInstance(commandName, arguments, studyGroupRepository, commandsRepository, recursionChecker, path);
+            Constructor<? extends Command> constructor = clazz.getConstructor(String.class, Map.class, IStudyGroupRepository.class, ICommandsRepository.class, RecursionChecker.class);
+            return constructor.newInstance(commandName, arguments, studyGroupRepository, commandsRepository, recursionChecker);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             throw new CreationException(e);
         }

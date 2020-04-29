@@ -14,19 +14,19 @@ import java.util.Map;
 
 public class Interpretator {
 
-    private ICommandFactory simpleCommandsFactory;
-    private ICommandFactory studyGroupRepositoryCommandFactory;
-    private ICommandFactory commandRepositoryFactory;
-    private ICommandFactory scriptCommandFactory;
+    private final ICommandFactory simpleCommandsFactory;
+    private final ICommandFactory studyGroupRepositoryCommandFactory;
+    private final ICommandFactory commandRepositoryFactory;
+    private final ICommandFactory scriptCommandFactory;
 
-    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository, String path) {
+    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository) {
         simpleCommandsFactory = new SimpleCommandsFactory();
         studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
         commandRepositoryFactory = new HistoryRepositoryCommandFactory(commandsRepository);
-        scriptCommandFactory = new ScriptCommandFactory(studyGroupRepository, commandsRepository, new RecursionChecker(), path);
+        scriptCommandFactory = new ScriptCommandFactory(studyGroupRepository, commandsRepository, new RecursionChecker());
     }
 
-    private Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
+    private final Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
         {
             put("help", SimpleCommandsFactory.class);
             put("show", StudyGroupRepositoryCommandFactory.class);
