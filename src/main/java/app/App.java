@@ -2,8 +2,6 @@ package app;
 
 import app.Exceptions.InputException;
 import app.Exceptions.InternalException;
-
-
 import controller.Controller;
 import controller.Interpretator;
 import domain.commandsRepository.HistoryRepository;
@@ -16,8 +14,6 @@ import domain.studyGroupRepository.TreeSetStudyGroupRepository;
 import storage.exception.DAOException;
 
 import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
 
 public final class App {
     private static final String ARGUMENTS_ERROR = "Большое количество аргументов. Пожалуйста, введите имя файла с начальными данными. ";

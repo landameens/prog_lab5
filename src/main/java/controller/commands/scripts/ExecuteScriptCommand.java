@@ -1,6 +1,8 @@
 package controller.commands.scripts;
 
-import app.*;
+import app.CommandName;
+import app.CommandType;
+import app.Viewer;
 import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
@@ -9,9 +11,9 @@ import domain.commandsRepository.Record;
 import domain.exception.CreationException;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
+import storage.exception.RecursionExeption;
 import storage.scriptDAO.IScriptDAO;
 import storage.scriptDAO.ScriptDAO;
-import storage.exception.RecursionExeption;
 
 import java.io.IOException;
 import java.net.URL;

@@ -2,17 +2,13 @@ package storage.studyGroupDAO;
 
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
-import domain.studyGroupRepository.CollectionInfo;
 import storage.exception.DAOException;
-import storage.studyGroupDAO.IStudyGroupDAO;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileReader;
-import java.net.URL;
 import java.util.*;
 
 /**

@@ -1,13 +1,13 @@
 package domain.studyGroupFactory;
 
 import domain.exception.VerifyException;
-import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroup.FormOfEducation;
 import domain.studyGroup.Semester;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.Coordinates;
 import domain.studyGroup.person.Person;
+import domain.studyGroupFactory.idProducer.IdProducer;
 
 import java.time.LocalDateTime;
 

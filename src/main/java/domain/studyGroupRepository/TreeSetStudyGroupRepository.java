@@ -1,22 +1,24 @@
 package domain.studyGroupRepository;
 
-import domain.studyGroupFactory.IStudyGroupFactory;
-import domain.studyGroupFactory.StudyGroupFactory;
-import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
+import domain.studyGroupFactory.StudyGroupFactory;
+import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import storage.collectionInfoDAO.CollectionInfoDAO;
+import storage.exception.DAOException;
 import storage.studyGroupDAO.IStudyGroupDAO;
 import storage.studyGroupDAO.Saveable;
 import storage.studyGroupDAO.StudyGroupDAO;
-import storage.exception.DAOException;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.net.URL;
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * These class are realize IStudyGroupRepository interface for working with Tree set.

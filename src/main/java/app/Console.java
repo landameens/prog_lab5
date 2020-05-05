@@ -42,15 +42,10 @@ public final class Console {
         while (true){
             writeLine(viewer.showInvitationCommandMessage());
 
-            String command = null;
-            try {
-                command = reader.readLine();
-            } catch (IOException e) {
-                throw new InternalException(e.getMessage());
-            }
-            command = command.trim();
-            command = command.toLowerCase();
+            String command = getInputString();
             String[] commandArray = command.split("[\\s]+");
+
+
 
             try {
                 validator.validateCommandName(commandArray[0]);
@@ -99,6 +94,18 @@ public final class Console {
                 throw new InputException(e.getMessage());
             }
         }
+    }
+
+    private String getInputString() throws InputException {
+        String command;
+        try {
+            command = reader.readLine();
+        } catch (IOException e) {
+            throw new InputException(e.getMessage());
+        }
+        command = command.trim().toLowerCase();
+
+        return command;
     }
 
     public void writeLine(String text) throws InternalException {
