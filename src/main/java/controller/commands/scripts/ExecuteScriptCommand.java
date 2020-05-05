@@ -80,7 +80,7 @@ public class ExecuteScriptCommand extends Command {
             if (!directory.exists()) {
                 directory.mkdir();
             }
-            
+
             directoryForStoringFiles = pathToAppFiles;
         }
     }
