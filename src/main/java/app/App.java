@@ -28,8 +28,20 @@ public final class App {
             checkInputPath(args);
 
             ClassLoader classLoader = App.class.getClassLoader();
-            path = classLoader.getResource("studyGroups").getFile().substring(0, 22).concat(args[0]);
+            String [] parts = classLoader.getResource("studyGroups").getFile().split("/");
 
+            for(int i = parts.length - 1; i < 0; i--){
+                path = path + "\\" + parts[i];
+            }
+            path = path + args[0];
+
+            if (args[0].matches("\\.\\./.")){
+                path = "";
+                for(int i = parts.length - 2; i < 0; i--){
+                    path = path + "\\" + parts[i];
+                }
+                path = path + args[0];
+            }
             File file = new File(path);
             if (!file.exists()){
                 System.err.println("Такого файла не существует. Проверьте наличие такого файла и повторите попытку.");
