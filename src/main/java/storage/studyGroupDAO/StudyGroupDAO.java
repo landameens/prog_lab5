@@ -21,7 +21,6 @@ public class StudyGroupDAO implements IStudyGroupDAO {
     private File file;
 
     public StudyGroupDAO(String pathToFile) {
-
         this.file = new File(pathToFile);
     }
 

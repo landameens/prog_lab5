@@ -2,6 +2,8 @@ package app;
 
 import app.Exceptions.InputException;
 import app.Exceptions.InternalException;
+import app.query.CommandName;
+import app.query.CommandType;
 import app.query.Query;
 import app.query.queryBuilder.QueryBuilder;
 import app.query.queryBuilder.QueryBuilderFactory;

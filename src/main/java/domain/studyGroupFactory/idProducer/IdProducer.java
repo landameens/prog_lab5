@@ -15,12 +15,19 @@ public class IdProducer {
     private List<Long> idList;
     private final IIdProducerDAO idProducerDAO;
 
-    public IdProducer() {
-        ClassLoader classLoader = IdProducer.class.getClassLoader();
-        URL url = classLoader.getResource("idProducer");
-        String path = url.getFile();
+    private String directoryForStoringIdProducer;
 
-        this.idProducerDAO = new IdProducerDAO(path);
+    public IdProducer(String directoryForStoringIdProducer) {
+        ClassLoader classLoader = IdProducer.class.getClassLoader();
+
+        if (directoryForStoringIdProducer == null) {
+            URL url = classLoader.getResource("idProducer");
+            this.directoryForStoringIdProducer = url.getFile();
+        } else {
+            this.directoryForStoringIdProducer = directoryForStoringIdProducer + "\\idProducer";
+        }
+
+        this.idProducerDAO = new IdProducerDAO(this.directoryForStoringIdProducer);
         try {
             IdProducerDTO idProducerDTO = idProducerDAO.getIdProducerDTO();
             if (idProducerDTO == null) {

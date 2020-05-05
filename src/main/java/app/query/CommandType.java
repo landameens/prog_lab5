@@ -1,4 +1,4 @@
-package app;
+package app.query;
 
 /**
  * This enum contains types of commands.

@@ -1,10 +1,12 @@
 package app;
 
+import app.query.CommandName;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static app.CommandName.*;
+import static app.query.CommandName.*;
 
 /**
  * This class is responsible for displaying invitation messages before user's input or command results in console.
