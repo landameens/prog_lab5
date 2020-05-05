@@ -32,6 +32,10 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
     @Override
     public CollectionInfo getInfos() throws DAOException {
         File file = new File(pathToInfo);
+
+        if (!file.exists()) {
+            file.mkdir();
+        }
         File[] files =  file.listFiles();
 
         List<File> collectionInfo = Arrays.asList(files);

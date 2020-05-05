@@ -13,6 +13,10 @@ public class IdProducerDAO implements IIdProducerDAO {
 
     public IdProducerDAO(String path) {
         directoryForStoringFiles = new File(path);
+
+        if (!directoryForStoringFiles.exists()) {
+            directoryForStoringFiles.mkdir();
+        }
     }
 
     /**

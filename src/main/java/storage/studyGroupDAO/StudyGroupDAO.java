@@ -22,6 +22,10 @@ public class StudyGroupDAO implements IStudyGroupDAO {
 
     public StudyGroupDAO(String pathToFile) {
         this.file = new File(pathToFile);
+
+        if (!file.exists()) {
+            file.mkdir();
+        }
     }
 
     /**

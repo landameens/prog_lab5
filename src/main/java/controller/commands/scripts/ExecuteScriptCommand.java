@@ -15,6 +15,7 @@ import storage.exception.RecursionExeption;
 import storage.scriptDAO.IScriptDAO;
 import storage.scriptDAO.ScriptDAO;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -74,6 +75,12 @@ public class ExecuteScriptCommand extends Command {
             URL url = classLoader.getResource("script");
             directoryForStoringFiles = url.getFile();
         } else {
+            File directory = new File(pathToAppFiles);
+
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            
             directoryForStoringFiles = pathToAppFiles;
         }
     }

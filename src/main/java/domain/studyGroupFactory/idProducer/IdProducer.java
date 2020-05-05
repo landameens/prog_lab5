@@ -20,6 +20,9 @@ public class IdProducer {
     public IdProducer(String directoryForStoringIdProducer) {
         ClassLoader classLoader = IdProducer.class.getClassLoader();
 
+        //todo delete
+        directoryForStoringIdProducer = "C:\\Users\\Yaroslav\\Desktop";
+
         if (directoryForStoringIdProducer == null) {
             URL url = classLoader.getResource("idProducer");
             this.directoryForStoringIdProducer = url.getFile();
