@@ -55,8 +55,8 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
             URL infoUrl = classLoader.getResource("info");
             directoryForStoringCollectionInfo = infoUrl.getFile();
         } else {
-            directoryForStoringStudyGroups = pathForAppFiles + "\\studyGroups";
-            directoryForStoringCollectionInfo = pathForAppFiles + "\\info";
+            directoryForStoringStudyGroups = pathForAppFiles + "/studyGroups";
+            directoryForStoringCollectionInfo = pathForAppFiles + "/info";
         }
 
         studyGroupDAO = new StudyGroupDAO(directoryForStoringStudyGroups);

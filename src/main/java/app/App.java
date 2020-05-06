@@ -25,6 +25,17 @@ public final class App {
             checkInputPath(args);
 
             pathForAppFiles = args[0];
+
+            File file = new File(pathForAppFiles);
+            if (!file.exists()){
+                System.err.println("Такого файла не существует. Проверьте наличие такого файла и повторите попытку.");
+                System.exit(1);
+            }
+
+            if(!file.canExecute()){
+                System.err.println("Недостаточно прав. Пожалуйста, предоставьте права доступа и повторите попытку.");
+                System.exit(1);
+            }
         }
 
         IdProducer idProducer = new IdProducer(pathForAppFiles);
