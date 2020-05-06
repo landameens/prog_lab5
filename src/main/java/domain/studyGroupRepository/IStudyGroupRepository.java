@@ -1,11 +1,9 @@
 package domain.studyGroupRepository;
 
-import domain.studyGroupFactory.IStudyGroupFactory;
-import domain.studyGroupFactory.StudyGroupFactory;
-import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import domain.exception.StudyGroupRepositoryException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
+import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import storage.studyGroupDAO.Saveable;
 
 import java.util.Set;

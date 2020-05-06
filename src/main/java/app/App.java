@@ -2,8 +2,6 @@ package app;
 
 import app.Exceptions.InputException;
 import app.Exceptions.InternalException;
-
-
 import controller.Controller;
 import controller.Interpretator;
 import domain.commandsRepository.HistoryRepository;
@@ -16,53 +14,28 @@ import domain.studyGroupRepository.TreeSetStudyGroupRepository;
 import storage.exception.DAOException;
 
 import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
 
 public final class App {
-    private static final String ARGUMENTS_ERROR = "Большое количество аргументов. Пожалуйста, введите имя файла с начальными данными. ";
+    private static final String ARGUMENTS_ERROR = "Введено слишком много аргументов, повторите ввод директории," +
+            " куда будет сохраняться коллекция и сопутсвующие файлы";
 
     public static void main(String[] args) throws InternalException, VerifyException, DAOException {
-        String path = "";
+        String pathForAppFiles = null;
         if (args.length > 0) {
             checkInputPath(args);
 
-            ClassLoader classLoader = App.class.getClassLoader();
-            String [] parts = classLoader.getResource("studyGroups").getFile().split("/");
-
-            for(int i = parts.length - 1; i < 0; i--){
-                path = path + "\\" + parts[i];
-            }
-            path = path + args[0];
-
-            if (args[0].matches("\\.\\./.")){
-                path = "";
-                for(int i = parts.length - 2; i < 0; i--){
-                    path = path + "\\" + parts[i];
-                }
-                path = path + args[0];
-            }
-            File file = new File(path);
-            if (!file.exists()){
-                System.err.println("Такого файла не существует. Проверьте наличие такого файла и повторите попытку.");
-                System.exit(1);
-            }
-
-            if(!file.canExecute()){
-                System.err.println("Недостаточно прав. Пожалуйста, предоставьте права доступа и повторите попытку.");
-                System.exit(1);
-            }
+            pathForAppFiles = args[0];
         }
 
-
-        IdProducer idProducer = new IdProducer();
+        IdProducer idProducer = new IdProducer(pathForAppFiles);
         StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
-        IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
+        IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, pathForAppFiles);
+
         ICommandsRepository commandsRepository = new HistoryRepository();
         Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
         Controller controller = new Controller(interpretator, commandsRepository);
-
         Console console = new Console(System.in, System.out, controller);
+
         try {
             console.start();
         } catch (InputException e) {

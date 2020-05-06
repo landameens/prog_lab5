@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\prog_lab5-1.0-SNAPSHOT.jar
+set CLASSPATH=%APP_HOME%\lib\prog_lab5-1.0-SNAPSHOT;%APP_HOME%\lib\prog_lab5-1.0-SNAPSHOT.jar
 
 @rem Execute prog_lab5
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %PROG_LAB5_OPTS%  -classpath "%CLASSPATH%" app.App %CMD_LINE_ARGS%

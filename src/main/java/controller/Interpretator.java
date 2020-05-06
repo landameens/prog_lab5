@@ -1,11 +1,7 @@
 package controller;
 
+import controller.commands.factory.*;
 import controller.commands.scripts.RecursionChecker;
-import controller.commands.factory.ScriptCommandFactory;
-import controller.commands.factory.HistoryRepositoryCommandFactory;
-import controller.commands.factory.ICommandFactory;
-import controller.commands.factory.SimpleCommandsFactory;
-import controller.commands.factory.StudyGroupRepositoryCommandFactory;
 import domain.commandsRepository.ICommandsRepository;
 import domain.studyGroupRepository.IStudyGroupRepository;
 

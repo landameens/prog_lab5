@@ -4,8 +4,8 @@ import app.query.Query;
 import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
-import domain.commandsRepository.Record;
 import domain.commandsRepository.ICommandsRepository;
+import domain.commandsRepository.Record;
 import domain.exception.CreationException;
 
 /**

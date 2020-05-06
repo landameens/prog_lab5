@@ -10,7 +10,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * These class realize ICollectionInfoDAO.
@@ -31,6 +32,10 @@ public class CollectionInfoDAO implements ICollectionInfoDAO {
     @Override
     public CollectionInfo getInfos() throws DAOException {
         File file = new File(pathToInfo);
+
+        if (!file.exists()) {
+            file.mkdir();
+        }
         File[] files =  file.listFiles();
 
         List<File> collectionInfo = Arrays.asList(files);

@@ -1,4 +1,4 @@
-package app;
+package app.query;
 
 /**
  * This enum contains all command names
@@ -21,7 +21,7 @@ public enum CommandName {
     FILTER_BY_SHOULD_BE_EXPELLED("filter_by_should_be_expelled"),
     FILTER_LESS_THEN_SHOULD_BE_EXPELLED("filter_less_than_should_be_expelled");
 
-    private String name;
+    private final String name;
 
     CommandName(String name){
         this.name = name;

@@ -2,7 +2,6 @@ package controller.commands;
 
 import controller.response.Response;
 
-
 import java.util.Map;
 
 public class HelpCommand extends Command {

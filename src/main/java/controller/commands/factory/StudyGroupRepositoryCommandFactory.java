@@ -1,6 +1,6 @@
 package controller.commands.factory;
 
-import controller.commands.*;
+import controller.commands.Command;
 import controller.commands.studyGroupRep.*;
 import domain.exception.CreationException;
 import domain.studyGroupRepository.IStudyGroupRepository;

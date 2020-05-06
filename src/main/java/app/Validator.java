@@ -1,13 +1,14 @@
 package app;
 
 import app.Exceptions.InputException;
+import app.query.CommandName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static app.CommandName.*;
+import static app.query.CommandName.*;
 
 /**
  * This class is responsible for validating user's input, command name, number of arguments, type of arguments, and others.

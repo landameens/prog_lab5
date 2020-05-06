@@ -1,6 +1,8 @@
 package controller.commands.scripts;
 
-import app.*;
+import app.query.CommandName;
+import app.query.CommandType;
+import app.Viewer;
 import controller.commands.Command;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
@@ -9,10 +11,11 @@ import domain.commandsRepository.Record;
 import domain.exception.CreationException;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
+import storage.exception.RecursionExeption;
 import storage.scriptDAO.IScriptDAO;
 import storage.scriptDAO.ScriptDAO;
-import storage.exception.RecursionExeption;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -24,6 +27,9 @@ public class ExecuteScriptCommand extends Command {
     private final ICommandsRepository history;
     private final RecursionChecker recursionChecker;
 
+    //todo костыль
+    private String directoryForStoringFiles;
+
 
     public ExecuteScriptCommand(String type,
                                 Map<String, String> args,
@@ -33,9 +39,12 @@ public class ExecuteScriptCommand extends Command {
         super(type, args);
         this.history = commandsRepository;
         this.recursionChecker = recursionChecker;
+        //todo перенести интерпретатор на сервер
         interpretator = new controller.commands.Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
         interpretatorToType = new app.Interpretator();
         viewer = new Viewer();
+
+        initPathToScripts(studyGroupRepository);
     }
 
     /**
@@ -45,12 +54,7 @@ public class ExecuteScriptCommand extends Command {
      */
     @Override
     public Response execute() {
-        ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
-        URL url = classLoader.getResource("script");
-        String path = url.getFile();
-
-        path = path + "\\" + args.get("file_name");
-        IScriptDAO scriptDAO = new ScriptDAO(path);
+        IScriptDAO scriptDAO = new ScriptDAO(directoryForStoringFiles + "\\" + args.get("file_name"));
         try {
             Script script = new Script();
             script.setTextScript(scriptDAO.getScript());
@@ -61,6 +65,24 @@ public class ExecuteScriptCommand extends Command {
             return getBadRequestResponseDTO(e.getMessage());
         }
 
+    }
+
+    private void initPathToScripts(IStudyGroupRepository studyGroupRepository) {
+        String pathToAppFiles = ((TreeSetStudyGroupRepository) studyGroupRepository).getDirectoryForAppFiles();
+
+        if (pathToAppFiles == null) {
+            ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
+            URL url = classLoader.getResource("script");
+            directoryForStoringFiles = url.getFile();
+        } else {
+            File directory = new File(pathToAppFiles);
+
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            directoryForStoringFiles = pathToAppFiles;
+        }
     }
 
     /**
