@@ -105,7 +105,7 @@ public final class Console {
         } catch (IOException e) {
             throw new InputException(e.getMessage());
         }
-        command = command.trim().toLowerCase();
+        command = command.trim();
 
         return command;
     }

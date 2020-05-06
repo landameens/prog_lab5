@@ -5,6 +5,7 @@ import domain.exception.VerifyException;
 public class Person implements Cloneable{
     private static final String EMPTY_VALUE = "Поле не должно быть пустым.";
     private static final String SHOULD_BE_POSITIVE = "Значение должно быть положительным.";
+    private static final String NotUnic = "Такое значение уже соответствует другому человеку.";
 
     private String name; //Поле не может быть null, Строка не может быть пустой
     private int height; //Значение поля должно быть больше 0
