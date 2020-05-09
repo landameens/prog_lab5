@@ -53,6 +53,10 @@ public final class Viewer {
     }
 
     public String showInvitationCommandMessage(){
-        return "Пожалуйста, введите команду: " + System.lineSeparator();
+        return "Пожалуйста, введите команду:";
+    }
+
+    public String showEnteredNullMessage() {
+        return "Вы ввели null вместо команды, повторите ввод.";
     }
 }

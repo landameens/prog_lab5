@@ -4,6 +4,7 @@ import app.query.CommandName;
 import app.query.CommandType;
 import app.Viewer;
 import controller.commands.Command;
+import controller.commands.Interpretator;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
 import domain.commandsRepository.ICommandsRepository;
@@ -21,8 +22,7 @@ import java.net.URL;
 import java.util.*;
 
 public class ExecuteScriptCommand extends Command {
-    private final controller.commands.Interpretator interpretator;
-    private final app.Interpretator interpretatorToType;
+    private final Interpretator interpretator;
     private final Viewer viewer;
     private final ICommandsRepository history;
     private final RecursionChecker recursionChecker;
@@ -40,8 +40,7 @@ public class ExecuteScriptCommand extends Command {
         this.history = commandsRepository;
         this.recursionChecker = recursionChecker;
         //todo перенести интерпретатор на сервер
-        interpretator = new controller.commands.Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
-        interpretatorToType = new app.Interpretator();
+        interpretator = new Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
         viewer = new Viewer();
 
         initPathToScripts(studyGroupRepository);
@@ -60,7 +59,7 @@ public class ExecuteScriptCommand extends Command {
             script.setTextScript(scriptDAO.getScript());
             if (recursionChecker.check(script.hashCode())){
                 return executeScript(script);
-            } else throw new RecursionExeption("Рекурсия!");
+            } else throw new RecursionExeption("ERROR: Обнаружена рекурсия при исполнении скриптов!");
         } catch (IOException | RecursionExeption e) {
             return getBadRequestResponseDTO(e.getMessage());
         }
@@ -155,7 +154,7 @@ public class ExecuteScriptCommand extends Command {
     private Map<String, String> getArguments(String[] commandArray, Iterator<String> iterator) {
         Map<String, String> args = new HashMap<>();
 
-        CommandType commandType = interpretatorToType.interpretateCommandType(CommandName.getCommandNameEnum(commandArray[0]));
+        CommandType commandType = interpretator.interpretateCommandType(CommandName.getCommandNameEnum(commandArray[0]));
 
         if (commandType.equals(CommandType.COMPOUND_COMMAND)){
             args = getArgumentsForCompoundCommand(commandArray[0], iterator);
@@ -172,7 +171,7 @@ public class ExecuteScriptCommand extends Command {
         CommandName commandName = CommandName.getCommandNameEnum(commandArray[0]);
         List<String> commandList = new ArrayList<>();
         Collections.addAll(commandList, commandArray);
-        return interpretatorToType.interpretateSimpleCommandArguments(commandName, commandList);
+        return interpretator.interpretateSimpleCommandArguments(commandName, commandList);
     }
 
     private String[] getCommandArray(String line) {
@@ -182,7 +181,7 @@ public class ExecuteScriptCommand extends Command {
 
     private Map<String, String> getArgumentsForCompoundCommand(String commandName, Iterator<String> iterator) {
         Map<String,String> returnableArgs = new HashMap<>();
-        Map<String, String> mapForInputArguments = interpretatorToType.getMapForInputArguments(CommandName.getCommandNameEnum(commandName), viewer);
+        Map<String, String> mapForInputArguments = interpretator.getMapForInputArguments(CommandName.getCommandNameEnum(commandName), viewer);
 
         for (Map.Entry<String,String> entry : mapForInputArguments.entrySet()) {
             String field = entry.getKey();

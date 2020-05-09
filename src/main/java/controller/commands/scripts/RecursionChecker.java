@@ -1,5 +1,6 @@
 package controller.commands.scripts;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -8,7 +9,7 @@ import java.util.TreeSet;
  * Stores all the hash codes of the executable scripts.
  */
 public class RecursionChecker {
-    private Set<Integer> scripts = new TreeSet<>();
+    private static Set<Integer> scripts = new HashSet<>();
 
     /**
      * Method for checking recursion using hash code.
@@ -18,5 +19,9 @@ public class RecursionChecker {
      */
     public boolean check(int hashCode){
         return scripts.add(hashCode);
+    }
+
+    public static void cleanRecursionChecker() {
+        scripts = new HashSet<>();
     }
 }

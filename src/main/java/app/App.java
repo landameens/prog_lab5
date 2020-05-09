@@ -19,7 +19,7 @@ public final class App {
     private static final String ARGUMENTS_ERROR = "Введено слишком много аргументов, повторите ввод директории," +
             " куда будет сохраняться коллекция и сопутсвующие файлы";
 
-    public static void main(String[] args) throws InternalException, VerifyException, DAOException {
+    public static void main(String[] args) throws VerifyException, DAOException {
         String pathForAppFiles = null;
         if (args.length > 0) {
             checkInputPath(args);
@@ -38,19 +38,26 @@ public final class App {
             }
         }
 
-        IdProducer idProducer = new IdProducer(pathForAppFiles);
-        StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
-        IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, pathForAppFiles);
+        Console console = null;
+        try {
+            IdProducer idProducer = new IdProducer(pathForAppFiles);
+            StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
+            IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, pathForAppFiles);
 
-        ICommandsRepository commandsRepository = new HistoryRepository();
-        Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
-        Controller controller = new Controller(interpretator, commandsRepository);
-        Console console = new Console(System.in, System.out, controller);
+            ICommandsRepository commandsRepository = new HistoryRepository();
+            Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
+            Controller controller = new Controller(interpretator, commandsRepository);
+            console = new Console(System.in, System.out, controller);
+        } catch (DAOException | VerifyException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
 
         try {
             console.start();
-        } catch (InputException e) {
+        } catch (InputException | InternalException e) {
             System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 
