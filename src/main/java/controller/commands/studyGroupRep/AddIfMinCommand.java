@@ -31,10 +31,12 @@ public class AddIfMinCommand extends StudyGroupRepositoryCommand {
         coordinatesDTO.y = Integer.parseInt(args.get("yCoordinate"));
 
         PersonDTO personDTO = new PersonDTO();
-        personDTO.passportID = args.get("groupAdminPassportID");
         personDTO.name = args.get("groupAdminName");
-        personDTO.nationality = args.get("groupAdminNationality");
-        personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
+        if (personDTO.name != null) {
+            personDTO.passportID = args.get("groupAdminPassportID");
+            personDTO.nationality = args.get("groupAdminNationality");
+            personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
+        }
 
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
         studyGroupDTO.name =  args.get("StudyGroupName");

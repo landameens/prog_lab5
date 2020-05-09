@@ -167,34 +167,35 @@ public final class Console {
      *
      * @param name
      * @return
-     * @throws InternalException
+     * @throws InputException
      */
-    public Map<String, String> getArgumentsOfCompoundCommands(CommandName name) throws InternalException, InputException {
+    public Map<String, String> getArgumentsOfCompoundCommands(CommandName name) throws InputException {
         Map<String, String> mapOfArguments = new HashMap<>();
         Map<String, String> mapForInputArguments = interpretator.getMapForInputArguments(name, viewer);
 
         for (Map.Entry<String, String> entry : mapForInputArguments.entrySet()) {
             String field = entry.getKey();
             String message = entry.getValue();
-            writeLine(message);
+            write(message);
             Boolean flag = true;
             String correctValue = null;
 
             while (flag) {
                 try {
-                    String userInput = reader.readLine();
-                    userInput = userInput.trim();
+                    String userInput = readLine();
+                    if (userInput != null) userInput = userInput.trim();
                     validator.validateElementFields(field, userInput);
+                    if (userInput == null) writeLine("Введен null");
                     flag = false;
                     correctValue = userInput;
                 } catch (InputException e) {
                     writeLine(e.getMessage());
                     flag = true;
-                } catch (IOException e) {
-                    throw new InternalException(INTERNAL_ERROR_WITH_IO);
                 }
             }
             mapOfArguments.put(field, correctValue);
+            if (field.equals("groupAdminName")) break;
+
         }
         return mapOfArguments;
     }
