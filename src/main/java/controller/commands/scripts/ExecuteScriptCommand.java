@@ -1,7 +1,10 @@
 package controller.commands.scripts;
 
-import app.*;
+import app.query.CommandName;
+import app.query.CommandType;
+import app.Viewer;
 import controller.commands.Command;
+import controller.commands.Interpretator;
 import controller.commands.factory.ICommandFactory;
 import controller.response.Response;
 import domain.commandsRepository.ICommandsRepository;
@@ -9,20 +12,23 @@ import domain.commandsRepository.Record;
 import domain.exception.CreationException;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
+import storage.exception.RecursionExeption;
 import storage.scriptDAO.IScriptDAO;
 import storage.scriptDAO.ScriptDAO;
-import storage.exception.RecursionExeption;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 public class ExecuteScriptCommand extends Command {
-    private controller.commands.Interpretator interpretator;
-    private app.Interpretator interpretatorToType;
-    private Viewer viewer;
-    private ICommandsRepository history;
-    private RecursionChecker recursionChecker;
+    private final Interpretator interpretator;
+    private final Viewer viewer;
+    private final ICommandsRepository history;
+    private final RecursionChecker recursionChecker;
+
+    //todo костыль
+    private String directoryForStoringFiles;
 
 
     public ExecuteScriptCommand(String type,
@@ -33,9 +39,11 @@ public class ExecuteScriptCommand extends Command {
         super(type, args);
         this.history = commandsRepository;
         this.recursionChecker = recursionChecker;
-        interpretator = new controller.commands.Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
-        interpretatorToType = new app.Interpretator();
+        //todo перенести интерпретатор на сервер
+        interpretator = new Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
         viewer = new Viewer();
+
+        initPathToScripts(studyGroupRepository);
     }
 
     /**
@@ -45,21 +53,35 @@ public class ExecuteScriptCommand extends Command {
      */
     @Override
     public Response execute() {
-        ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
-        URL url = classLoader.getResource("script");
-        String path = url.getFile() + "/" + args.get("file_name");
-
-        IScriptDAO scriptDAO = new ScriptDAO(path);
+        IScriptDAO scriptDAO = new ScriptDAO(directoryForStoringFiles + "/" + args.get("file_name"));
         try {
             Script script = new Script();
             script.setTextScript(scriptDAO.getScript());
             if (recursionChecker.check(script.hashCode())){
                 return executeScript(script);
-            } else throw new RecursionExeption("Рекурсия!");
+            } else throw new RecursionExeption("ERROR: Обнаружена рекурсия при исполнении скриптов!");
         } catch (IOException | RecursionExeption e) {
             return getBadRequestResponseDTO(e.getMessage());
         }
 
+    }
+
+    private void initPathToScripts(IStudyGroupRepository studyGroupRepository) {
+        String pathToAppFiles = ((TreeSetStudyGroupRepository) studyGroupRepository).getDirectoryForAppFiles();
+
+        if (pathToAppFiles == null) {
+            ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
+            URL url = classLoader.getResource("script");
+            directoryForStoringFiles = url.getFile();
+        } else {
+            File directory = new File(pathToAppFiles);
+
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            directoryForStoringFiles = pathToAppFiles;
+        }
     }
 
     /**
@@ -132,7 +154,7 @@ public class ExecuteScriptCommand extends Command {
     private Map<String, String> getArguments(String[] commandArray, Iterator<String> iterator) {
         Map<String, String> args = new HashMap<>();
 
-        CommandType commandType = interpretatorToType.interpretateCommandType(CommandName.getCommandNameEnum(commandArray[0]));
+        CommandType commandType = interpretator.interpretateCommandType(CommandName.getCommandNameEnum(commandArray[0]));
 
         if (commandType.equals(CommandType.COMPOUND_COMMAND)){
             args = getArgumentsForCompoundCommand(commandArray[0], iterator);
@@ -149,7 +171,7 @@ public class ExecuteScriptCommand extends Command {
         CommandName commandName = CommandName.getCommandNameEnum(commandArray[0]);
         List<String> commandList = new ArrayList<>();
         Collections.addAll(commandList, commandArray);
-        return interpretatorToType.interpretateSimpleCommandArguments(commandName, commandList);
+        return interpretator.interpretateSimpleCommandArguments(commandName, commandList);
     }
 
     private String[] getCommandArray(String line) {
@@ -159,7 +181,7 @@ public class ExecuteScriptCommand extends Command {
 
     private Map<String, String> getArgumentsForCompoundCommand(String commandName, Iterator<String> iterator) {
         Map<String,String> returnableArgs = new HashMap<>();
-        Map<String, String> mapForInputArguments = interpretatorToType.getMapForInputArguments(CommandName.getCommandNameEnum(commandName), viewer);
+        Map<String, String> mapForInputArguments = interpretator.getMapForInputArguments(CommandName.getCommandNameEnum(commandName), viewer);
 
         for (Map.Entry<String,String> entry : mapForInputArguments.entrySet()) {
             String field = entry.getKey();

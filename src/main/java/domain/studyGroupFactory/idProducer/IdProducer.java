@@ -13,16 +13,21 @@ import java.util.List;
  */
 public class IdProducer {
     private List<Long> idList;
-    private IIdProducerDAO idProducerDAO;
+    private final IIdProducerDAO idProducerDAO;
 
-    public IdProducer(List<Long> list, String path) {
-        if (path.equals("")) {
-            ClassLoader classLoader = IdProducer.class.getClassLoader();
+    private String directoryForStoringIdProducer;
+
+    public IdProducer(String directoryForStoringIdProducer) {
+        ClassLoader classLoader = IdProducer.class.getClassLoader();
+
+        if (directoryForStoringIdProducer == null) {
             URL url = classLoader.getResource("idProducer");
-            path = url.getFile();
+            this.directoryForStoringIdProducer = url.getFile();
+        } else {
+            this.directoryForStoringIdProducer = directoryForStoringIdProducer + "/idProducer";
         }
 
-        this.idProducerDAO = new IdProducerDAO(path);
+        this.idProducerDAO = new IdProducerDAO(this.directoryForStoringIdProducer);
         try {
             IdProducerDTO idProducerDTO = idProducerDAO.getIdProducerDTO();
             if (idProducerDTO == null) {

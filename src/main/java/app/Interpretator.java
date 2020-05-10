@@ -1,11 +1,14 @@
 package app;
 
+import app.query.CommandName;
+import app.query.CommandType;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static app.CommandName.*;
-import static app.CommandType.*;
+import static app.query.CommandName.*;
+import static app.query.CommandType.*;
 
 /**
  * This class is responsible for interpretating user's input

@@ -1,22 +1,24 @@
 package domain.studyGroupRepository;
 
-import domain.studyGroupFactory.IStudyGroupFactory;
-import domain.studyGroupFactory.StudyGroupFactory;
-import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import domain.exception.StudyGroupRepositoryException;
 import domain.exception.VerifyException;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
+import domain.studyGroupFactory.StudyGroupFactory;
+import domain.studyGroupRepository.concreteSet.ConcreteSet;
 import storage.collectionInfoDAO.CollectionInfoDAO;
+import storage.exception.DAOException;
 import storage.studyGroupDAO.IStudyGroupDAO;
 import storage.studyGroupDAO.Saveable;
 import storage.studyGroupDAO.StudyGroupDAO;
-import storage.exception.DAOException;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.net.URL;
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * These class are realize IStudyGroupRepository interface for working with Tree set.
@@ -28,34 +30,45 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private static final String SUCH_GROUP_EXIST_ERROR_MESSAGE = "Такая группа уже существует.";
     private static final String NO_SUCH_STUDY_GROUP_ERROR_MESSAGE = "Такой группы нет в репозитории.";
 
-    private StudyGroupFactory studyGroupFactory;
-    private Set<StudyGroup> studyGroups;
-    private IStudyGroupDAO studyGroupDAO;
+    private final StudyGroupFactory studyGroupFactory;
+    private final Set<StudyGroup> studyGroups;
+    private final IStudyGroupDAO studyGroupDAO;
+    private final CollectionInfo collectionInfo;
     private CollectionInfoDAO collectionInfoDAO;
-    private CollectionInfo collectionInfo;
+
+    private String directoryForStoringStudyGroups;
+    private String directoryForStoringCollectionInfo;
+
+    //todo костыль для ScriptDAO
+    private String directoryForAppFiles;
 
 
-    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory, String path) throws DAOException, VerifyException {
+    public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory, String pathForAppFiles) throws DAOException, VerifyException {
         this.studyGroupFactory = studyGroupFactory;
+        this.directoryForAppFiles = pathForAppFiles;
 
-        String pathToInfo = path;
-        if (path.equals("")) {
+        if (pathForAppFiles == null) {
             ClassLoader classLoader = TreeSetStudyGroupRepository.class.getClassLoader();
             URL groupsUrl = classLoader.getResource("studyGroups");
-            path = groupsUrl.getFile();
+            directoryForStoringStudyGroups = groupsUrl.getFile();
 
             URL infoUrl = classLoader.getResource("info");
-            pathToInfo = infoUrl.getFile();
+            directoryForStoringCollectionInfo = infoUrl.getFile();
+        } else {
+            directoryForStoringStudyGroups = pathForAppFiles + "/studyGroups";
+            directoryForStoringCollectionInfo = pathForAppFiles + "/info";
         }
 
-        studyGroupDAO = new StudyGroupDAO(path);
+        studyGroupDAO = new StudyGroupDAO(directoryForStoringStudyGroups);
+
         Comparator<StudyGroup> studyGroupComparator = new StudyGroup.StudyGroupComparator();
-        File file = new File(path);
+        File file = new File(directoryForStoringStudyGroups);
         studyGroups = getInitialFiles(file, studyGroupComparator);
 
-        collectionInfo = getInfos(pathToInfo);
+        collectionInfo = getInfos(directoryForStoringCollectionInfo);
     }
 
+    //todo посмотреть про первую инициализацию
     private CollectionInfo getInfos(String path) throws DAOException {
         collectionInfoDAO = new CollectionInfoDAO(path);
         return collectionInfoDAO.getInfos();
@@ -63,7 +76,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
 
     private Set<StudyGroup> getInitialFiles(File directory,
                                             Comparator<StudyGroup> studyGroupComparator) throws DAOException, VerifyException {
-        if (!(directory.listFiles().length == 0)) {
+        if (directory.listFiles().length != 0) {
             Set<StudyGroupDTO> studyGroupDTOSet;
             Set<StudyGroup> studyGroups = new TreeSet<>(studyGroupComparator);
 
@@ -189,5 +202,9 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
         studyGroupDAO.saveDTOs(studyGroupDTOSet);
         collectionInfoDAO.saveInfo(collectionInfo);
         studyGroupFactory.getIdProducer().saveId();
+    }
+
+    public String getDirectoryForAppFiles() {
+        return directoryForAppFiles;
     }
 }

@@ -2,6 +2,8 @@ package app;
 
 import app.Exceptions.InputException;
 import app.Exceptions.InternalException;
+import app.query.CommandName;
+import app.query.CommandType;
 import app.query.Query;
 import app.query.queryBuilder.QueryBuilder;
 import app.query.queryBuilder.QueryBuilderFactory;
@@ -10,46 +12,54 @@ import controller.response.Response;
 import domain.exception.CreationException;
 
 import java.io.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class is responsible for input-output, it forms the query and handles it to controller to get response.
  */
 public final class Console {
     private static final String START_MESSAGE_STRING = "Добро пожаловать в наше приложение! Для ознакомления с существующими командами, введите команду 'help'." + System.lineSeparator();
-    private final String INTERNAL_ERROR_WITH_IO = "Ошибка ввода-вывода. ";
+    private static final String INTERNAL_ERROR_WITH_IO = "Ошибка ввода-вывода. ";
 
-    private BufferedReader reader;
-    private BufferedOutputStream writer;
-    private Interpretator interpretator;
-    private Validator validator;
-    private Viewer viewer;
-    private Controller controller;
+    private final BufferedReader reader;
+    private final BufferedOutputStream writer;
+    private final Interpretator interpretator;
+    private final Validator validator;
+    private final Viewer viewer;
+    private final Controller controller;
+    private final QueryBuilderFactory queryBuilderFactory;
 
     public Console(InputStream input,
                    OutputStream output,
-                   Controller controller){
-        reader = new BufferedReader(new InputStreamReader(input));
-        writer = new BufferedOutputStream(output);
+                   Controller controller) {
+        this.reader = new BufferedReader(new InputStreamReader(input));
+        this.writer = new BufferedOutputStream(output);
+
         this.controller = controller;
-        interpretator = new Interpretator();
-        validator = new Validator();
-        viewer = new Viewer();
+
+        this.interpretator = new Interpretator();
+        this.validator = new Validator();
+        this.viewer = new Viewer();
+        this.queryBuilderFactory = new QueryBuilderFactory(validator, interpretator);
     }
 
     public void start() throws InternalException, InputException {
         writeLine(START_MESSAGE_STRING);
-        while (true){
+
+        while (true) {
             writeLine(viewer.showInvitationCommandMessage());
 
-            String command = null;
-            try {
-                command = reader.readLine();
-            } catch (IOException e) {
-                throw new InternalException(e.getMessage());
+            String command = readLine();
+
+            if (command == null) {
+                writeLine(viewer.showEnteredNullMessage());
+                continue;
             }
-            command = command.trim();
-            command = command.toLowerCase();
             String[] commandArray = command.split("[\\s]+");
 
             try {
@@ -62,8 +72,7 @@ public final class Console {
             CommandName commandName = CommandName.getCommandNameEnum(commandArray[0]);
             CommandType commandType = interpretator.interpretateCommandType(commandName);
 
-            List<String> commandList = new ArrayList<>();
-            Collections.addAll(commandList, commandArray);
+            List<String> commandList = Arrays.asList(commandArray);
             try {
                 validator.validateNumberOfArguments(commandName, commandList);
             } catch (InputException e) {
@@ -72,17 +81,16 @@ public final class Console {
             }
 
             Map<String, String> arguments = new HashMap<>();
-            if (commandType.equals(CommandType.COMPOUND_COMMAND)){
+            if (commandType.equals(CommandType.COMPOUND_COMMAND)) {
                 arguments = getArgumentsOfCompoundCommands(commandName);
             }
 
-            QueryBuilderFactory queryBuilderFactory = new QueryBuilderFactory(validator, interpretator);
             QueryBuilder queryBuilder = queryBuilderFactory.getQueryBuilder(commandType);
             Query query = null;
             try {
                 query = queryBuilder.buildQuery(commandName,
-                                                      commandList,
-                                                      arguments);
+                        commandList,
+                        arguments);
             } catch (InputException e) {
                 writeLine(e.getMessage());
                 continue;
@@ -90,9 +98,9 @@ public final class Console {
 
             try {
                 Response response = controller.handleQuery(query);
-                writeLine(response.getAnswer());
+                writeLine(response.getAnswer() + System.lineSeparator());
 
-                if (response.getStatus().getCode().equals("601")){
+                if (response.getStatus().getCode().equals("601")) {
                     System.exit(0);
                 }
             } catch (CreationException e) {
@@ -101,13 +109,54 @@ public final class Console {
         }
     }
 
-    public void writeLine(String text) throws InternalException {
+    public void write(String text) throws InputException {
         try {
             byte[] buffer = text.getBytes();
             writer.write(buffer, 0, buffer.length);
             writer.flush();
         } catch (IOException e) {
-            throw new InternalException(INTERNAL_ERROR_WITH_IO);
+            throw new InputException(INTERNAL_ERROR_WITH_IO);
+        }
+    }
+
+    public void writeLine(String string) throws InputException {
+        String output = string + System.lineSeparator();
+
+        write(output);
+    }
+
+    public void writeLine() throws InputException {
+        write(System.lineSeparator());
+    }
+
+    /**
+     * Reads next line from BufferedReader.
+     * Note: if user writes empty line then this method return null.
+     *
+     * @return user input. If it's empty then return null.
+     * @throws InputException
+     */
+    public String readLine() throws InputException {
+        write(System.lineSeparator() + ">");
+
+        try {
+            String userInput = reader.readLine();
+
+            if (userInput != null) {
+                userInput = userInput.trim();
+
+                Pattern pattern = Pattern.compile("^[ +]");
+                Matcher matcher = pattern.matcher(userInput);
+
+                if (userInput.isEmpty() || matcher.find()) {
+                    userInput = null;
+                }
+            }
+
+
+            return userInput;
+        } catch (IOException exception) {
+            throw new InputException(exception.getMessage());
         }
     }
 
@@ -115,36 +164,38 @@ public final class Console {
      * This method gets map of fields and invitation messages for user's input, display the message,
      * reads user's input and validate each field's value until user's input is correct.
      * Returns the map of field names and argument values.
+     *
      * @param name
      * @return
-     * @throws InternalException
+     * @throws InputException
      */
-    public Map<String, String> getArgumentsOfCompoundCommands(CommandName name) throws InternalException {
-        Map<String,String> mapOfArguments = new HashMap<>();
+    public Map<String, String> getArgumentsOfCompoundCommands(CommandName name) throws InputException {
+        Map<String, String> mapOfArguments = new HashMap<>();
         Map<String, String> mapForInputArguments = interpretator.getMapForInputArguments(name, viewer);
 
-        for (Map.Entry<String,String> entry : mapForInputArguments.entrySet()){
+        for (Map.Entry<String, String> entry : mapForInputArguments.entrySet()) {
             String field = entry.getKey();
             String message = entry.getValue();
-            writeLine(message);
+            write(message);
             Boolean flag = true;
             String correctValue = null;
 
             while (flag) {
                 try {
-                    String userInput = reader.readLine();
-                    userInput = userInput.trim();
+                    String userInput = readLine();
+                    if (userInput != null) userInput = userInput.trim();
                     validator.validateElementFields(field, userInput);
+                    if (userInput == null) writeLine("Введен null");
                     flag = false;
                     correctValue = userInput;
-                } catch (InputException e){
+                } catch (InputException e) {
                     writeLine(e.getMessage());
                     flag = true;
-                } catch (IOException e){
-                    throw new InternalException(INTERNAL_ERROR_WITH_IO);
                 }
             }
             mapOfArguments.put(field, correctValue);
+            if (field.equals("groupAdminName")) break;
+
         }
         return mapOfArguments;
     }

@@ -1,10 +1,12 @@
 package domain.studyGroup.person;
 
 import domain.exception.VerifyException;
+import domain.studyGroup.FormOfEducation;
 
 public class Person implements Cloneable{
     private static final String EMPTY_VALUE = "Поле не должно быть пустым.";
     private static final String SHOULD_BE_POSITIVE = "Значение должно быть положительным.";
+    private static final String NotUnic = "Такое значение уже соответствует другому человеку.";
 
     private String name; //Поле не может быть null, Строка не может быть пустой
     private int height; //Значение поля должно быть больше 0
@@ -49,10 +51,17 @@ public class Person implements Cloneable{
     }
 
     public static Person createPerson(PersonDTO groupAdminDTO) throws VerifyException {
+        if (groupAdminDTO == null) {
+            return null;
+        }
+
         String name = groupAdminDTO.name;
         int height = groupAdminDTO.height;
         String passportID = groupAdminDTO.passportID;
-        Country nationality = Country.getCountry(groupAdminDTO.nationality.toLowerCase());
+        Country nationality;
+        if (groupAdminDTO.nationality != null) {
+            nationality = Country.getCountry(groupAdminDTO.nationality.toLowerCase());
+        } else nationality = null;
 
         return new Person(name,
                             height,

@@ -1,7 +1,9 @@
 package app.query.queryBuilder;
 
-import app.*;
+import app.query.CommandName;
 import app.Exceptions.InputException;
+import app.Interpretator;
+import app.Validator;
 import app.query.Query;
 
 import java.util.List;

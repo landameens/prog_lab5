@@ -2,8 +2,6 @@ package app;
 
 import app.Exceptions.InputException;
 import app.Exceptions.InternalException;
-
-
 import controller.Controller;
 import controller.Interpretator;
 import domain.commandsRepository.HistoryRepository;
@@ -15,54 +13,57 @@ import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
 import storage.exception.DAOException;
 
-import java.net.URL;
-import java.util.ArrayList;
+import java.io.File;
 
 public final class App {
-    private static final String LACK_OF_ARGUMENTS_ERROR = "Неверный путь. Введите в формате {absolute/relative} {path to the file}";
+    private static final String ARGUMENTS_ERROR = "Введено слишком много аргументов, повторите ввод директории," +
+            " куда будет сохраняться коллекция и сопутсвующие файлы";
 
-    public static void main(String[] args) throws InternalException, VerifyException, DAOException {
-        ClassLoader classLoader = App.class.getClassLoader();
-        String path = "";
-
+    public static void main(String[] args) throws VerifyException, DAOException {
+        String pathForAppFiles = null;
         if (args.length > 0) {
             checkInputPath(args);
 
-            PathModifiers modifier = PathModifiers.getPathModifiers(args[0]);
+            pathForAppFiles = args[0];
 
-            if (modifier.equals(PathModifiers.ABSOLUTE)) {
-                path = args[1];
+            File file = new File(pathForAppFiles);
+            if (!file.exists()){
+                System.err.println("Такого файла не существует. Проверьте наличие такого файла и повторите попытку.");
+                System.exit(1);
             }
 
-            if (modifier.equals(PathModifiers.RELATIVE)) {
-                URL fileURL = classLoader.getResource(args[1]);
-                path = fileURL.getFile();
-            }
-
-            if (!modifier.equals(PathModifiers.RELATIVE) && !modifier.equals(PathModifiers.ABSOLUTE)) {
-                System.err.println(LACK_OF_ARGUMENTS_ERROR);
+            if(!file.canExecute()){
+                System.err.println("Недостаточно прав. Пожалуйста, предоставьте права доступа и повторите попытку.");
+                System.exit(1);
             }
         }
 
+        Console console = null;
+        try {
+            IdProducer idProducer = new IdProducer(pathForAppFiles);
+            StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
+            IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, pathForAppFiles);
 
-        IdProducer idProducer = new IdProducer(new ArrayList<Long>(), path);
-        StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
-        IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, path);
-        ICommandsRepository commandsRepository = new HistoryRepository();
-        Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
-        Controller controller = new Controller(interpretator, commandsRepository);
+            ICommandsRepository commandsRepository = new HistoryRepository();
+            Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
+            Controller controller = new Controller(interpretator, commandsRepository);
+            console = new Console(System.in, System.out, controller);
+        } catch (DAOException | VerifyException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
 
-        Console console = new Console(System.in, System.out, controller);
         try {
             console.start();
-        } catch (InputException e) {
+        } catch (InputException | InternalException e) {
             System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 
     private static void checkInputPath(String[] args) {
-        if (args.length != 2) {
-            System.err.println(LACK_OF_ARGUMENTS_ERROR);
+        if (args.length > 1) {
+            System.err.println(ARGUMENTS_ERROR);
             System.exit(1);
         }
     }

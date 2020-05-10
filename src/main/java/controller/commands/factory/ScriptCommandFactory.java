@@ -16,18 +16,17 @@ import java.util.Map;
  * Factory for scriptCommand.
  */
 public class ScriptCommandFactory implements ICommandFactory {
-    private IStudyGroupRepository studyGroupRepository;
-    private ICommandsRepository commandsRepository;
-    private RecursionChecker recursionChecker;
+    private final IStudyGroupRepository studyGroupRepository;
+    private final ICommandsRepository commandsRepository;
+    private final RecursionChecker recursionChecker;
 
     public ScriptCommandFactory(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository, RecursionChecker recursionChecker) {
         this.commandsRepository = commandsRepository;
         this.studyGroupRepository = studyGroupRepository;
         this.recursionChecker = recursionChecker;
-
     }
 
-    private Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
+    private final Map<String, Class<? extends Command>> classMap = new HashMap<String, Class<? extends Command>>() {
         {
             put("execute_script", ExecuteScriptCommand.class);
         }

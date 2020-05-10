@@ -1,13 +1,14 @@
 package app;
 
 import app.Exceptions.InputException;
+import app.query.CommandName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static app.CommandName.*;
+import static app.query.CommandName.*;
 
 /**
  * This class is responsible for validating user's input, command name, number of arguments, type of arguments, and others.
@@ -209,6 +210,8 @@ public final class Validator {
     }
 
     public void checkYCoordinate (String yCoordinate) throws InputException {
+        if (yCoordinate == null) {throw new InputException(NULL_ARGUMENT);}
+
         try{
             long y = Long.parseLong(yCoordinate);
         } catch (NumberFormatException e){
@@ -217,6 +220,8 @@ public final class Validator {
     }
 
     public void checkStudentCount (String studentCount) throws InputException {
+        if (studentCount == null) {throw new InputException(NULL_ARGUMENT);}
+
         try {
             int students = Integer.parseInt(studentCount);
             if (students<=0) {throw new InputException(NEGATIVE_ARGUMENT); }
@@ -226,6 +231,8 @@ public final class Validator {
     }
 
     public void checkShouldBeExpelled (String shouldBeExp) throws InputException {
+        if (shouldBeExp == null) {throw new InputException(NULL_ARGUMENT);}
+
         try {
             int shouldBeExpelled = Integer.parseInt(shouldBeExp);
             if (shouldBeExpelled <= 0) {throw new InputException(NEGATIVE_ARGUMENT); }
@@ -235,23 +242,26 @@ public final class Validator {
     }
 
     public void checkFormOfEducation (String value) throws InputException {
+        if (value == null) return;
         if ( !(value.equals("DISTANCE_EDUCATION") || value.equals("FULL_TIME_EDUCATION") || value.equals("EVENING_CLASSES")) ){
             throw new InputException(NOT_ENUM_CONSTANT);
         }
     }
 
     public void checkSemesterEnum (String value) throws InputException {
+        if (value == null) {throw new InputException(NULL_ARGUMENT);}
         if ( !(value.equals("FIRST") || value.equals("SECOND") || value.equals("FOURTH") || value.equals("EIGHTH") ) ){
             throw new InputException(NOT_ENUM_CONSTANT);
         }
     }
 
     public void checkGroupAdminName (String name) throws InputException {
-        if (name == null) {throw new InputException(NULL_ARGUMENT);}
+        if (name == null) return;
         if (name.equals("")) {throw new InputException(EMPTY_STRING); }
     }
 
     public void checkGroupAdminHeight(String value) throws InputException {
+        if (value == null) {throw new InputException(NULL_ARGUMENT);}
         try{
             long height = Long.parseLong(value);
             if (height<=0) {throw new InputException(NEGATIVE_ARGUMENT);}
@@ -266,6 +276,7 @@ public final class Validator {
     }
 
     public void checkGroupAdminNationality  (String value) throws InputException {
+        if (value == null) return;
         if ( !(value.equals("UNITED_KINGDOM") || value.equals("GERMANY") || value.equals("VATICAN") || value.equals("SOUTH_KOREA") || value.equals("JAPAN") ) ){
             throw new InputException(NOT_ENUM_CONSTANT);
         }

@@ -1,13 +1,13 @@
 package domain.studyGroupFactory;
 
 import domain.exception.VerifyException;
-import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroup.FormOfEducation;
 import domain.studyGroup.Semester;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.Coordinates;
 import domain.studyGroup.person.Person;
+import domain.studyGroupFactory.idProducer.IdProducer;
 
 import java.time.LocalDateTime;
 
@@ -44,7 +44,10 @@ public class StudyGroupFactory implements IStudyGroupFactory {
         LocalDateTime creationDate = LocalDateTime.now();
         int studentsCount = studyGroupDTO.studentsCount;
         Long shouldBeExpelled = studyGroupDTO.shouldBeExpelled;
-        FormOfEducation formOfEducation = FormOfEducation.getFormOfEducation(studyGroupDTO.formOfEducation.toLowerCase());
+        FormOfEducation formOfEducation;
+        if (studyGroupDTO.formOfEducation != null) {
+            formOfEducation = FormOfEducation.getFormOfEducation(studyGroupDTO.formOfEducation.toLowerCase());
+        } else formOfEducation = null;
         Semester semesterEnum = Semester.getSemesterEnum(studyGroupDTO.semesterEnum.toLowerCase());
         Person groupAdmin = Person.createPerson(studyGroupDTO.groupAdmin);
 
