@@ -8,21 +8,14 @@ import domain.studyGroupRepository.IStudyGroupRepository;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Interpretator {
+public final class Interpretator {
 
     private final ICommandFactory simpleCommandsFactory;
     private final ICommandFactory studyGroupRepositoryCommandFactory;
     private final ICommandFactory commandRepositoryFactory;
     private final ICommandFactory scriptCommandFactory;
 
-    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository) {
-        simpleCommandsFactory = new SimpleCommandsFactory();
-        studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
-        commandRepositoryFactory = new HistoryRepositoryCommandFactory(commandsRepository);
-        scriptCommandFactory = new ScriptCommandFactory(studyGroupRepository, commandsRepository, new RecursionChecker());
-    }
-
-    private final Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>(){
+    private final Map<String, Class<? extends ICommandFactory>> commandFactoryMap = new HashMap<String, Class<? extends ICommandFactory>>() {
         {
             put("help", SimpleCommandsFactory.class);
             put("show", StudyGroupRepositoryCommandFactory.class);
@@ -43,8 +36,15 @@ public class Interpretator {
         }
     };
 
+    public Interpretator(IStudyGroupRepository studyGroupRepository, ICommandsRepository commandsRepository) {
+        simpleCommandsFactory = new SimpleCommandsFactory();
+        studyGroupRepositoryCommandFactory = new StudyGroupRepositoryCommandFactory(studyGroupRepository);
+        commandRepositoryFactory = new HistoryRepositoryCommandFactory(commandsRepository);
+        scriptCommandFactory = new ScriptCommandFactory(studyGroupRepository, commandsRepository, new RecursionChecker());
+    }
 
-    public ICommandFactory getFactoryInstance(String name){
+
+    public ICommandFactory getFactoryInstance(String name) {
         Class<? extends ICommandFactory> clazz = commandFactoryMap.get(name);
 
         if (clazz.equals(simpleCommandsFactory.getClass())) {
@@ -55,11 +55,11 @@ public class Interpretator {
             return studyGroupRepositoryCommandFactory;
         }
 
-        if(clazz.equals(commandRepositoryFactory.getClass())){
+        if (clazz.equals(commandRepositoryFactory.getClass())) {
             return commandRepositoryFactory;
         }
 
-        if(clazz.equals(scriptCommandFactory.getClass())){
+        if (clazz.equals(scriptCommandFactory.getClass())) {
             return scriptCommandFactory;
         }
 

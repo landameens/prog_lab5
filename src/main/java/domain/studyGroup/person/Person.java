@@ -1,6 +1,7 @@
 package domain.studyGroup.person;
 
 import domain.exception.VerifyException;
+import domain.studyGroup.FormOfEducation;
 
 public class Person implements Cloneable{
     private static final String EMPTY_VALUE = "Поле не должно быть пустым.";
@@ -50,10 +51,17 @@ public class Person implements Cloneable{
     }
 
     public static Person createPerson(PersonDTO groupAdminDTO) throws VerifyException {
+        if (groupAdminDTO == null) {
+            return null;
+        }
+
         String name = groupAdminDTO.name;
         int height = groupAdminDTO.height;
         String passportID = groupAdminDTO.passportID;
-        Country nationality = Country.getCountry(groupAdminDTO.nationality.toLowerCase());
+        Country nationality;
+        if (groupAdminDTO.nationality != null) {
+            nationality = Country.getCountry(groupAdminDTO.nationality.toLowerCase());
+        } else nationality = null;
 
         return new Person(name,
                             height,
