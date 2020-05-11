@@ -11,6 +11,7 @@ import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
+import manager.LogManager;
 import storage.exception.DAOException;
 
 import java.io.File;
@@ -19,7 +20,9 @@ public final class App {
     private static final String ARGUMENTS_ERROR = "Введено слишком много аргументов, повторите ввод директории," +
             " куда будет сохраняться коллекция и сопутсвующие файлы";
 
-    public static void main(String[] args) throws VerifyException, DAOException {
+    private static final LogManager LOG_MANAGER = LogManager.createDefault(App.class);
+
+    public static void main(String[] args) {
         String pathForAppFiles = null;
         if (args.length > 0) {
             checkInputPath(args);
@@ -41,6 +44,8 @@ public final class App {
         Console console = null;
         try {
             IdProducer idProducer = new IdProducer(pathForAppFiles);
+            LOG_MANAGER.debug("IdProducer was initialized SUCCESSFULLY.");
+
             StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
             IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, pathForAppFiles);
 
@@ -54,6 +59,7 @@ public final class App {
         }
 
         try {
+            LOG_MANAGER.info("App is starting...");
             console.start();
         } catch (InputException | InternalException e) {
             System.err.println(e.getMessage());
