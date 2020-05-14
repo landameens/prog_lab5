@@ -1,4 +1,4 @@
-del /S /F /Q  prog_lab5-1.0-SNAPSHOT prog_lab5-1.0-SNAPSHOT.tar prog_lab5-1.0-SNAPSHOT.zip
+del /S /F /Q  prog_lab5-1.0-SNAPSHOT prog_lab5-1.0-SNAPSHOT.tar prog_lab5-1.0-SNAPSHOT.zip log4j\logfile.log
 cd ..\..\
 call gradlew build
 cd build\distributions\

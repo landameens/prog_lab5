@@ -11,6 +11,7 @@ import domain.studyGroupFactory.StudyGroupFactory;
 import domain.studyGroupFactory.idProducer.IdProducer;
 import domain.studyGroupRepository.IStudyGroupRepository;
 import domain.studyGroupRepository.TreeSetStudyGroupRepository;
+import manager.LogManager;
 import storage.exception.DAOException;
 
 import java.io.File;
@@ -19,7 +20,9 @@ public final class App {
     private static final String ARGUMENTS_ERROR = "Введено слишком много аргументов, повторите ввод директории," +
             " куда будет сохраняться коллекция и сопутсвующие файлы";
 
-    public static void main(String[] args) throws VerifyException, DAOException {
+    private static final LogManager LOG_MANAGER = LogManager.createDefault(App.class);
+
+    public static void main(String[] args) {
         String pathForAppFiles = null;
         if (args.length > 0) {
             checkInputPath(args);
@@ -41,21 +44,29 @@ public final class App {
         Console console = null;
         try {
             IdProducer idProducer = new IdProducer(pathForAppFiles);
+            LOG_MANAGER.debug("IdProducer был проинициирован УСПЕШНО.");
             StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
+            LOG_MANAGER.debug("StudyGroupFactory был проинициирован УСПЕШНО.");
             IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, pathForAppFiles);
+            LOG_MANAGER.debug("IStudyGroupRepository был проинициирован УСПЕШНО.");
 
             ICommandsRepository commandsRepository = new HistoryRepository();
+            LOG_MANAGER.debug("HstoryRepository был создан УСПЕШНО.");
             Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
+            LOG_MANAGER.debug("Interpretator был создан УСПЕШНО.");
             Controller controller = new Controller(interpretator, commandsRepository);
+            LOG_MANAGER.debug("Controller был создан УСПЕШНО.");
             console = new Console(System.in, System.out, controller);
+            LOG_MANAGER.debug("Console был создан УСПЕШНО.");
         } catch (DAOException | VerifyException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
 
         try {
+            LOG_MANAGER.info("App is starting...");
             console.start();
-        } catch (InputException | InternalException e) {
+        } catch (InputException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }

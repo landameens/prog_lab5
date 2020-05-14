@@ -10,6 +10,7 @@ import app.query.queryBuilder.QueryBuilderFactory;
 import controller.Controller;
 import controller.response.Response;
 import domain.exception.CreationException;
+import manager.LogManager;
 
 import java.io.*;
 import java.util.Arrays;
@@ -34,6 +35,8 @@ public final class Console {
     private final Controller controller;
     private final QueryBuilderFactory queryBuilderFactory;
 
+    private static final LogManager LOG_MANAGER = LogManager.createDefault(Console.class);
+
     public Console(InputStream input,
                    OutputStream output,
                    Controller controller) {
@@ -48,23 +51,28 @@ public final class Console {
         this.queryBuilderFactory = new QueryBuilderFactory(validator, interpretator);
     }
 
-    public void start() throws InternalException, InputException {
+    public void start() throws InputException {
         writeLine(START_MESSAGE_STRING);
 
         while (true) {
             writeLine(viewer.showInvitationCommandMessage());
 
+            LOG_MANAGER.info("Ввод команды...");
             String command = readLine();
 
             if (command == null) {
+                LOG_MANAGER.warn("Была введена пустая строка.");
                 writeLine(viewer.showEnteredNullMessage());
                 continue;
             }
+
+            LOG_MANAGER.info("Команда введена.");
             String[] commandArray = command.split("[\\s]+");
 
             try {
                 validator.validateCommandName(commandArray[0]);
             } catch (InputException e) {
+                LOG_MANAGER.error("Произошла ошибка ввода команды...");
                 writeLine(e.getMessage());
                 continue;
             }
@@ -80,6 +88,7 @@ public final class Console {
                 continue;
             }
 
+            LOG_MANAGER.debug("HashMap для аргументов была создана.");
             Map<String, String> arguments = new HashMap<>();
             if (commandType.equals(CommandType.COMPOUND_COMMAND)) {
                 arguments = getArgumentsOfCompoundCommands(commandName);
@@ -184,11 +193,16 @@ public final class Console {
                 try {
                     String userInput = readLine();
                     if (userInput != null) userInput = userInput.trim();
+                    LOG_MANAGER.info("Введено значение полля.");
                     validator.validateElementFields(field, userInput);
-                    if (userInput == null) writeLine("Введен null");
+                    if (userInput == null) {
+                        LOG_MANAGER.warn("Поле со значением null.");
+                        writeLine("Введен null");
+                    }
                     flag = false;
                     correctValue = userInput;
                 } catch (InputException e) {
+                    LOG_MANAGER.errorThrowable("Введено некоректное значение.", e);
                     writeLine(e.getMessage());
                     flag = true;
                 }

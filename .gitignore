@@ -3,5 +3,10 @@
 /build/
 /build/classes/java/main/
 sonarlint/
+.idea/sonarlint/issuestore/
 
 .idea/inspectionProfiles/Project_Default.xml
+
+.idea/gradle.xml
+
+settings.gradle
