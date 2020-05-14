@@ -44,15 +44,20 @@ public final class App {
         Console console = null;
         try {
             IdProducer idProducer = new IdProducer(pathForAppFiles);
-            LOG_MANAGER.debug("IdProducer was initialized SUCCESSFULLY.");
-
+            LOG_MANAGER.debug("IdProducer был проинициирован УСПЕШНО.");
             StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
+            LOG_MANAGER.debug("StudyGroupFactory был проинициирован УСПЕШНО.");
             IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, pathForAppFiles);
+            LOG_MANAGER.debug("IStudyGroupRepository был проинициирован УСПЕШНО.");
 
             ICommandsRepository commandsRepository = new HistoryRepository();
+            LOG_MANAGER.debug("HstoryRepository был создан УСПЕШНО.");
             Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
+            LOG_MANAGER.debug("Interpretator был создан УСПЕШНО.");
             Controller controller = new Controller(interpretator, commandsRepository);
+            LOG_MANAGER.debug("Controller был создан УСПЕШНО.");
             console = new Console(System.in, System.out, controller);
+            LOG_MANAGER.debug("Console был создан УСПЕШНО.");
         } catch (DAOException | VerifyException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -61,7 +66,7 @@ public final class App {
         try {
             LOG_MANAGER.info("App is starting...");
             console.start();
-        } catch (InputException | InternalException e) {
+        } catch (InputException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
