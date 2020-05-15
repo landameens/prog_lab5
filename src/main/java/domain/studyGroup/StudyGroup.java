@@ -253,7 +253,7 @@ public class StudyGroup implements Cloneable{
                 studyGroupDTO.creationDate,
                 studyGroupDTO.studentsCount,
                 studyGroupDTO.shouldBeExpelled,
-                FormOfEducation.getFormOfEducation(studyGroupDTO.formOfEducation.toLowerCase()),
+                FormOfEducation.getFormOfEducation(studyGroupDTO.formOfEducation == null ? null : studyGroupDTO.formOfEducation.toLowerCase()),
                 Semester.getSemesterEnum(studyGroupDTO.semesterEnum.toLowerCase()),
                 Person.getPerson(studyGroupDTO.groupAdmin));
     }
@@ -272,7 +272,7 @@ public class StudyGroup implements Cloneable{
         studyGroupDTO.creationDate = studyGroup.getCreationDate();
         studyGroupDTO.studentsCount = studyGroup.getStudentsCount();
         studyGroupDTO.shouldBeExpelled = studyGroup.getShouldBeExpelled();
-        studyGroupDTO.formOfEducation = studyGroup.getFormOfEducation().getName();
+        studyGroupDTO.formOfEducation = studyGroup.getFormOfEducation() == null ? null : studyGroup.getFormOfEducation().getName();
         studyGroupDTO.semesterEnum = studyGroup.getSemesterEnum().getName();
         studyGroupDTO.groupAdmin = Person.getPersonDTO(studyGroup.getGroupAdmin());
 

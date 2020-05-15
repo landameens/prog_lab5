@@ -102,6 +102,10 @@ public class Person implements Cloneable{
     }
 
     public static Person getPerson(PersonDTO personDTO) throws VerifyException {
+        if (personDTO == null) {
+            return null;
+        }
+        
         return new Person( personDTO.name,
                 personDTO.height,
                 personDTO.passportID,
@@ -110,6 +114,10 @@ public class Person implements Cloneable{
 
     public static PersonDTO getPersonDTO(Person person){
         PersonDTO personDTO = new PersonDTO();
+
+        if (person == null) {
+            return null;
+        }
 
         personDTO.name = person.getName();
         personDTO.height = person.getHeight();
