@@ -48,7 +48,7 @@ public final class Console {
         this.queryBuilderFactory = new QueryBuilderFactory(validator, interpretator);
     }
 
-    public void start() throws InternalException, InputException {
+    public void start() throws InputException {
         writeLine(START_MESSAGE_STRING);
 
         while (true) {
@@ -194,7 +194,7 @@ public final class Console {
                 }
             }
             mapOfArguments.put(field, correctValue);
-            if (field.equals("groupAdminName")) break;
+            if (field.equals("groupAdminName") && correctValue == null) break;
 
         }
         return mapOfArguments;

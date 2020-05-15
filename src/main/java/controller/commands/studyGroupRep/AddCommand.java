@@ -35,8 +35,16 @@ public class AddCommand extends StudyGroupRepositoryCommand {
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
         studyGroupDTO.name =  args.get("StudyGroupName");
         studyGroupDTO.coordinates = coordinatesDTO;
-        studyGroupDTO.studentsCount = Integer.parseInt(args.get("studentsCount"));
-        studyGroupDTO.shouldBeExpelled = Long.parseLong(args.get("shouldBeExpelled"));
+        if (args.get("studentsCount") == null){
+            studyGroupDTO.studentsCount = null;
+        }else {
+            studyGroupDTO.studentsCount = Integer.parseInt(args.get("studentsCount"));
+        }
+        if (args.get("shouldBeExpelled") != null) {
+            studyGroupDTO.shouldBeExpelled = Long.parseLong(args.get("shouldBeExpelled"));
+        } else {
+            studyGroupDTO.shouldBeExpelled = null;
+        }
         studyGroupDTO.formOfEducation = args.get("formOfEducation")  ;
         studyGroupDTO.semesterEnum = args.get("semesterEnum");
         studyGroupDTO.groupAdmin = personDTO;

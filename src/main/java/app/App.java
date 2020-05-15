@@ -1,7 +1,6 @@
 package app;
 
 import app.Exceptions.InputException;
-import app.Exceptions.InternalException;
 import controller.Controller;
 import controller.Interpretator;
 import domain.commandsRepository.HistoryRepository;
@@ -55,7 +54,7 @@ public final class App {
 
         try {
             console.start();
-        } catch (InputException | InternalException e) {
+        } catch (InputException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }

@@ -23,10 +23,5 @@ public final class Query {
         return arguments;
     }
 
-    //for testing
-    @Override
-    public String toString(){
-        return "Query: commandName = "+ commandName +", arguments = " + arguments.toString();
-    }
 }
 

@@ -76,6 +76,7 @@ public class StudyGroup implements Cloneable{
     }
 
     private void checkShouldBeExpelled(Long shouldBeExpelled) throws VerifyException{
+        if (shouldBeExpelled == null) return;
         if (shouldBeExpelled <= 0){
             throw new VerifyException(SHOULD_BE_POSITIVE);
         }
@@ -273,7 +274,7 @@ public class StudyGroup implements Cloneable{
         studyGroupDTO.studentsCount = studyGroup.getStudentsCount();
         studyGroupDTO.shouldBeExpelled = studyGroup.getShouldBeExpelled();
         studyGroupDTO.formOfEducation = studyGroup.getFormOfEducation() == null ? null : studyGroup.getFormOfEducation().getName();
-        studyGroupDTO.semesterEnum = studyGroup.getSemesterEnum().getName();
+        studyGroupDTO.semesterEnum = studyGroup.getSemesterEnum() == null ? null : studyGroup.getSemesterEnum().getName();
         studyGroupDTO.groupAdmin = Person.getPersonDTO(studyGroup.getGroupAdmin());
 
         return studyGroupDTO;
