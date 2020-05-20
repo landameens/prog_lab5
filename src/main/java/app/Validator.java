@@ -256,7 +256,9 @@ public final class Validator {
     }
 
     public void checkGroupAdminName (String name) throws InputException {
-        if (name == null) return;
+        if (name == null){
+            throw new InputException(NULL_ARGUMENT);
+        }
         if (name.equals("")) {throw new InputException(EMPTY_STRING); }
     }
 

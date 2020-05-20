@@ -45,7 +45,7 @@ public class StudyGroup implements Cloneable{
         this.shouldBeExpelled = shouldBeExpelled;
         this.formOfEducation = formOfEducation;
         this.semesterEnum = semesterEnum;
-        //checkGroupAdmin(groupAdmin);
+        checkGroupAdmin(groupAdmin);
         this.groupAdmin = groupAdmin;
     }
 
@@ -95,7 +95,7 @@ public class StudyGroup implements Cloneable{
     }
 
     private void checkGroupAdmin(Person groupAdmin) throws VerifyException{
-        if (groupAdmin == null || groupAdmin != null) {
+        if (groupAdmin == null) {
             throw new VerifyException(EMPTY_EXCEPTION);
         }
     }

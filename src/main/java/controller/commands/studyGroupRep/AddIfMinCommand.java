@@ -32,18 +32,19 @@ public class AddIfMinCommand extends StudyGroupRepositoryCommand {
 
         PersonDTO personDTO = new PersonDTO();
         personDTO.name = args.get("groupAdminName");
-        if (personDTO.name != null) {
-            personDTO.passportID = args.get("groupAdminPassportID");
-            personDTO.nationality = args.get("groupAdminNationality");
-            personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
-        }
+        personDTO.passportID = args.get("groupAdminPassportID");
+        personDTO.nationality = args.get("groupAdminNationality");
+        personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
 
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
         studyGroupDTO.name =  args.get("StudyGroupName");
         studyGroupDTO.coordinates = coordinatesDTO;
         studyGroupDTO.studentsCount = Integer.parseInt(args.get("studentsCount"));
-        studyGroupDTO.shouldBeExpelled = Long.parseLong(args.get("shouldBeExpelled"));
-        studyGroupDTO.formOfEducation = args.get("formOfEducation");
+        if (args.get("shouldBeExpelled") != null) {
+            studyGroupDTO.shouldBeExpelled = Long.parseLong(args.get("shouldBeExpelled"));
+        } else {
+            studyGroupDTO.shouldBeExpelled = null;
+        }        studyGroupDTO.formOfEducation = args.get("formOfEducation");
         studyGroupDTO.semesterEnum = args.get("semesterEnum");
         studyGroupDTO.groupAdmin = personDTO;
         studyGroupDTO.creationDate = LocalDateTime.now();
