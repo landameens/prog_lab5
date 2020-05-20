@@ -115,14 +115,10 @@ public class Person implements Cloneable{
     public static PersonDTO getPersonDTO(Person person){
         PersonDTO personDTO = new PersonDTO();
 
-        if (person == null) {
-            return null;
-        }
-
         personDTO.name = person.getName();
         personDTO.height = person.getHeight();
         personDTO.passportID = person.getPassportID();
-        personDTO.nationality = person.getNationality().getName();
+        personDTO.nationality = person.getNationality() == null ? null : person.getNationality().getName();
 
         return personDTO;
     }
