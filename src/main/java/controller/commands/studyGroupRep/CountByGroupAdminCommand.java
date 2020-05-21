@@ -22,7 +22,7 @@ public class CountByGroupAdminCommand extends StudyGroupRepositoryCommand {
     public Response execute() {
         String passportID = args.get("groupAdminPassportID");
         String name = args.get("groupAdminName");
-        Country nationality = Country.getCountry(args.get("groupAdminNationality").toLowerCase());
+        Country nationality = Country.getCountry(args.get("groupAdminNationality") == null ? null : args.get("groupAdminNationality").toLowerCase());
         int height = Integer.parseInt(args.get("groupAdminHeight"));
 
         try {
@@ -30,12 +30,23 @@ public class CountByGroupAdminCommand extends StudyGroupRepositoryCommand {
             Set<StudyGroup> allStudyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(allSet);
 
             int count = 0;
-            for (StudyGroup studyGroup : allStudyGroupSet) {
-                if(studyGroup.getGroupAdmin().getName().equals(name) &&
-                        studyGroup.getGroupAdmin().getHeight() == height &&
-                        studyGroup.getGroupAdmin().getNationality().equals(nationality) &&
-                        studyGroup.getGroupAdmin().getPassportID().equals(passportID)){
-                    count += 1;
+            if (nationality == null){
+                for (StudyGroup studyGroup : allStudyGroupSet) {
+                    if (studyGroup.getGroupAdmin().getName().equals(name) &&
+                            studyGroup.getGroupAdmin().getHeight() == height &&
+                            studyGroup.getGroupAdmin().getNationality() == null &&
+                            studyGroup.getGroupAdmin().getPassportID().equals(passportID)) {
+                        count += 1;
+                    }
+                }
+            } else {
+                for (StudyGroup studyGroup : allStudyGroupSet) {
+                    if (studyGroup.getGroupAdmin().getName().equals(name) &&
+                            studyGroup.getGroupAdmin().getHeight() == height &&
+                            studyGroup.getGroupAdmin().getNationality().equals(nationality) &&
+                            studyGroup.getGroupAdmin().getPassportID().equals(passportID)) {
+                        count += 1;
+                    }
                 }
             }
 

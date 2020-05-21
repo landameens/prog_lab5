@@ -27,7 +27,6 @@ public class ExecuteScriptCommand extends Command {
     private final ICommandsRepository history;
     private final RecursionChecker recursionChecker;
 
-    //todo костыль
     private String directoryForStoringFiles;
 
 
