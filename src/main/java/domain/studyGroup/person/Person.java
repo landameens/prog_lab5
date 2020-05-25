@@ -109,7 +109,7 @@ public class Person implements Cloneable{
         return new Person( personDTO.name,
                 personDTO.height,
                 personDTO.passportID,
-                Country.getCountry(personDTO.nationality.toLowerCase()));
+                Country.getCountry(personDTO.nationality == null ? null : personDTO.nationality.toLowerCase()));
     }
 
     public static PersonDTO getPersonDTO(Person person){

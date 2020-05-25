@@ -11,6 +11,6 @@ public class ExitCommand extends Command {
 
     @Override
     public Response execute() {
-        return  getProgrammExitResponceDTO("Произведен выход из программы.");
+        return  getProgrammExitResponceDTO(System.lineSeparator() + "Произведен выход из программы.");
     }
 }

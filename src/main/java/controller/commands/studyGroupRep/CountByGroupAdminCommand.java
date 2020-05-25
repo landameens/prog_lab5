@@ -51,11 +51,11 @@ public class CountByGroupAdminCommand extends StudyGroupRepositoryCommand {
             }
 
             if(count == 0){
-                return getPreconditionFailedResponseDTO("Групп с равным значением groupAdmin в коллекции нет." + System.lineSeparator());
+                return getPreconditionFailedResponseDTO(System.lineSeparator() + "Групп с равным значением groupAdmin в коллекции нет." + System.lineSeparator());
             }
 
 
-            String mesage = new StringBuilder().append("Групп с таким полем groupAdmin в коллекции - ").append(count).append(System.lineSeparator()).toString();
+            String mesage = new StringBuilder().append(System.lineSeparator()).append("Групп с таким полем groupAdmin в коллекции - ").append(count).append(System.lineSeparator()).toString();
             return getSuccessfullyResponseDTO(mesage);
         } catch (StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());

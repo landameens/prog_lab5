@@ -28,6 +28,7 @@ public class HistoryCommand extends Command {
 
     private String getAnswer(List<Record> historyList) {
         StringBuilder answer = new StringBuilder();
+        answer.append(System.lineSeparator());
         for (Record record : historyList){
             answer.append(record.toString());
         }

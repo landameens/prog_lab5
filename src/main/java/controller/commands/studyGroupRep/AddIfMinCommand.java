@@ -61,7 +61,7 @@ public class AddIfMinCommand extends StudyGroupRepositoryCommand {
                 StudyGroupDTO currentStudyGroupDTO = StudyGroup.getStudyGroupDTO(studyGroup);
 
                 if (studyGroupDTOComparator.compare(currentStudyGroupDTO, studyGroupDTO) == 0){
-                    return getSuccessfullyResponseDTO("Группа добавлена." + System.lineSeparator());
+                    return getSuccessfullyResponseDTO(System.lineSeparator() + "Группа добавлена." + System.lineSeparator());
                 }
 
                 ConcreteSet concreteSet = new ConcreteSetWithSpecialField(StudyGroup.class, "studentsCount", studyGroupDTO.studentsCount);
@@ -71,7 +71,7 @@ public class AddIfMinCommand extends StudyGroupRepositoryCommand {
                 studyGroupRepository.remove(iterator.next());
             }
 
-            return getPreconditionFailedResponseDTO("Значение добавляемой группы не является наименьшим.");
+            return getPreconditionFailedResponseDTO(System.lineSeparator() + "Значение добавляемой группы не является наименьшим." + System.lineSeparator());
 
         } catch (StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());

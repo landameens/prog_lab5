@@ -15,6 +15,6 @@ public class InfoCommand extends StudyGroupRepositoryCommand {
 
     @Override
     public Response execute() {
-        return getSuccessfullyResponseDTO(studyGroupRepository.getInfo().toString());
+        return getSuccessfullyResponseDTO(System.lineSeparator() + studyGroupRepository.getInfo().toString());
     }
 }

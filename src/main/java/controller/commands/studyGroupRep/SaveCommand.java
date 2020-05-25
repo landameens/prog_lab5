@@ -18,7 +18,7 @@ public class SaveCommand extends StudyGroupRepositoryCommand {
         try {
             studyGroupRepository.save();
 
-            return getSuccessfullyResponseDTO("Коллекция сохранена в файл." + System.lineSeparator());
+            return getSuccessfullyResponseDTO(System.lineSeparator() + "Коллекция сохранена в файл." + System.lineSeparator());
         } catch (DAOException e) {
             return getInternalErrorResponseDTO(e.getMessage());
         }

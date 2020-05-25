@@ -27,7 +27,7 @@ public class ClearCommand extends StudyGroupRepositoryCommand {
                 studyGroupRepository.remove(removableStudyGroup);
             }
 
-            return getSuccessfullyResponseDTO("Коллекция очищена." + System.lineSeparator());
+            return getSuccessfullyResponseDTO(System.lineSeparator() + "Коллекция очищена." + System.lineSeparator());
 
         } catch (StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());

@@ -20,9 +20,9 @@ public final class ConcreteSetWithSpecialField extends ConcreteSet {
     public ConcreteSetWithSpecialField(Class<?> clazz,
                                        String field,
                                        Object value){
+        this.clazz = clazz;
         this.field = field;
         this.value = value;
-        this.clazz = clazz;
     }
 
     @Override
@@ -40,8 +40,13 @@ public final class ConcreteSetWithSpecialField extends ConcreteSet {
 
         for (StudyGroup studyGroup : studyGroups){
             try {
-                if(clazzField.get(studyGroup).equals(value)) {
-                    finalStudyGroup.add(studyGroup.clone());
+                Object newValue = clazzField.get(studyGroup);
+                if (newValue != null){
+                    if (newValue.equals(value)) {
+                        finalStudyGroup.add(studyGroup.clone());
+                    }
+                } else {
+                    continue;
                 }
             } catch (IllegalAccessException e) {
                 throw new StudyGroupRepositoryException(e);
