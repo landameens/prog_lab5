@@ -1,8 +1,8 @@
 package app.query.queryBuilder;
 
-import app.query.CommandType;
 import app.Interpretator;
 import app.Validator;
+import app.query.CommandType;
 
 /**
  * Factory for creating concrete QueryBuilder depending on command type.

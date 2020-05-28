@@ -6,7 +6,6 @@ import domain.studyGroup.Semester;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.Coordinates;
-import domain.studyGroup.person.Country;
 import domain.studyGroup.person.Person;
 import domain.studyGroupFactory.idProducer.IdProducer;
 

@@ -1,8 +1,8 @@
 package controller.commands.scripts;
 
+import app.Viewer;
 import app.query.CommandName;
 import app.query.CommandType;
-import app.Viewer;
 import controller.commands.Command;
 import controller.commands.Interpretator;
 import controller.commands.factory.ICommandFactory;

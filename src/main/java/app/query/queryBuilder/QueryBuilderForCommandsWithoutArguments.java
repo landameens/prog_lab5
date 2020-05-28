@@ -1,8 +1,8 @@
 package app.query.queryBuilder;
 
-import app.query.CommandName;
 import app.Interpretator;
 import app.Validator;
+import app.query.CommandName;
 import app.query.Query;
 
 import java.util.HashMap;

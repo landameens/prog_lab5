@@ -1,7 +1,6 @@
 package domain.studyGroup.person;
 
 import domain.exception.VerifyException;
-import domain.studyGroup.FormOfEducation;
 
 public class Person implements Cloneable{
     private static final String EMPTY_VALUE = "Поле не должно быть пустым.";
