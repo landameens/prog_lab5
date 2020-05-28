@@ -40,7 +40,7 @@ public class TreeSetStudyGroupRepository implements IStudyGroupRepository, Savea
     private String directoryForStoringCollectionInfo;
 
     //todo костыль для ScriptDAO
-    private String directoryForAppFiles;
+    private final String directoryForAppFiles;
 
 
     public TreeSetStudyGroupRepository(StudyGroupFactory studyGroupFactory, String pathForAppFiles) throws DAOException, VerifyException {
