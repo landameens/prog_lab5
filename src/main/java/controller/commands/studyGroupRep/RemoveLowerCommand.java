@@ -30,11 +30,9 @@ public class RemoveLowerCommand extends StudyGroupRepositoryCommand {
 
         PersonDTO personDTO = new PersonDTO();
         personDTO.name = args.get("groupAdminName");
-        if (personDTO.name != null) {
-            personDTO.passportID = args.get("groupAdminPassportID");
-            personDTO.nationality = args.get("groupAdminNationality");
-            personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
-        } else personDTO = null;
+        personDTO.passportID = args.get("groupAdminPassportID");
+        personDTO.nationality = args.get("groupAdminNationality");
+        personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
 
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
         studyGroupDTO.name =  args.get("StudyGroupName");
@@ -58,10 +56,10 @@ public class RemoveLowerCommand extends StudyGroupRepositoryCommand {
                     studyGroupRepository.remove(studyGroup);
                 }
 
-                return getSuccessfullyResponseDTO("Группы, меньшие, чем заданная, удалены." + System.lineSeparator());
+                return getSuccessfullyResponseDTO(System.lineSeparator() + "Группы, меньшие, чем заданная, удалены." + System.lineSeparator());
             }
 
-            return getPreconditionFailedResponseDTO("В коллекци нет групп, меньших, чем заданная." + System.lineSeparator());
+            return getPreconditionFailedResponseDTO(System.lineSeparator() + "В коллекци нет групп, меньших, чем заданная." + System.lineSeparator());
         } catch (VerifyException | StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());
         }

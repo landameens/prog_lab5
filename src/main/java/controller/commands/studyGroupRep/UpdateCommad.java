@@ -29,11 +29,9 @@ public class UpdateCommad extends StudyGroupRepositoryCommand {
 
         PersonDTO personDTO = new PersonDTO();
         personDTO.name = args.get("groupAdminName");
-        if (personDTO.name != null) {
-            personDTO.passportID = args.get("groupAdminPassportID");
-            personDTO.nationality = args.get("groupAdminNationality");
-            personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
-        } else personDTO = null;
+        personDTO.passportID = args.get("groupAdminPassportID");
+        personDTO.nationality = args.get("groupAdminNationality");
+        personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
 
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
         studyGroupDTO.id = id;
@@ -50,7 +48,7 @@ public class UpdateCommad extends StudyGroupRepositoryCommand {
             StudyGroup studyGroupNew = StudyGroup.getStudyGroup(studyGroupDTO);
             studyGroupRepository.update(studyGroupNew);
 
-            return getSuccessfullyResponseDTO("Группа обновлена." + System.lineSeparator());
+            return getSuccessfullyResponseDTO(System.lineSeparator() + "Группа обновлена." + System.lineSeparator());
         } catch (StudyGroupRepositoryException | VerifyException e) {
             return getBadRequestResponseDTO(e.getMessage());
         }

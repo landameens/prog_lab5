@@ -6,6 +6,7 @@ import domain.studyGroup.Semester;
 import domain.studyGroup.StudyGroup;
 import domain.studyGroup.StudyGroupDTO;
 import domain.studyGroup.coordinates.Coordinates;
+import domain.studyGroup.person.Country;
 import domain.studyGroup.person.Person;
 import domain.studyGroupFactory.idProducer.IdProducer;
 
@@ -48,7 +49,10 @@ public class StudyGroupFactory implements IStudyGroupFactory {
         if (studyGroupDTO.formOfEducation != null) {
             formOfEducation = FormOfEducation.getFormOfEducation(studyGroupDTO.formOfEducation.toLowerCase());
         } else formOfEducation = null;
-        Semester semesterEnum = Semester.getSemesterEnum(studyGroupDTO.semesterEnum.toLowerCase());
+        Semester semesterEnum;
+        if (studyGroupDTO.semesterEnum != null) {
+            semesterEnum = Semester.getSemesterEnum(studyGroupDTO.semesterEnum.toLowerCase());
+        } else semesterEnum = null;
         Person groupAdmin = Person.createPerson(studyGroupDTO.groupAdmin);
 
 

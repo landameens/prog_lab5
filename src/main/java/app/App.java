@@ -1,7 +1,6 @@
 package app;
 
 import app.Exceptions.InputException;
-import app.Exceptions.InternalException;
 import controller.Controller;
 import controller.Interpretator;
 import domain.commandsRepository.HistoryRepository;

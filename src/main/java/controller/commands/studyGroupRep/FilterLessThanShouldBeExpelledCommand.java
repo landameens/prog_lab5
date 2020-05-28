@@ -26,14 +26,18 @@ public class FilterLessThanShouldBeExpelledCommand extends StudyGroupRepositoryC
             Set<StudyGroup> allStudyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(allSet);
 
             StringBuilder message = new StringBuilder();
+            message.append(System.lineSeparator());
             for (StudyGroup studyGroup : allStudyGroupSet) {
+                if (studyGroup.getShouldBeExpelled() == null){
+                    continue;
+                }
                 if(studyGroup.getShouldBeExpelled() - shouldBeExpelled < 0 ){
                     message.append(studyGroup.toString()).append(System.lineSeparator()).append(System.lineSeparator());
                 }
             }
 
             if(message.length() == 0){
-                return getPreconditionFailedResponseDTO("Групп с мешьшим значением поля shold_be_expelled в коллекции нет." + System.lineSeparator());
+                return getPreconditionFailedResponseDTO(System.lineSeparator() + "Групп с мешьшим значением поля shold_be_expelled в коллекции нет." + System.lineSeparator());
             }
 
             return getSuccessfullyResponseDTO(message.toString());

@@ -208,7 +208,7 @@ public final class Console {
                 }
             }
             mapOfArguments.put(field, correctValue);
-            if (field.equals("groupAdminName")) break;
+            if (field.equals("groupAdminName") && correctValue == null) break;
 
         }
         return mapOfArguments;

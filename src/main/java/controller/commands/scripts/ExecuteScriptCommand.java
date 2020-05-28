@@ -27,7 +27,6 @@ public class ExecuteScriptCommand extends Command {
     private final ICommandsRepository history;
     private final RecursionChecker recursionChecker;
 
-    //todo костыль
     private String directoryForStoringFiles;
 
 
@@ -59,7 +58,7 @@ public class ExecuteScriptCommand extends Command {
             script.setTextScript(scriptDAO.getScript());
             if (recursionChecker.check(script.hashCode())){
                 return executeScript(script);
-            } else throw new RecursionExeption("ERROR: Обнаружена рекурсия при исполнении скриптов!");
+            } else throw new RecursionExeption(System.lineSeparator() + "ERROR: Обнаружена рекурсия при исполнении скриптов!");
         } catch (IOException | RecursionExeption e) {
             return getBadRequestResponseDTO(e.getMessage());
         }
@@ -94,6 +93,7 @@ public class ExecuteScriptCommand extends Command {
         Iterator<String> iterator = script.getTextScript().iterator();
 
         StringBuilder answer = new StringBuilder();
+        answer.append(System.lineSeparator());
 
         while (iterator.hasNext()){
             String line = iterator.next();

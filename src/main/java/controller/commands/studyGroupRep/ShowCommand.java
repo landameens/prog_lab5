@@ -34,6 +34,7 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
 
         if(!studyGroupSet.isEmpty()) {
             StringBuilder allStudyGroups = new StringBuilder();
+            allStudyGroups.append(System.lineSeparator());
 
             for (StudyGroup studyGroup : studyGroupSet){
                 allStudyGroups.append(studyGroup.toString()).append(System.lineSeparator()).append(System.lineSeparator());
@@ -42,6 +43,6 @@ public class ShowCommand extends StudyGroupRepositoryCommand {
             return allStudyGroups.toString();
         }
 
-        return "Коллекция пуста.".concat(System.lineSeparator());
+        return System.lineSeparator() + "Коллекция пуста." + System.lineSeparator();
     }
 }

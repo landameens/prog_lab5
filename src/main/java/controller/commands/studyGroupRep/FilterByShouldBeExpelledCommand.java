@@ -26,12 +26,13 @@ public class FilterByShouldBeExpelledCommand extends StudyGroupRepositoryCommand
             Set<StudyGroup> studyGroupSet = studyGroupRepository.getConcreteSetOfStudyGroups(concreteSet);
 
             if (studyGroupSet.isEmpty()){
-                return getPreconditionFailedResponseDTO("Группы с таким значением поля should_be_expelled нет в коллекции." + System.lineSeparator());
+                return getPreconditionFailedResponseDTO(System.lineSeparator() + "Группы с таким значением поля should_be_expelled нет в коллекции." + System.lineSeparator());
             }
 
             StringBuilder message = new StringBuilder();
+            message.append(System.lineSeparator());
             for(StudyGroup studyGroup : studyGroupSet){
-                message.append(studyGroup.toString()).append(System.lineSeparator());
+                message.append(studyGroup.toString()).append(System.lineSeparator()).append(System.lineSeparator());
             }
 
             return getSuccessfullyResponseDTO(message.toString());

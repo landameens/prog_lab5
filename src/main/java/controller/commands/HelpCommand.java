@@ -17,7 +17,7 @@ public class HelpCommand extends Command {
 
     private String getMessage() {
         StringBuilder stringBuilder = new StringBuilder();
-
+        stringBuilder.append(System.lineSeparator());
         stringBuilder.append("info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)").append(System.lineSeparator());
         stringBuilder.append("show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении").append(System.lineSeparator());
         stringBuilder.append("add {element} : добавить новый элемент в коллекцию").append(System.lineSeparator());

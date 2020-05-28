@@ -32,18 +32,19 @@ public class AddIfMinCommand extends StudyGroupRepositoryCommand {
 
         PersonDTO personDTO = new PersonDTO();
         personDTO.name = args.get("groupAdminName");
-        if (personDTO.name != null) {
-            personDTO.passportID = args.get("groupAdminPassportID");
-            personDTO.nationality = args.get("groupAdminNationality");
-            personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
-        }
+        personDTO.passportID = args.get("groupAdminPassportID");
+        personDTO.nationality = args.get("groupAdminNationality");
+        personDTO.height = Integer.parseInt(args.get("groupAdminHeight"));
 
         StudyGroupDTO studyGroupDTO = new StudyGroupDTO();
         studyGroupDTO.name =  args.get("StudyGroupName");
         studyGroupDTO.coordinates = coordinatesDTO;
         studyGroupDTO.studentsCount = Integer.parseInt(args.get("studentsCount"));
-        studyGroupDTO.shouldBeExpelled = Long.parseLong(args.get("shouldBeExpelled"));
-        studyGroupDTO.formOfEducation = args.get("formOfEducation");
+        if (args.get("shouldBeExpelled") != null) {
+            studyGroupDTO.shouldBeExpelled = Long.parseLong(args.get("shouldBeExpelled"));
+        } else {
+            studyGroupDTO.shouldBeExpelled = null;
+        }        studyGroupDTO.formOfEducation = args.get("formOfEducation");
         studyGroupDTO.semesterEnum = args.get("semesterEnum");
         studyGroupDTO.groupAdmin = personDTO;
         studyGroupDTO.creationDate = LocalDateTime.now();
@@ -60,7 +61,7 @@ public class AddIfMinCommand extends StudyGroupRepositoryCommand {
                 StudyGroupDTO currentStudyGroupDTO = StudyGroup.getStudyGroupDTO(studyGroup);
 
                 if (studyGroupDTOComparator.compare(currentStudyGroupDTO, studyGroupDTO) == 0){
-                    return getSuccessfullyResponseDTO("Группа добавлена." + System.lineSeparator());
+                    return getSuccessfullyResponseDTO(System.lineSeparator() + "Группа добавлена." + System.lineSeparator());
                 }
 
                 ConcreteSet concreteSet = new ConcreteSetWithSpecialField(StudyGroup.class, "studentsCount", studyGroupDTO.studentsCount);
@@ -70,7 +71,7 @@ public class AddIfMinCommand extends StudyGroupRepositoryCommand {
                 studyGroupRepository.remove(iterator.next());
             }
 
-            return getPreconditionFailedResponseDTO("Значение добавляемой группы не является наименьшим.");
+            return getPreconditionFailedResponseDTO(System.lineSeparator() + "Значение добавляемой группы не является наименьшим." + System.lineSeparator());
 
         } catch (StudyGroupRepositoryException e) {
             return getBadRequestResponseDTO(e.getMessage());

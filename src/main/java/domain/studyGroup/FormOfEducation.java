@@ -15,6 +15,9 @@ public enum FormOfEducation {
     }
 
     public static FormOfEducation getFormOfEducation(String name){
+        if (name == null) {
+            return null;
+        }
         FormOfEducation[] formOfEducations = FormOfEducation.values();
 
         for (FormOfEducation formOfEducation : formOfEducations){
