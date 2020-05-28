@@ -38,7 +38,6 @@ public class ExecuteScriptCommand extends Command {
         super(type, args);
         this.history = commandsRepository;
         this.recursionChecker = recursionChecker;
-        //todo перенести интерпретатор на сервер
         interpretator = new Interpretator(studyGroupRepository, commandsRepository, recursionChecker);
         viewer = new Viewer();
 
@@ -52,6 +51,13 @@ public class ExecuteScriptCommand extends Command {
      */
     @Override
     public Response execute() {
+        File scriptFile = new File(directoryForStoringFiles + "/" + args.get("file_name"));
+        if (!scriptFile.exists()){
+            return getPreconditionFailedResponseDTO("Такого файла не существует. Проверьте наличие такого файла и повторите попытку.");
+        }
+        if (!scriptFile.canRead()){
+            return getPreconditionFailedResponseDTO("Недостаточно прав. Пожалуйста, предоставьте права доступа и повторите попытку.");
+        }
         IScriptDAO scriptDAO = new ScriptDAO(directoryForStoringFiles + "/" + args.get("file_name"));
         try {
             Script script = new Script();
@@ -73,13 +79,13 @@ public class ExecuteScriptCommand extends Command {
             URL url = classLoader.getResource("script");
             directoryForStoringFiles = url.getFile();
         } else {
-            File directory = new File(pathToAppFiles);
+            File directory = new File(pathToAppFiles + "/script");
 
             if (!directory.exists()) {
                 directory.mkdir();
             }
 
-            directoryForStoringFiles = pathToAppFiles;
+            directoryForStoringFiles = pathToAppFiles + "/script";
         }
     }
 

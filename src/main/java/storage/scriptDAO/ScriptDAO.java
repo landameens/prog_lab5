@@ -14,6 +14,11 @@ public class ScriptDAO implements IScriptDAO {
     private String path;
 
     public ScriptDAO(String path) {
+        File directoryForStoringFiles = new File(path);
+
+        if (!directoryForStoringFiles.exists()) {
+            directoryForStoringFiles.mkdir();
+        }
         this.path = path;
     }
 
