@@ -43,6 +43,12 @@ public final class App {
             StudyGroupFactory studyGroupFactory = new StudyGroupFactory(idProducer);
             IStudyGroupRepository studyGroupRepository = new TreeSetStudyGroupRepository(studyGroupFactory, pathForAppFiles);
 
+            //scripts
+            File directoryForStoringScripts = new File(pathForAppFiles + "/script");
+            if (!directoryForStoringScripts.exists()) {
+                directoryForStoringScripts.mkdir();
+            }
+
             ICommandsRepository commandsRepository = new HistoryRepository();
             Interpretator interpretator = new Interpretator(studyGroupRepository, commandsRepository);
             Controller controller = new Controller(interpretator, commandsRepository);

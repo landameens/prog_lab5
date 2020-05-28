@@ -95,6 +95,10 @@ public class Interpretator {
     public ICommandFactory getFactoryInstance(String name){
         Class<? extends ICommandFactory> clazz = commandFactoryMap.get(name);
 
+        if (clazz == null) {
+            return null;
+        }
+
         if (clazz.equals(simpleCommandsFactory.getClass())) {
             return simpleCommandsFactory;
         }

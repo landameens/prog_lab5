@@ -114,6 +114,11 @@ public class ExecuteScriptCommand extends Command {
 
                 Command command = createCommand(commandArray, iterator);
 
+                if (command == null) {
+                    answer.append("ERROR! Ошибка при исполнении команды:").append(commandName).append(System.lineSeparator());
+                    continue;
+                }
+
                 addToHistory(commandName);
 
                 String thisCommandAnswer = command.execute().getAnswer();
@@ -136,9 +141,12 @@ public class ExecuteScriptCommand extends Command {
     private Command createCommand(String[] commandArray, Iterator<String> iterator) throws CreationException {
         String commandName = commandArray[0];
         ICommandFactory commandFactory = interpretator.getFactoryInstance(commandName);
+        if (commandFactory == null) {
+            return null;
+        }
         Map<String, String> args = getArguments(commandArray, iterator);
 
-        return commandFactory.createCommand(commandName, args);
+        return commandFactory == null ? null : commandFactory.createCommand(commandName, args);
     }
 
     /**

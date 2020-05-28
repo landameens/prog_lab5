@@ -7,8 +7,6 @@ n
 >src/main/java/domain/studyGroupFactory/IStudyGroupFactory.java,4\f\4fcfef834af28b64f29aa45447afa182376d055a
 m
 =src/main/java/domain/studyGroupFactory/StudyGroupFactory.java,5\0\5031943b6c355b59fcd78e75bfcb6a0a747424c8
-R
-"src/main/java/app/CommandName.java,7\3\7389ea251be54706fbc14d35d412db92c2199072
 m
 =src/main/java/domain/studyGroupRepository/CollectionInfo.java,d\d\dd7ffef02f6a5e3e51cf5913f1c5808307a66179
 q
